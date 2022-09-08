@@ -4,14 +4,14 @@
 
 #include <vector>
 
-#include "EventType.h"
+#include "Events/IEventMessage.h"
 
 class EventListener {
 public:
     EventListener();
     [[nodiscard]] int getIndex() const;
 
-    virtual void update(EventType e) = 0;
+    virtual void update(IEventMessage *) = 0;
 
     ~EventListener();
 

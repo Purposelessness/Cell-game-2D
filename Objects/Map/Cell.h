@@ -1,18 +1,20 @@
 #ifndef GAME_CELL_H
 #define GAME_CELL_H
 
-#include "../../Events/IEvent.h"
+
+#include "../../Observer/Events/IEventMessage.h"
 
 class Cell {
 public:
     Cell();
-    explicit Cell(IEvent *event);
+    explicit Cell(IEventMessage *event);
 
-    void changeEvent(IEvent *event);
+    void changeEvent(IEventMessage *event);
     void onPlayerStepped();
 
 private:
-    IEvent *event;
+    IEventMessage *event;
 };
+
 
 #endif //GAME_CELL_H

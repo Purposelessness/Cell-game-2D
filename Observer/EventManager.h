@@ -11,7 +11,7 @@ public:
     void subscribe(EventListener *listener);
     void unsubscribe(EventListener *listener);
 
-    void notify(EventType e);
+    void notify(IEventMessage *e);
 
 private:
     std::map<int, EventListener *> listeners;

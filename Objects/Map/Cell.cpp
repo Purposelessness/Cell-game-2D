@@ -2,7 +2,7 @@
 
 Cell::Cell() : Cell(nullptr) {}
 
-Cell::Cell(IEvent *event) : event(event) {}
+Cell::Cell(IEventMessage *event) : event(event) {}
 
 void Cell::onPlayerStepped() {
     if (event != nullptr) {
@@ -10,6 +10,6 @@ void Cell::onPlayerStepped() {
     }
 }
 
-void Cell::changeEvent(IEvent *event) {
+void Cell::changeEvent(IEventMessage *event) {
     this->event = event;
 }
