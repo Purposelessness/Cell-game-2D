@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "Events/IEventMessage.h"
+#include "IEventMessage.h"
 
 class EventListener {
 public:

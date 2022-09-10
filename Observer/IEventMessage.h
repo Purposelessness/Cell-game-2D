@@ -6,8 +6,8 @@
 
 class IEventMessage {
 public:
-    virtual void invoke() const = 0;
     virtual std::string getName() = 0;
+    virtual int getValue() = 0;
 };
 
 

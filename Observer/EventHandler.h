@@ -1,12 +1,12 @@
-#ifndef GAME_EVENTMANAGER_H
-#define GAME_EVENTMANAGER_H
+#ifndef GAME_EVENTHANDLER_H
+#define GAME_EVENTHANDLER_H
 
 
 #include <map>
 
 #include "EventListener.h"
 
-class EventManager {
+class EventHandler {
 public:
     void subscribe(EventListener *listener);
     void unsubscribe(EventListener *listener);
@@ -18,4 +18,4 @@ private:
 };
 
 
-#endif //GAME_EVENTMANAGER_H
+#endif //GAME_EVENTHANDLER_H
