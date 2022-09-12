@@ -3,12 +3,13 @@
 #ifdef _WIN32
 #include <windows.h>
 #elif __linux__
-#include <conio.h>
 #endif
 
 #include "ControlScheme.h"
 #include "IController.h"
 #include "InputMessage.h"
+
+// TODO: Linux support
 
 namespace Engine {
 
@@ -17,9 +18,13 @@ namespace Engine {
                 : controlScheme(std::move(controlScheme)), controller(std::move(controller)) {}
 
     void InputReader::update() {
+#ifdef __linux__
+        controller->process(InputMessage{InputType::Exit, InputState::Pressed});
+        return;
+#endif
+
         if (controller == nullptr)
             return;
-#ifdef _WIN32
         for (auto &k : controlScheme->keys()) {
             bool pressed = keyPressed(k.first);
             if (pressed && (k.second.state == InputState::Released)) {
@@ -31,9 +36,6 @@ namespace Engine {
             }
             controller->process(InputMessage{.keyType = k.second.keyType, .state = k.second.state});
         }
-#elif __linux__
-        // some code
-#endif
     }
 
     void InputReader::changeControlScheme(std::shared_ptr<ControlScheme> controlScheme) {
@@ -42,7 +44,11 @@ namespace Engine {
 
     constexpr int KEY_PRESSED = 0x8000;
     bool InputReader::keyPressed(int key) {
+#ifdef _WIN32
         return GetAsyncKeyState(key) & KEY_PRESSED;
+#elif __linux__
+        return false;
+#endif
     }
 
 } // Engine
