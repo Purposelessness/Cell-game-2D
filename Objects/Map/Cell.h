@@ -2,18 +2,19 @@
 #define GAME_CELL_H
 
 
-#include "../../Observer/Events/IEventMessage.h"
+#include <memory>
+#include "../../Events/IEvent.h"
 
 class Cell {
 public:
     Cell();
-    explicit Cell(IEventMessage *event);
+    explicit Cell(std::shared_ptr<IEvent> event);
 
-    void changeEvent(IEventMessage *event);
+    void changeEvent(std::shared_ptr<IEvent> event);
     void onPlayerStepped();
 
 private:
-    IEventMessage *event;
+    std::shared_ptr<IEvent> event;
 };
 
 

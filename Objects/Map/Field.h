@@ -3,12 +3,16 @@
 
 #include "Cell.h"
 
+#include <memory>
+#include <vector>
+
 class Field {
 public:
     Field();
     explicit Field(int width, int height);
 
     void getSize(int &width, int &height) const;
+    void setCellEvent(int x, int y, std::shared_ptr<IEvent> event);
 
     Field(const Field &other);
     Field &operator=(const Field &other);
@@ -16,12 +20,10 @@ public:
     Field(Field &&other) noexcept;
     Field &operator=(Field &&other) noexcept;
 
-    ~Field();
-
 private:
     void clearCellInfo();
 
-    Cell **cells;
+    std::vector<std::vector<Cell>> cells;
     int width, height;
 };
 
