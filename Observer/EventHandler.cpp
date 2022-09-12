@@ -8,7 +8,7 @@ void EventHandler::unsubscribe(EventListener *listener) {
     listeners.erase(listener->getIndex());
 }
 
-void EventHandler::notify(IEventMessage *e) {
+void EventHandler::notify(EventMessage *e) {
     for (auto listener : listeners) {
         listener.second->update(e);
     }

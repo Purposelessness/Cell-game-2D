@@ -3,13 +3,13 @@
 
 
 // control settings
-#define MOVE_TOP 'W'
-#define MOVE_BOTTOM 'S'
-#define MOVE_RIGHT 'D'
-#define MOVE_LEFT 'A'
+constexpr char MOVE_TOP = 'W';
+constexpr char MOVE_BOTTOM = 'S';
+constexpr char MOVE_RIGHT = 'D';
+constexpr char MOVE_LEFT = 'A';
 
 // update time in microseconds
-#define UPDATE_TIME_MCSEC 3000
+constexpr int UPDATE_TIME_MCSEC = 3000;
 
 
 #endif //GAME_CONFIG_H
