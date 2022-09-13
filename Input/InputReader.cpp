@@ -7,48 +7,44 @@
 
 #include "ControlScheme.h"
 #include "IController.h"
-#include "InputMessage.h"
+#include "KeyInfo.h"
 
 // TODO: Linux support
 
-namespace Engine {
+InputReader::InputReader(std::shared_ptr<ControlScheme> controlScheme,
+                         std::shared_ptr<IController> controller)
+            : controlScheme(std::move(controlScheme)), controller(std::move(controller)) {}
 
-    InputReader::InputReader(std::shared_ptr<ControlScheme> controlScheme,
-                             std::shared_ptr<IController> controller)
-                : controlScheme(std::move(controlScheme)), controller(std::move(controller)) {}
-
-    void InputReader::update() {
+void InputReader::tick() {
 #ifdef __linux__
-        controller->process(InputMessage{InputType::Exit, InputState::Pressed});
+    controller->process(KeyInfo{KeyType::Exit, KeyState::Pressed});
+    return;
+#endif
+
+    if (controller == nullptr)
         return;
-#endif
-
-        if (controller == nullptr)
-            return;
-        for (auto &k : controlScheme->keys()) {
-            bool pressed = keyPressed(k.first);
-            if (pressed && (k.second.state == InputState::Released)) {
-                k.second.state = InputState::Pressed;
-            } else if (!pressed && k.second.state == InputState::Pressed) {
-                k.second.state = InputState::Released;
-            } else {
-                continue;
-            }
-            controller->process(InputMessage{.keyType = k.second.keyType, .state = k.second.state});
+    for (auto &k : controlScheme->keys()) {
+        bool pressed = keyPressed(k.first);
+        if (pressed && (k.second.state == KeyState::Released)) {
+            k.second.state = KeyState::Pressed;
+        } else if (!pressed && k.second.state == KeyState::Pressed) {
+            k.second.state = KeyState::Released;
+        } else {
+            continue;
         }
+        controller->process(KeyInfo{.type = k.second.type, .state = k.second.state});
     }
+}
 
-    void InputReader::changeControlScheme(std::shared_ptr<ControlScheme> controlScheme) {
-        this->controlScheme = std::move(controlScheme);
-    }
+void InputReader::changeControlScheme(std::shared_ptr<ControlScheme> controlScheme) {
+    this->controlScheme = std::move(controlScheme);
+}
 
-    constexpr int KEY_PRESSED = 0x8000;
-    bool InputReader::keyPressed(int key) {
+constexpr int KEY_PRESSED = 0x8000;
+bool InputReader::keyPressed(int key) {
 #ifdef _WIN32
-        return GetAsyncKeyState(key) & KEY_PRESSED;
+    return GetAsyncKeyState(key) & KEY_PRESSED;
 #elif __linux__
-        return false;
+    return false;
 #endif
-    }
-
-} // Engine
+}

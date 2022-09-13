@@ -20,7 +20,7 @@ set(Headers
         Events/IEvent.h
         Input/IController.h
         Input/ControlScheme.h
-        Input/InputMessage.h
+        Input/KeyInfo.h
         Tests/TestInput.h
         )
 
@@ -36,7 +36,7 @@ set(Sources
         Input/InputReader.cpp
         Input/ControlScheme.cpp
         Tests/TestInput.cpp
-)
+        Core/ITickable.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(gtests)

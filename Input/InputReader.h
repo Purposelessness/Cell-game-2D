@@ -4,27 +4,25 @@
 
 #include <memory>
 
-namespace Engine {
+#include "../Core/ITickable.h"
 
-    class IController;
-    class ControlScheme;
+class IController;
+class ControlScheme;
 
-    class InputReader {
-    public:
-        explicit InputReader(std::shared_ptr<ControlScheme> controlScheme,
-                             std::shared_ptr<IController> controller = nullptr);
+class InputReader : public ITickable {
+public:
+    explicit InputReader(std::shared_ptr<ControlScheme> controlScheme,
+                         std::shared_ptr<IController> controller = nullptr);
 
-        void update();
-        void changeControlScheme(std::shared_ptr<ControlScheme> controlScheme);
+    void tick() override;
+    void changeControlScheme(std::shared_ptr<ControlScheme> controlScheme);
 
-    private:
-        static bool keyPressed(int key);
+private:
+    static bool keyPressed(int key);
 
-        std::shared_ptr<IController> controller;
-        std::shared_ptr<ControlScheme> controlScheme;
-    };
-
-} // Engine
+    std::shared_ptr<IController> controller;
+    std::shared_ptr<ControlScheme> controlScheme;
+};
 
 
 #endif //GAME_INPUTREADER_H

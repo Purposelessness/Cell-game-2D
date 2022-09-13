@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "../Input/IController.h"
-#include "../Input/InputMessage.h"
+#include "../Input/KeyInfo.h"
 
 namespace Engine {
     class ControlScheme;
@@ -27,7 +27,7 @@ namespace Test {
 
     class Controller : public Engine::IController {
     public:
-        void process(const Engine::InputMessage &inputMessage) override;
+        void process(const Engine::KeyInfo &inputMessage) override;
     };
 
     void testField();

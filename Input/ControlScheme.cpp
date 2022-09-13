@@ -1,26 +1,22 @@
 #include "ControlScheme.h"
-#include "InputMessage.h"
+#include "KeyInfo.h"
 
-namespace Engine {
+ControlScheme::ControlScheme() : keyMap({}) {}
 
-    ControlScheme::ControlScheme() : keyMap({}) {}
+void ControlScheme::addKey(char key, KeyType type) {
+    keyMap[key] = {type, KeyState::Released};
+}
 
-    void ControlScheme::addKey(char key, InputType type) {
-        keyMap[key] = {type, InputState::Released};
-    }
+void ControlScheme::deleteKey(char key) {
+    keyMap.erase(key);
+}
 
-    void ControlScheme::deleteKey(char key) {
-        keyMap.erase(key);
-    }
+KeyInfo ControlScheme::key(char key) {
+    if (keyMap.count(key) == 0)
+        return {};
+    return keyMap[key];
+}
 
-    InputMessage ControlScheme::key(char key) {
-        if (keyMap.count(key) == 0)
-            return {};
-        return keyMap[key];
-    }
-
-    std::map<char, InputMessage> &ControlScheme::keys() {
-        return keyMap;
-    }
-
+std::map<char, KeyInfo> &ControlScheme::keys() {
+    return keyMap;
 }

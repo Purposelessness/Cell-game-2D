@@ -8,7 +8,7 @@ constexpr char MOVE_BOTTOM = 'S';
 constexpr char MOVE_RIGHT = 'D';
 constexpr char MOVE_LEFT = 'A';
 
-// update time in microseconds
+// tick time in microseconds
 constexpr int UPDATE_TIME_MCSEC = 3000;
 
 

@@ -24,7 +24,7 @@ namespace Test {
         addKeys(*controlScheme);
 
         while (isRunning) {
-            inputReader->update();
+            inputReader->tick();
             usleep(UPDATE_TIME_MCSEC);
         }
 
@@ -32,35 +32,35 @@ namespace Test {
     }
 
     void Application::addKeys(Engine::ControlScheme &controlScheme) {
-        controlScheme.addKey('P', Engine::InputType::Exit);
-        controlScheme.addKey('W', Engine::InputType::MoveUp);
-        controlScheme.addKey('S', Engine::InputType::MoveDown);
-        controlScheme.addKey('D', Engine::InputType::MoveRight);
-        controlScheme.addKey('A', Engine::InputType::MoveLeft);
+        controlScheme.addKey('P', Engine::KeyType::Exit);
+        controlScheme.addKey('W', Engine::KeyType::MoveUp);
+        controlScheme.addKey('S', Engine::KeyType::MoveDown);
+        controlScheme.addKey('D', Engine::KeyType::MoveRight);
+        controlScheme.addKey('A', Engine::KeyType::MoveLeft);
     }
 
-    void Controller::process(const Engine::InputMessage &inputMessage) {
-        switch (inputMessage.keyType) {
-            case Engine::InputType::MoveUp:
+    void Controller::process(const Engine::KeyInfo &inputMessage) {
+        switch (inputMessage.type) {
+            case Engine::KeyType::MoveUp:
                 std::cout << "Moving up " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::InputType::MoveDown:
+            case Engine::KeyType::MoveDown:
                 std::cout << "Moving Down " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::InputType::MoveRight:
+            case Engine::KeyType::MoveRight:
                 std::cout << "Moving Right " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::InputType::MoveLeft:
+            case Engine::KeyType::MoveLeft:
                 std::cout << "Moving left " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::InputType::Exit:
+            case Engine::KeyType::Exit:
                 std::cout << "Exiting" << std::endl;
                 Application::quit();
                 break;
-            case Engine::InputType::Reset:
+            case Engine::KeyType::Reset:
                 std::cout << "Reset" << std::endl;
                 break;
-            case Engine::InputType::Undefined:
+            case Engine::KeyType::Undefined:
                 break;
         }
     }

@@ -5,26 +5,22 @@
 #include <map>
 #include <array>
 
-namespace Engine {
+enum class KeyType;
+struct KeyInfo;
 
-    enum class InputType;
-    struct InputMessage;
+class ControlScheme {
+public:
+    ControlScheme();
 
-    class ControlScheme {
-    public:
-        ControlScheme();
+    void addKey(char key, KeyType type);
+    void deleteKey(char key);
 
-        void addKey(char key, InputType type);
-        void deleteKey(char key);
+    std::map<char, KeyInfo> &keys();
+    KeyInfo key(char key);
 
-        std::map<char, InputMessage> &keys();
-        InputMessage key(char key);
-
-    private:
-        std::map<char, InputMessage> keyMap;
-    };
-
-}
+private:
+    std::map<char, KeyInfo> keyMap;
+};
 
 
 #endif //GAME_CONTROLSCHEME_H

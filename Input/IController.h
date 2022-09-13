@@ -2,15 +2,12 @@
 #define GAME_ICONTROLLER_H
 
 
-namespace Engine {
-    struct InputMessage;
+struct KeyInfo;
 
-    class IController {
-    public:
-        virtual void process(const InputMessage &inputMessage) = 0;
-    };
-
-}
+class IController {
+public:
+    virtual void process(const KeyInfo &inputMessage) = 0;
+};
 
 
 #endif //GAME_ICONTROLLER_H
