@@ -5,9 +5,17 @@
 
 Field::Field() : Field(20, 20) {}
 
-Field::Field(int width, int height) : width(width), height(height), cells(height) {
-    for (int j = 0; j < height; ++j) {
-        cells[j] = std::vector<Cell>(width);
+Field::Field(int width, int height) {
+    if (width <= 0 || height <= 0) {
+        this->width = 0;
+        this->height = 0;
+    } else {
+        this->width = width;
+        this->height = height;
+    }
+    cells.resize(this->height);
+    for (int j = 0; j < this->height; ++j) {
+        cells[j] = std::vector<Cell>(this->width);
     }
 }
 
@@ -53,7 +61,18 @@ void Field::clearCellInfo() {
 }
 
 void Field::setCellEvent(int x, int y, std::shared_ptr<IEvent> event) {
-    if (x >= width || y >= height)
+    if (!pointIsValid(x, y))
         return;
     cells[y][x].changeEvent(std::move(event));
+}
+
+inline bool Field::pointIsValid(int x, int y) const {
+    return x >= 0 && x < width &&
+           y >= 0 && y < height;
+}
+
+Cell Field::getCell(int x, int y) {
+    if (!pointIsValid(x, y))
+        return {};
+    return cells[y][x];
 }

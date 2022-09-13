@@ -12,7 +12,10 @@ public:
     explicit Field(int width, int height);
 
     void getSize(int &width, int &height) const;
+    Cell getCell(int x, int y);
     void setCellEvent(int x, int y, std::shared_ptr<IEvent> event);
+
+    [[nodiscard]] inline bool pointIsValid(int x, int y) const;
 
     Field(const Field &other);
     Field &operator=(const Field &other);

@@ -13,6 +13,8 @@ public:
     void changeEvent(std::shared_ptr<IEvent> event);
     void onPlayerStepped();
 
+    auto operator<=>(const Cell &) const = default;
+
 private:
     std::shared_ptr<IEvent> event;
 };

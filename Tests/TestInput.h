@@ -30,7 +30,7 @@ namespace Test {
         void process(const Engine::InputMessage &inputMessage) override;
     };
 
-    void test();
+    void testField();
 
 } // Test
 

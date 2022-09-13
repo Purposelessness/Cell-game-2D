@@ -65,7 +65,7 @@ namespace Test {
         }
     }
 
-    void test() {
+    void testField() {
         Application::exec();
     }
 
