@@ -27,3 +27,7 @@ bool Component::isRemoved() const {
 void Component::remove() {
     deleted = true;
 }
+
+std::string Component::toString() {
+    return type + "\n";
+}

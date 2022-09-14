@@ -7,9 +7,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(Headers
         Objects/Map/Cell.h
         Observer/EventMessage.h
-        Objects/Object.h
+        Objects/Entity.h
         Objects/Map/Field.h
-        Objects/Player.h
         Datatypes/Point.h
         Observer/EventListener.h
         Observer/EventHandler.h
@@ -26,14 +25,14 @@ set(Headers
         Components/Component.h
         Components/ComponentBag.h
         Components/Transform.h
+        Systems/ObjectController.h
         )
 
 set(Sources
         main.cpp
         Objects/Map/Cell.cpp
-        Objects/Object.cpp
+        Objects/Entity.cpp
         Objects/Map/Field.cpp
-        Objects/Player.cpp
         Datatypes/Point.cpp
         Observer/EventListener.cpp
         Observer/EventHandler.cpp
@@ -41,9 +40,9 @@ set(Sources
         Input/ControlScheme.cpp
         Tests/TestInput.cpp
         Components/Component.cpp
-        Components/ComponentBag.cpp
         Components/Transform.cpp
-        )
+        Systems/ObjectController.cpp
+        Components/ComponentBag.inl)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(gtests)

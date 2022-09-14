@@ -4,10 +4,12 @@
 
 #include <map>
 #include <memory>
+#include <vector>
+#include <algorithm>
 
 #include "Component.h"
 
-class ComponentBag {
+class ComponentBag : public IConvertibleToString {
 public:
     template<TComponent T>
     std::shared_ptr<T> getComponent() {
@@ -27,6 +29,7 @@ public:
             return;
         }
         components[type] = std::make_shared<T>();
+        activeComponents.emplace_back(type);
     }
 
     template<TComponent T>
@@ -38,12 +41,18 @@ public:
             return;
         }
         components[type]->remove();
-        components[type] = nullptr;
+        components[type].reset();
+        activeComponents.erase(std::remove(activeComponents.begin(), activeComponents.end(), type),
+                               activeComponents.end());
     }
 
+    std::string toString() override;
+
 private:
+    std::vector<std::string> activeComponents;
     std::map<std::string, std::shared_ptr<Component>> components;
 };
 
+#include "ComponentBag.inl"
 
 #endif //GAME_COMPONENTBAG_H

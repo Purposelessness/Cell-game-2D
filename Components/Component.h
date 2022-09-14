@@ -5,12 +5,14 @@
 #include <type_traits>
 #include <string>
 
+#include "../Utility/IConvertibleToString.h"
+
 class Component;
 
 template<typename T>
 concept TComponent = std::is_base_of_v<Component, T>;
 
-class Component {
+class Component : public IConvertibleToString {
 public:
     Component();
 
@@ -22,6 +24,8 @@ public:
 
     void remove();
     [[nodiscard]] bool isRemoved() const;
+
+    std::string toString() override;
 
 protected:
     explicit Component(std::string);

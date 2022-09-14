@@ -6,7 +6,7 @@
 
 class IConvertibleToString {
 public:
-    virtual std::string toString() = 0;
+    [[nodiscard]] virtual std::string toString() = 0;
 };
 
 template<typename T>
