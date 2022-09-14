@@ -7,12 +7,24 @@ class TransformComponent : public Component {
 public:
     TransformComponent() : Component("TestTransform") {}
 
+    std::string toString() override {
+        std::string out = std::move(Component::toString());
+        out += "\tpos = " + std::to_string(pos) + '\n';
+        return out;
+    }
+
     int pos = 0;
 };
 
 class HealthComponent : public Component {
 public:
     HealthComponent() : Component("TestHealth") {}
+
+    std::string toString() override {
+        std::string out = std::move(Component::toString());
+        out += "\tvalue = " + std::to_string(value) + '\n';
+        return out;
+    }
 
     int value = 100;
 };
@@ -72,6 +84,8 @@ TEST_F(TestComponentBag, Test) {
     auto transform = componentBag.getComponent<TransformComponent>();
     EXPECT_EQ(transform->pos, TransformComponent{}.pos);
 
+    EXPECT_EQ(componentBag.toString(), "2 components:\nTestTransform\n\tpos = 0\nTestHealth\n\tvalue = 90\n");
+
     auto moveController = std::make_unique<MoveController>(transform);
     moveController->move();
     EXPECT_EQ(transform->pos, 1);
@@ -81,7 +95,12 @@ TEST_F(TestComponentBag, Test) {
     transform->enable();
     moveController->move();
     EXPECT_EQ(transform->pos, 2);
+
+    EXPECT_EQ(componentBag.toString(), "2 components:\nTestTransform\n\tpos = 2\nTestHealth\n\tvalue = 90\n");
+
     componentBag.removeComponent<TransformComponent>();
     moveController->move();
     EXPECT_EQ(moveController->isNull(), true);
+
+    EXPECT_EQ(componentBag.toString(), "1 components:\nTestHealth\n\tvalue = 90\n") << componentBag.toString();
 }
