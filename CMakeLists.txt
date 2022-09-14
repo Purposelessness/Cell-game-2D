@@ -22,6 +22,10 @@ set(Headers
         Input/ControlScheme.h
         Input/KeyInfo.h
         Tests/TestInput.h
+        Core/ITickable.h
+        Components/Component.h
+        Components/ComponentBag.h
+        Components/Transform.h
         )
 
 set(Sources
@@ -36,7 +40,10 @@ set(Sources
         Input/InputReader.cpp
         Input/ControlScheme.cpp
         Tests/TestInput.cpp
-        Core/ITickable.h)
+        Components/Component.cpp
+        Components/ComponentBag.cpp
+        Components/Transform.cpp
+        )
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(gtests)
