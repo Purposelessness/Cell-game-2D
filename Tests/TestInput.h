@@ -7,9 +7,7 @@
 #include "../Input/IController.h"
 #include "../Input/KeyInfo.h"
 
-namespace Engine {
-    class ControlScheme;
-}
+class ControlScheme;
 
 namespace Test {
 
@@ -20,14 +18,14 @@ namespace Test {
         static void quit();
 
     private:
-        static void addKeys(Engine::ControlScheme &controlScheme);
+        static void addKeys(ControlScheme &controlScheme);
 
         static bool isRunning;
     };
 
-    class Controller : public Engine::IController {
+    class Controller : public IController {
     public:
-        void process(const Engine::KeyInfo &inputMessage) override;
+        void process(const KeyInfo &inputMessage) override;
     };
 
     void testField();

@@ -18,8 +18,8 @@ namespace Test {
     int Application::exec() {
         isRunning = true;
         auto controller = std::make_shared<Controller>();
-        auto controlScheme = std::make_shared<Engine::ControlScheme>();
-        auto inputReader = std::make_shared<Engine::InputReader>(controlScheme, controller);
+        auto controlScheme = std::make_shared<ControlScheme>();
+        auto inputReader = std::make_shared<InputReader>(controlScheme, controller);
 
         addKeys(*controlScheme);
 
@@ -31,36 +31,36 @@ namespace Test {
         return 0;
     }
 
-    void Application::addKeys(Engine::ControlScheme &controlScheme) {
-        controlScheme.addKey('P', Engine::KeyType::Exit);
-        controlScheme.addKey('W', Engine::KeyType::MoveUp);
-        controlScheme.addKey('S', Engine::KeyType::MoveDown);
-        controlScheme.addKey('D', Engine::KeyType::MoveRight);
-        controlScheme.addKey('A', Engine::KeyType::MoveLeft);
+    void Application::addKeys(ControlScheme &controlScheme) {
+        controlScheme.addKey('P', KeyType::Exit);
+        controlScheme.addKey('W', KeyType::MoveUp);
+        controlScheme.addKey('S', KeyType::MoveDown);
+        controlScheme.addKey('D', KeyType::MoveRight);
+        controlScheme.addKey('A', KeyType::MoveLeft);
     }
 
-    void Controller::process(const Engine::KeyInfo &inputMessage) {
+    void Controller::process(const KeyInfo &inputMessage) {
         switch (inputMessage.type) {
-            case Engine::KeyType::MoveUp:
+            case KeyType::MoveUp:
                 std::cout << "Moving up " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::KeyType::MoveDown:
+            case KeyType::MoveDown:
                 std::cout << "Moving Down " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::KeyType::MoveRight:
+            case KeyType::MoveRight:
                 std::cout << "Moving Right " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::KeyType::MoveLeft:
+            case KeyType::MoveLeft:
                 std::cout << "Moving left " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case Engine::KeyType::Exit:
+            case KeyType::Exit:
                 std::cout << "Exiting" << std::endl;
                 Application::quit();
                 break;
-            case Engine::KeyType::Reset:
+            case KeyType::Reset:
                 std::cout << "Reset" << std::endl;
                 break;
-            case Engine::KeyType::Undefined:
+            case KeyType::Undefined:
                 break;
         }
     }
