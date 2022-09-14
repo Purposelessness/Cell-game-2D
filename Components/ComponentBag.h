@@ -33,7 +33,7 @@ public:
     void removeComponent() {
         T t;
         auto type = t.getType();
-        if (components.count(type) > 0) {
+        if (components.count(type) < 1) {
             // TODO: log warning
             return;
         }

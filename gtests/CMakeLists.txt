@@ -1,4 +1,3 @@
-# 'Google_test' is the subproject name
 project(GoogleTest)
 
 enable_testing()
@@ -17,8 +16,8 @@ set(Project_src
         ../Objects/Map/Field.cpp
         ../Objects/Map/Cell.cpp
         ../Components/Component.cpp
-        ../Components/ComponentBag.cpp
-    )
+        ../Components/ComponentBag.h
+        )
 
 add_executable(GoogleTest_run ${Test_src} ${Project_src})
 target_link_libraries(GoogleTest_run gtest gtest_main)

@@ -20,14 +20,18 @@ public:
 class MoveController {
 public:
     explicit MoveController(std::shared_ptr<TransformComponent> component) : component(std::move(component)) {}
+
     void move() {
-        if (!component || !component->isEnabled())
+        if (!component)
             return;
 
         if (component->isRemoved()) {
             component.reset();
             return;
         }
+
+        if (!component->isEnabled())
+            return;
 
         component->pos += 1;
     }
