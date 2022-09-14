@@ -1,4 +1,4 @@
-project(GoogleTest)
+project(Gtests)
 
 add_subdirectory(googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
@@ -11,10 +11,9 @@ set(Test_src
 
 # Files of main project that need to be tested
 set(Project_src
-        ../Objects/Map/Field.cpp
-        ../Objects/Map/Cell.cpp
-        ../Components/Component.cpp
-        ../Components/ComponentBag.h
+        ../../Objects/Map/Field.cpp
+        ../../Objects/Map/Cell.cpp
+        ../../Components/Component.cpp
         )
 
 add_executable(GoogleTest_run ${Test_src} ${Project_src})

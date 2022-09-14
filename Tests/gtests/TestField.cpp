@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-#include "../Objects/Map/Field.h"
-#include "../Events/IEvent.h"
+#include "../../Objects/Map/Field.h"
+#include "../../Events/IEvent.h"
 
 class HelloEvent : public IEvent {
 public:

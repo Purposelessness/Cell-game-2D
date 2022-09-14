@@ -45,4 +45,4 @@ set(Sources
         Components/ComponentBag.inl)
 
 add_executable(Game ${Sources} ${Headers})
-add_subdirectory(gtests)
+add_subdirectory(Tests/gtests)

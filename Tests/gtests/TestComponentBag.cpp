@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "../Components/Component.h"
-#include "../Components/ComponentBag.h"
+#include "../../Components/Component.h"
+#include "../../Components/ComponentBag.h"
 
 class TransformComponent : public Component {
 public:
