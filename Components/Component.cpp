@@ -1,10 +1,12 @@
 #include "Component.h"
 
-Component::Type Component::getType() {
+Component::Component() : type("Unknown"), enabled(true), deleted(false) {}
+
+Component::Component(std::string type) : type(std::move(type)), enabled(true), deleted(false) {}
+
+std::string Component::getType() {
     return type;
 }
-
-Component::Component() : type(Undefined), enabled(true), deleted(false) {}
 
 bool Component::isEnabled() const {
     return enabled;
@@ -24,8 +26,4 @@ bool Component::isRemoved() const {
 
 void Component::remove() {
     deleted = true;
-}
-
-Component::Component(Component::Type type) : Component() {
-    type = type;
 }

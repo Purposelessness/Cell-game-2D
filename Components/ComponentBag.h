@@ -12,7 +12,7 @@ public:
     template<TComponent T>
     std::shared_ptr<T> getComponent() {
         T t;
-        Component::Type type = t.getType();
+        auto type = t.getType();
         if (components.count(type) < 1)
             return nullptr;
         return std::reinterpret_pointer_cast<T>(components[type]);
@@ -21,7 +21,7 @@ public:
     template<TComponent T>
     void addComponent() {
         T t;
-        Component::Type type = t.getType();
+        auto type = t.getType();
         if (components.count(type) > 0) {
             // TODO: log warning
             return;
@@ -32,7 +32,7 @@ public:
     template<TComponent T>
     void removeComponent() {
         T t;
-        Component::Type type = t.getType();
+        auto type = t.getType();
         if (components.count(type) > 0) {
             // TODO: log warning
             return;
@@ -42,7 +42,7 @@ public:
     }
 
 private:
-    std::map<Component::Type, std::shared_ptr<Component>> components;
+    std::map<std::string, std::shared_ptr<Component>> components;
 };
 
 

@@ -3,6 +3,7 @@
 
 
 #include <type_traits>
+#include <string>
 
 class Component;
 
@@ -13,13 +14,7 @@ class Component {
 public:
     Component();
 
-    enum Type {
-        Undefined = 0,
-        Transform,
-        Health,
-    };
-
-    Component::Type getType();
+    std::string getType();
 
     void enable();
     void disable();
@@ -29,11 +24,10 @@ public:
     [[nodiscard]] bool isRemoved() const;
 
 protected:
-    explicit Component(Type type);
-
-    Type type;
+    explicit Component(std::string);
 
 private:
+    std::string type;
     bool enabled;
     bool deleted;
 };

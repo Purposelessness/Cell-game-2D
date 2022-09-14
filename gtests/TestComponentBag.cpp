@@ -5,14 +5,14 @@
 
 class TransformComponent : public Component {
 public:
-    TransformComponent() : Component(Transform) {}
+    TransformComponent() : Component("TestTransform") {}
 
     int pos = 0;
 };
 
 class HealthComponent : public Component {
 public:
-    HealthComponent() : Component(Health) {}
+    HealthComponent() : Component("TestHealth") {}
 
     int value = 100;
 };
