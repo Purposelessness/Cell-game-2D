@@ -2,11 +2,13 @@
 #define GAME_COMPONENTBAG_H
 
 
-#include <map>
+#include <unordered_map>
 #include <memory>
-#include <vector>
+#include <unordered_set>
 #include <algorithm>
+#include <tuple>
 
+#include "../Utility/Helper.h"
 #include "Component.h"
 
 class ComponentBag : public IConvertibleToString {
@@ -29,7 +31,7 @@ public:
             return;
         }
         components[type] = std::make_shared<T>();
-        activeComponents.emplace_back(type);
+        activeComponents.insert(type);
     }
 
     template<TComponent T>
@@ -42,15 +44,30 @@ public:
         }
         components[type]->remove();
         components[type].reset();
-        activeComponents.erase(std::remove(activeComponents.begin(), activeComponents.end(), type),
-                               activeComponents.end());
+        activeComponents.erase(type);
+    }
+
+    template<TComponent... T>
+    bool hasComponents() {
+        using TypesTuple = std::tuple<T...>;
+        TypesTuple types;
+        bool out = true;
+        Helper::forEach(std::move(types), [&out, components = &activeComponents](TComponent auto t) {
+            if (!out)
+                return;
+            if (!components->contains(t.getType())) {
+                out = false;
+                return;
+            }
+        });
+        return out;
     }
 
     std::string toString() override;
 
 private:
-    std::vector<std::string> activeComponents;
-    std::map<std::string, std::shared_ptr<Component>> components;
+    std::unordered_set<std::string> activeComponents;
+    std::unordered_map<std::string, std::shared_ptr<Component>> components;
 };
 
 #include "ComponentBag.inl"

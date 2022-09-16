@@ -29,6 +29,11 @@ public:
     int value = 100;
 };
 
+class StrengthComponent : public Component {
+public:
+    StrengthComponent() : Component("TestStrength") {}
+};
+
 class MoveController {
 public:
     explicit MoveController(std::shared_ptr<TransformComponent> component) : component(std::move(component)) {}
@@ -84,7 +89,7 @@ TEST_F(TestComponentBag, Test) {
     auto transform = componentBag.getComponent<TransformComponent>();
     EXPECT_EQ(transform->pos, TransformComponent{}.pos);
 
-    EXPECT_EQ(componentBag.toString(), "2 components:\nTestTransform\n\tpos = 0\nTestHealth\n\tvalue = 90\n");
+    EXPECT_EQ(componentBag.toString(), "2 components:\nTestHealth\n\tvalue = 90\nTestTransform\n\tpos = 0\n");
 
     auto moveController = std::make_unique<MoveController>(transform);
     moveController->move();
@@ -96,11 +101,20 @@ TEST_F(TestComponentBag, Test) {
     moveController->move();
     EXPECT_EQ(transform->pos, 2);
 
-    EXPECT_EQ(componentBag.toString(), "2 components:\nTestTransform\n\tpos = 2\nTestHealth\n\tvalue = 90\n");
+    bool has = componentBag.hasComponents<TransformComponent, StrengthComponent, HealthComponent>();
+    EXPECT_EQ(has, false);
+
+    has = componentBag.hasComponents<TransformComponent, HealthComponent>();
+    EXPECT_EQ(has, true);
+
+    EXPECT_EQ(componentBag.toString(), "2 components:\nTestHealth\n\tvalue = 90\nTestTransform\n\tpos = 2\n");
 
     componentBag.removeComponent<TransformComponent>();
     moveController->move();
     EXPECT_EQ(moveController->isNull(), true);
+
+    has = componentBag.hasComponents<TransformComponent, HealthComponent>();
+    EXPECT_EQ(has, false);
 
     EXPECT_EQ(componentBag.toString(), "1 components:\nTestHealth\n\tvalue = 90\n") << componentBag.toString();
 }
