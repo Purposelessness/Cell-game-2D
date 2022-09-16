@@ -94,10 +94,10 @@ TEST_F(TestComponentBag, Test) {
     auto moveController = std::make_unique<MoveController>(transform);
     moveController->move();
     EXPECT_EQ(transform->pos, 1);
-    transform->disable();
+    componentBag.setState<TransformComponent>(false);
     moveController->move();
     EXPECT_EQ(transform->pos, 1);
-    transform->enable();
+    componentBag.setState<TransformComponent>(true);
     moveController->move();
     EXPECT_EQ(transform->pos, 2);
 

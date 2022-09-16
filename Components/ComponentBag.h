@@ -31,7 +31,17 @@ public:
             return;
         }
         components[type] = std::make_shared<T>();
-        activeComponents.insert(type);
+    }
+
+    template<TComponent T>
+    void setState(bool state) {
+        T t;
+        auto type = t.getType();
+        if (components.count(type) < 1) {
+            // TODO: log warning
+            return;
+        }
+        state ? components[type]->enable() : components[type]->disable();
     }
 
     template<TComponent T>
@@ -44,7 +54,7 @@ public:
         }
         components[type]->remove();
         components[type].reset();
-        activeComponents.erase(type);
+        components.erase(type);
     }
 
     template<TComponent... T>
@@ -52,7 +62,8 @@ public:
         using TypesTuple = std::tuple<T...>;
         TypesTuple types;
         bool out = true;
-        Helper::forEach(std::move(types), [&out, components = &activeComponents](TComponent auto t) {
+        Helper::forEach(std::move(types),
+        [&out, components = &components](TComponent auto t) {
             if (!out)
                 return;
             if (!components->contains(t.getType())) {
@@ -65,8 +76,10 @@ public:
 
     std::string toString() override;
 
+    ~ComponentBag();
+
 private:
-    std::unordered_set<std::string> activeComponents;
+    std::vector<std::shared_ptr<Component>> getActiveComponents();
     std::unordered_map<std::string, std::shared_ptr<Component>> components;
 };
 
