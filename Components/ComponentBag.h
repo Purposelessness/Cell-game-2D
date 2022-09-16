@@ -83,6 +83,4 @@ private:
     std::unordered_map<std::string, std::shared_ptr<Component>> components;
 };
 
-#include "ComponentBag.inl"
-
 #endif //GAME_COMPONENTBAG_H

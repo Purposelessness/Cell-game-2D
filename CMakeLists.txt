@@ -27,7 +27,7 @@ set(Headers
         Components/Transform.h
         Systems/ObjectController.h
         Utility/Helper.h
-#        Core/World.h
+        Core/World.h
         )
 
 set(Sources
@@ -44,9 +44,9 @@ set(Sources
         Components/Component.cpp
         Components/Transform.cpp
         Systems/ObjectController.cpp
-        Components/ComponentBag.inl
+        Components/ComponentBag.cpp
         Utility/Helper.cpp
-#        Core/World.cpp
+        Core/World.cpp
         )
 
 add_executable(Game ${Sources} ${Headers})

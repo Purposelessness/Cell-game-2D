@@ -1,4 +1,3 @@
-
 #include "ComponentBag.h"
 
 std::string ComponentBag::toString() {
@@ -26,6 +25,5 @@ std::vector<std::shared_ptr<Component>> ComponentBag::getActiveComponents() {
 ComponentBag::~ComponentBag() {
     for (auto &component : components) {
         component.second->remove();
-        component.second.reset();
     }
 }
