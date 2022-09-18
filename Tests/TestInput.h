@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "../Input/IController.h"
-#include "../Input/KeyInfo.h"
+#include "../Input/InputMessage.h"
 
 class ControlScheme;
 
@@ -25,7 +25,7 @@ namespace Test {
 
     class Controller : public IController {
     public:
-        void process(const KeyInfo &inputMessage) override;
+        void process(const InputMessage &inputMessage) override;
     };
 
     void testField();

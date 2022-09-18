@@ -2,6 +2,6 @@
 
 #include "../Components/Transform.h"
 
-void ObjectController::process(const KeyInfo& input_message) {
+void ObjectController::process(const InputMessage& input_message) {
 
 }

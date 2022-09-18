@@ -1,6 +1,5 @@
-#ifndef GAME_COMPONENTMOCKS_H
-#define GAME_COMPONENTMOCKS_H
-
+#ifndef GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
+#define GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
 
 #include "../../../Components/Component.h"
 #include "../../../Components/ComponentBag.h"
@@ -11,11 +10,11 @@ public:
 
     std::string toString() override {
         std::string out = std::move(Component::toString());
-        out += "\tpos = " + std::to_string(pos) + '\n';
+        out += "\tpos = " + std::to_string(_pos) + '\n';
         return out;
     }
 
-    int pos = 0;
+    int _pos = 0;
 };
 
 class HealthComponent : public Component {
@@ -24,53 +23,52 @@ public:
 
     std::string toString() override {
         std::string out = std::move(Component::toString());
-        out += "\tvalue = " + std::to_string(value) + '\n';
+        out += "\tvalue = " + std::to_string(_value) + '\n';
         return out;
     }
 
-    int value = 100;
+    int _value = 100;
 };
 
 class StrengthComponent : public Component {
 public:
     StrengthComponent() : Component("TestStrength") {}
 
-    int value = 5;
+    int _value = 5;
 };
 
 class MoveController {
 public:
-    explicit MoveController(std::shared_ptr<TransformComponent> component) : component(std::move(component)) {}
+    explicit MoveController(std::shared_ptr<TransformComponent> component) : _component(std::move(component)) {}
 
     void move() {
-        if (!component)
+        if (!_component)
             return;
 
-        if (component->isRemoved()) {
-            component.reset();
+        if (_component->isRemoved()) {
+            _component.reset();
             return;
         }
 
-        if (!component->isEnabled())
+        if (!_component->isEnabled())
             return;
 
-        component->pos += 1;
+        _component->_pos += 1;
     }
 
     [[nodiscard]] bool isNull() const {
-        return component == nullptr;
+        return _component == nullptr;
     }
 
 private:
-    std::shared_ptr<TransformComponent> component;
+    std::shared_ptr<TransformComponent> _component;
 };
 
 class HealthManager {
 public:
-    static void applyDamage(HealthComponent &healthComponent) {
-        healthComponent.value -= 10;
+    static void applyDamage(HealthComponent& health_component) {
+        health_component._value -= 10;
     }
 };
 
-
-#endif //GAME_COMPONENTMOCKS_H
+#endif //GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_

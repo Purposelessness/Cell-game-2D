@@ -1,5 +1,5 @@
-#ifndef GAME_CONCEPTS_H
-#define GAME_CONCEPTS_H
+#ifndef GAME_UTILITY_CONCEPTS_H_
+#define GAME_UTILITY_CONCEPTS_H_
 
 
 #include <type_traits>
@@ -11,4 +11,4 @@ template<typename T>
 concept Func = std::is_function_v<typename std::remove_pointer<T>::type>;
 
 
-#endif //GAME_CONCEPTS_H
+#endif //GAME_UTILITY_CONCEPTS_H_

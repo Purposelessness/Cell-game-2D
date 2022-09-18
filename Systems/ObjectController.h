@@ -10,7 +10,7 @@ class Transform;
 
 class ObjectController : IController {
 public:
-    void process(const KeyInfo& input_message) override;
+    void process(const InputMessage& input_message) override;
 
 private:
     std::vector<std::shared_ptr<Transform>> _components;

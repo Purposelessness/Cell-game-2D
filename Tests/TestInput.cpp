@@ -32,35 +32,35 @@ namespace Test {
     }
 
     void Application::addKeys(ControlScheme &controlScheme) {
-        controlScheme.addKey('P', KeyType::Exit);
-        controlScheme.addKey('W', KeyType::MoveUp);
-        controlScheme.addKey('S', KeyType::MoveDown);
-        controlScheme.addKey('D', KeyType::MoveRight);
-        controlScheme.addKey('A', KeyType::MoveLeft);
+        controlScheme.addKey('P', InputType::Exit);
+        controlScheme.addKey('W', InputType::MoveUp);
+        controlScheme.addKey('S', InputType::MoveDown);
+        controlScheme.addKey('D', InputType::MoveRight);
+        controlScheme.addKey('A', InputType::MoveLeft);
     }
 
-    void Controller::process(const KeyInfo &inputMessage) {
+    void Controller::process(const InputMessage &inputMessage) {
         switch (inputMessage.type) {
-            case KeyType::MoveUp:
+            case InputType::MoveUp:
                 std::cout << "Moving up " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case KeyType::MoveDown:
+            case InputType::MoveDown:
                 std::cout << "Moving Down " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case KeyType::MoveRight:
+            case InputType::MoveRight:
                 std::cout << "Moving Right " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case KeyType::MoveLeft:
+            case InputType::MoveLeft:
                 std::cout << "Moving left " + std::to_string(static_cast<int>(inputMessage.state)) << std::endl;
                 break;
-            case KeyType::Exit:
+            case InputType::Exit:
                 std::cout << "Exiting" << std::endl;
                 Application::quit();
                 break;
-            case KeyType::Reset:
+            case InputType::Reset:
                 std::cout << "Reset" << std::endl;
                 break;
-            case KeyType::Undefined:
+            case InputType::Undefined:
                 break;
         }
     }

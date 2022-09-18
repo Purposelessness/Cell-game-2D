@@ -2,7 +2,7 @@
 
 #include "../../Utility/EventHandler.h"
 
-TEST(EventHandler, LambdaExpressions) {
+TEST(EventHandlerTest, LambdaExpressions) {
     EventHandler<std::string, std::string> event_handler;
     std::vector<std::string> result;
     auto lambda = [&result](std::string s1, std::string s2) -> void {
@@ -36,7 +36,7 @@ void t2(const int& a, const int& b) {
     vec.emplace_back(b);
 }
 
-TEST(EventHandler, StaticFunctions) {
+TEST(EventHandlerTest, StaticFunctions) {
     vec.clear();
     EventHandler<int, int> event_handler;
     event_handler += t1;
@@ -67,7 +67,7 @@ public:
     int x = 199;
 };
 
-TEST(EventHandler, MemberFunctions) {
+TEST(EventHandlerTest, MemberFunctions) {
     vec.clear();
     EventHandler<int, int> event_handler;
     T1 t1;
@@ -103,7 +103,7 @@ public:
     }
 };
 
-TEST(EventHandler, All) {
+TEST(EventHandlerTest, All) {
     EventHandler<std::string, std::string> event_handler;
     auto lambda = [&str_ans = str_ans](std::string s, std::string s2) {
         str_ans.emplace_back(s);
