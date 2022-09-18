@@ -12,7 +12,7 @@ set(Headers
         Datatypes/Point.h
         Observer/EventListener.h
         Observer/EventHandler.h
-        Input/InputReader.h
+        Input/KeyboardInputReader.h
         config.h
         Utility/IConvertibleToString.h
         Utility/Concepts.h
@@ -26,9 +26,9 @@ set(Headers
         Components/ComponentBag.h
         Components/Transform.h
         Systems/ObjectController.h
-        Utility/Helper.h
+        Utility/Tuple.h
         Core/World.h
-        )
+        Core/IApplication.h Input/IInputMediator.h Input/InputReader.h)
 
 set(Sources
         main.cpp
@@ -38,16 +38,15 @@ set(Sources
         Datatypes/Point.cpp
         Observer/EventListener.cpp
         Observer/EventHandler.cpp
-        Input/InputReader.cpp
+        Input/KeyboardInputReader.cpp
         Input/ControlScheme.cpp
         Tests/TestInput.cpp
         Components/Component.cpp
         Components/Transform.cpp
         Systems/ObjectController.cpp
         Components/ComponentBag.cpp
-        Utility/Helper.cpp
         Core/World.cpp
-        )
+        Core/Application.cpp Core/Application.h Input/InputMediator.cpp Input/InputMediator.h Utility/EventHandler.h Utility/Template.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests/gtests)
