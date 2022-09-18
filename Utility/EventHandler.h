@@ -6,6 +6,8 @@
 #include <vector>
 #include <tuple>
 
+#include "Template.h"
+
 class IArguments {
 public:
     virtual ~IArguments() = default;
@@ -61,7 +63,11 @@ public:
     }
 
     EventHandler& operator-=(std::function<void(Args...)> function) {
-        _functions.erase(function);
+        for (size_t i = 0; i < _functions.size(); ++i) {
+            if (getAddress(_functions[i]) == getAddress(function)) {
+                _functions.erase(_functions.begin() + i);
+            }
+        }
         return *this;
     }
 

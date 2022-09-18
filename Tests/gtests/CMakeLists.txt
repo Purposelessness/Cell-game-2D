@@ -8,7 +8,7 @@ set(Test_src
         TestField.cpp
         ECS/TestComponentBag.cpp
         ECS/TestWorld.cpp
-        ECS/ComponentMocks.h)
+        ECS/ComponentMocks.h TestEventHandler.cpp)
 
 # Files of main project that need to be tested
 set(Project_src
