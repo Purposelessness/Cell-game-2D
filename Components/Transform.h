@@ -1,6 +1,5 @@
-#ifndef GAME_TRANSFORM_H
-#define GAME_TRANSFORM_H
-
+#ifndef GAME_COMPONENTS_TRANSFORM_H_
+#define GAME_COMPONENTS_TRANSFORM_H_
 
 #include <memory>
 
@@ -16,12 +15,11 @@ public:
     void setField(std::shared_ptr<Field> field);
 
     [[nodiscard]] Point getPosition() const;
-    bool setPosition(const Point &newPosition);
+    bool setPosition(const Point& new_position);
 
 private:
-    Point position;
-    std::shared_ptr<Field> field;
+    Point _position;
+    std::shared_ptr<Field> _field;
 };
 
-
-#endif //GAME_TRANSFORM_H
+#endif //GAME_COMPONENTS_TRANSFORM_H_

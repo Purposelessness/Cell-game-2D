@@ -1,6 +1,5 @@
-#ifndef GAME_OBJECTCONTROLLER_H
-#define GAME_OBJECTCONTROLLER_H
-
+#ifndef GAME_SYSTEMS_OBJECTCONTROLLER_H_
+#define GAME_SYSTEMS_OBJECTCONTROLLER_H_
 
 #include <memory>
 #include <vector>
@@ -11,11 +10,10 @@ class Transform;
 
 class ObjectController : IController {
 public:
-    void process(const KeyInfo &inputMessage) override;
+    void process(const KeyInfo& input_message) override;
 
 private:
-    std::vector<std::shared_ptr<Transform>> components;
+    std::vector<std::shared_ptr<Transform>> _components;
 };
 
-
-#endif //GAME_OBJECTCONTROLLER_H
+#endif //GAME_SYSTEMS_OBJECTCONTROLLER_H_

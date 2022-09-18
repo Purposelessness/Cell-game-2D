@@ -1,6 +1,5 @@
-#ifndef GAME_EVENTLISTENER_H
-#define GAME_EVENTLISTENER_H
-
+#ifndef GAME_OBSERVER_EVENTLISTENER_H_
+#define GAME_OBSERVER_EVENTLISTENER_H_
 
 #include <vector>
 
@@ -11,18 +10,17 @@ public:
     EventListener();
     [[nodiscard]] int getIndex() const;
 
-    virtual void update(EventMessage *) = 0;
+    virtual void update(EventMessage*) = 0;
 
     ~EventListener();
 
 private:
     void assignIndex();
 
-    static int length;
-    static std::vector<int> unusedIndices;
-    
-    int index = -1;
+    static int _length;
+    static std::vector<int> _unused_indices;
+
+    int _index = -1;
 };
 
-
-#endif //GAME_EVENTLISTENER_H
+#endif //GAME_OBSERVER_EVENTLISTENER_H_

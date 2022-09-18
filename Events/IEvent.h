@@ -1,11 +1,9 @@
-#ifndef GAME_IEVENT_H
-#define GAME_IEVENT_H
-
+#ifndef GAME_EVENTS_IEVENT_H_
+#define GAME_EVENTS_IEVENT_H_
 
 class IEvent {
 public:
     virtual void invoke() = 0;
 };
 
-
-#endif //GAME_IEVENT_H
+#endif //GAME_EVENTS_IEVENT_H_

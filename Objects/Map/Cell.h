@@ -1,6 +1,5 @@
-#ifndef GAME_CELL_H
-#define GAME_CELL_H
-
+#ifndef GAME_OBJECTS_MAP_CELL_H_
+#define GAME_OBJECTS_MAP_CELL_H_
 
 #include <memory>
 #include "../../Events/IEvent.h"
@@ -13,11 +12,10 @@ public:
     void changeEvent(std::shared_ptr<IEvent> event);
     void onPlayerStepped();
 
-    auto operator<=>(const Cell &) const = default;
+    auto operator<=>(const Cell&) const = default;
 
 private:
-    std::shared_ptr<IEvent> event;
+    std::shared_ptr<IEvent> _event;
 };
 
-
-#endif //GAME_CELL_H
+#endif //GAME_OBJECTS_MAP_CELL_H_

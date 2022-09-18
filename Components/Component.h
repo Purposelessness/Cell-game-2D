@@ -1,6 +1,5 @@
-#ifndef GAME_COMPONENT_H
-#define GAME_COMPONENT_H
-
+#ifndef GAME_COMPONENTS_COMPONENT_H_
+#define GAME_COMPONENTS_COMPONENT_H_
 
 #include <type_traits>
 #include <string>
@@ -31,10 +30,9 @@ protected:
     explicit Component(std::string);
 
 private:
-    std::string type;
-    bool enabled;
-    bool deleted;
+    std::string _type;
+    bool _enabled;
+    bool _deleted;
 };
 
-
-#endif //GAME_COMPONENT_H
+#endif //GAME_COMPONENTS_COMPONENT_H_

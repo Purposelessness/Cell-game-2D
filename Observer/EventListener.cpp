@@ -1,26 +1,26 @@
 #include "EventListener.h"
 
-int EventListener::length = 0;
-std::vector<int> EventListener::unusedIndices = std::vector<int>{};
+int EventListener::_length = 0;
+std::vector<int> EventListener::_unused_indices = std::vector<int>{};
 
 EventListener::EventListener() {
     assignIndex();
 }
 
 int EventListener::getIndex() const {
-    return index;
+    return _index;
 }
 
 EventListener::~EventListener() {
-    unusedIndices.push_back(index);
+    _unused_indices.push_back(_index);
 }
 
 void EventListener::assignIndex() {
-    if (unusedIndices.empty()) {
-        index = length;
-        length++;
+    if (_unused_indices.empty()) {
+        _index = _length;
+        _length++;
     } else {
-        index = unusedIndices.back();
-        unusedIndices.pop_back();
+        _index = _unused_indices.back();
+        _unused_indices.pop_back();
     }
 }

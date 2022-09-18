@@ -1,6 +1,5 @@
-#ifndef GAME_ICONVERTIBLETOSTRING_H
-#define GAME_ICONVERTIBLETOSTRING_H
-
+#ifndef GAME_UTILITY_ICONVERTIBLETOSTRING_H_
+#define GAME_UTILITY_ICONVERTIBLETOSTRING_H_
 
 #include <string>
 
@@ -12,5 +11,4 @@ public:
 template<typename T>
 concept ToString = std::is_base_of_v<IConvertibleToString, T>;
 
-
-#endif //GAME_ICONVERTIBLETOSTRING_H
+#endif //GAME_UTILITY_ICONVERTIBLETOSTRING_H_

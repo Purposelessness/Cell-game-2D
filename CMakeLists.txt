@@ -11,7 +11,7 @@ set(Headers
         Objects/Map/Field.h
         Datatypes/Point.h
         Observer/EventListener.h
-        Observer/EventHandler.h
+        Observer/EventManager.h
         Input/KeyboardInputReader.h
         config.h
         Utility/IConvertibleToString.h
@@ -35,9 +35,8 @@ set(Sources
         Objects/Map/Cell.cpp
         Objects/Entity.cpp
         Objects/Map/Field.cpp
-        Datatypes/Point.cpp
         Observer/EventListener.cpp
-        Observer/EventHandler.cpp
+        Observer/EventManager.cpp
         Input/KeyboardInputReader.cpp
         Input/ControlScheme.cpp
         Tests/TestInput.cpp

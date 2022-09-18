@@ -1,6 +1,5 @@
-#ifndef GAME_KEYINFO_H
-#define GAME_KEYINFO_H
-
+#ifndef GAME_INPUT_KEYINFO_H_
+#define GAME_INPUT_KEYINFO_H_
 
 enum class KeyType;
 enum class KeyState;
@@ -25,5 +24,4 @@ enum class KeyState {
     Pressed
 };
 
-
-#endif //GAME_KEYINFO_H
+#endif //GAME_INPUT_KEYINFO_H_

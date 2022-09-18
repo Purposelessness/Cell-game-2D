@@ -1,6 +1,5 @@
-#ifndef GAME_COMPONENTBAG_H
-#define GAME_COMPONENTBAG_H
-
+#ifndef GAME_COMPONENTS_COMPONENTBAG_H_
+#define GAME_COMPONENTS_COMPONENTBAG_H_
 
 #include <unordered_map>
 #include <memory>
@@ -8,7 +7,7 @@
 #include <algorithm>
 #include <tuple>
 
-#include "../Utility/Helper.h"
+#include "../Utility/Tuple.h"
 #include "Component.h"
 
 class ComponentBag : public IConvertibleToString {
@@ -17,44 +16,44 @@ public:
     std::shared_ptr<T> getComponent() {
         T t;
         auto type = t.getType();
-        if (components.count(type) < 1)
+        if (_components.count(type) < 1)
             return nullptr;
-        return std::reinterpret_pointer_cast<T>(components[type]);
+        return std::reinterpret_pointer_cast<T>(_components[type]);
     }
 
     template<TComponent T>
     void addComponent() {
         T t;
         auto type = t.getType();
-        if (components.count(type) > 0) {
+        if (_components.count(type) > 0) {
             // TODO: log warning
             return;
         }
-        components[type] = std::make_shared<T>();
+        _components[type] = std::make_shared<T>();
     }
 
     template<TComponent T>
     void setState(bool state) {
         T t;
         auto type = t.getType();
-        if (components.count(type) < 1) {
+        if (_components.count(type) < 1) {
             // TODO: log warning
             return;
         }
-        state ? components[type]->enable() : components[type]->disable();
+        state ? _components[type]->enable() : _components[type]->disable();
     }
 
     template<TComponent T>
     void removeComponent() {
         T t;
         auto type = t.getType();
-        if (components.count(type) < 1) {
+        if (_components.count(type) < 1) {
             // TODO: log warning
             return;
         }
-        components[type]->remove();
-        components[type].reset();
-        components.erase(type);
+        _components[type]->remove();
+        _components[type].reset();
+        _components.erase(type);
     }
 
     template<TComponent... T>
@@ -62,15 +61,15 @@ public:
         using TypesTuple = std::tuple<T...>;
         TypesTuple types;
         bool out = true;
-        Helper::forEach(std::move(types),
-        [&out, components = &components](TComponent auto t) {
-            if (!out)
-                return;
-            if (!components->contains(t.getType())) {
-                out = false;
-                return;
-            }
-        });
+        Tuple::forEach(std::move(types),
+                       [&out, components = &_components](TComponent auto t) {
+                           if (!out)
+                               return;
+                           if (!components->contains(t.getType())) {
+                               out = false;
+                               return;
+                           }
+                       });
         return out;
     }
 
@@ -80,7 +79,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<Component>> getActiveComponents();
-    std::unordered_map<std::string, std::shared_ptr<Component>> components;
+    std::unordered_map<std::string, std::shared_ptr<Component>> _components;
 };
 
-#endif //GAME_COMPONENTBAG_H
+#endif //GAME_COMPONENTS_COMPONENTBAG_H_

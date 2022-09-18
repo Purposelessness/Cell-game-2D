@@ -1,6 +1,5 @@
-#ifndef GAME_EVENTMESSAGE_H
-#define GAME_EVENTMESSAGE_H
-
+#ifndef GAME_OBSERVER_EVENTMESSAGE_H_
+#define GAME_OBSERVER_EVENTMESSAGE_H_
 
 #include <string>
 
@@ -8,5 +7,4 @@ struct EventMessage {
 
 };
 
-
-#endif //GAME_EVENTMESSAGE_H
+#endif //GAME_OBSERVER_EVENTMESSAGE_H_

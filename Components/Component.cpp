@@ -1,33 +1,33 @@
 #include "Component.h"
 
-Component::Component() : type("Unknown"), enabled(true), deleted(false) {}
+Component::Component() : _type("Unknown"), _enabled(true), _deleted(false) {}
 
-Component::Component(std::string type) : type(std::move(type)), enabled(true), deleted(false) {}
+Component::Component(std::string type) : _type(std::move(type)), _enabled(true), _deleted(false) {}
 
 std::string Component::getType() {
-    return type;
+    return _type;
 }
 
 bool Component::isEnabled() const {
-    return enabled;
+    return _enabled;
 }
 
 void Component::enable() {
-    enabled = true;
+    _enabled = true;
 }
 
 void Component::disable() {
-    enabled = false;
+    _enabled = false;
 }
 
 bool Component::isRemoved() const {
-    return deleted;
+    return _deleted;
 }
 
 void Component::remove() {
-    deleted = true;
+    _deleted = true;
 }
 
 std::string Component::toString() {
-    return type + "\n";
+    return _type + "\n";
 }

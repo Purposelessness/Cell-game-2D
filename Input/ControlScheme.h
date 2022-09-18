@@ -1,6 +1,5 @@
-#ifndef GAME_CONTROLSCHEME_H
-#define GAME_CONTROLSCHEME_H
-
+#ifndef GAME_INPUT_CONTROLSCHEME_H_
+#define GAME_INPUT_CONTROLSCHEME_H_
 
 #include <map>
 #include <array>
@@ -15,12 +14,11 @@ public:
     void addKey(char key, KeyType type);
     void deleteKey(char key);
 
-    std::map<char, KeyInfo> &keys();
+    std::map<char, KeyInfo>& keys();
     KeyInfo key(char key);
 
 private:
-    std::map<char, KeyInfo> keyMap;
+    std::map<char, KeyInfo> _key_map;
 };
 
-
-#endif //GAME_CONTROLSCHEME_H
+#endif //GAME_INPUT_CONTROLSCHEME_H_

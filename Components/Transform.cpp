@@ -8,14 +8,14 @@ Transform::Transform() : Component("Transform") {
 }
 
 void Transform::setField(std::shared_ptr<Field> field) {
-    this->field = std::move(field);
+    this->_field = std::move(field);
 }
 
 Point Transform::getPosition() const {
-    return position;
+    return _position;
 }
 
-bool Transform::setPosition(const Point &newPosition) {
-    position = newPosition;
+bool Transform::setPosition(const Point& new_position) {
+    _position = new_position;
     return true;
 }

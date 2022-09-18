@@ -1,7 +1,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "NotImplementedFunctions"
-#ifndef GAME_TEMPLATE_H
-#define GAME_TEMPLATE_H
+#ifndef GAME_UTILITY_TEMPLATE_H_
+#define GAME_UTILITY_TEMPLATE_H_
 
 #include <type_traits>
 #include <functional>
@@ -23,5 +23,5 @@ long getAddress(std::function<T(U...)> func) {
     return *reinterpret_cast<long*>(reinterpret_cast<char*>(&func));
 }
 
-#endif //GAME_TEMPLATE_H
+#endif //GAME_UTILITY_TEMPLATE_H_
 #pragma clang diagnostic pop

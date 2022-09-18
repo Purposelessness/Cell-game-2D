@@ -16,16 +16,16 @@ protected:
 
 TEST_F(TestWorld, Test) {
     auto entity1 = std::make_shared<Entity>("Pupa");
-    entity1->componentBag.addComponent<HealthComponent>();
-    entity1->componentBag.addComponent<TransformComponent>();
+    entity1->_component_bag.addComponent<HealthComponent>();
+    entity1->_component_bag.addComponent<TransformComponent>();
     EXPECT_EQ(entity1->toString(),
               "------------------Entity:Pupa\n2 components:\nTestTransform\n\tpos = 0\nTestHealth\n\tvalue = 100\n------------------");
 
     auto entity2 = std::make_shared<Entity>("Lupa");
-    entity2->componentBag.addComponent<HealthComponent>();
-    entity2->componentBag.addComponent<TransformComponent>();
-    entity2->componentBag.addComponent<StrengthComponent>();
-    entity2->componentBag.getComponent<HealthComponent>()->value = 20;
+    entity2->_component_bag.addComponent<HealthComponent>();
+    entity2->_component_bag.addComponent<TransformComponent>();
+    entity2->_component_bag.addComponent<StrengthComponent>();
+    entity2->_component_bag.getComponent<HealthComponent>()->value = 20;
     EXPECT_EQ(entity2->toString(),
               "------------------Entity:Lupa\n3 components:\nTestStrength\nTestTransform\n\tpos = 0\nTestHealth\n\tvalue = 20\n------------------");
 

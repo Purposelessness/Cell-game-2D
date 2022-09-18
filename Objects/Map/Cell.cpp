@@ -5,12 +5,12 @@
 
 Cell::Cell() : Cell(nullptr) {}
 
-Cell::Cell(std::shared_ptr<IEvent> event) : event(std::move(event)) {}
+Cell::Cell(std::shared_ptr<IEvent> event) : _event(std::move(event)) {}
 
 void Cell::changeEvent(std::shared_ptr<IEvent> event) {
-    this->event = std::move(event);
+    this->_event = std::move(event);
 }
 
 void Cell::onPlayerStepped() {
-    event->invoke();
+    _event->invoke();
 }

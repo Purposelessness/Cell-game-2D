@@ -1,22 +1,22 @@
 #include "ControlScheme.h"
 #include "KeyInfo.h"
 
-ControlScheme::ControlScheme() : keyMap({}) {}
+ControlScheme::ControlScheme() : _key_map({}) {}
 
 void ControlScheme::addKey(char key, KeyType type) {
-    keyMap[key] = {type, KeyState::Released};
+    _key_map[key] = {type, KeyState::Released};
 }
 
 void ControlScheme::deleteKey(char key) {
-    keyMap.erase(key);
+    _key_map.erase(key);
 }
 
 KeyInfo ControlScheme::key(char key) {
-    if (keyMap.count(key) == 0)
+    if (_key_map.count(key) == 0)
         return {};
-    return keyMap[key];
+    return _key_map[key];
 }
 
-std::map<char, KeyInfo> &ControlScheme::keys() {
-    return keyMap;
+std::map<char, KeyInfo>& ControlScheme::keys() {
+    return _key_map;
 }

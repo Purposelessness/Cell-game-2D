@@ -1,13 +1,11 @@
-#ifndef GAME_ICONTROLLER_H
-#define GAME_ICONTROLLER_H
-
+#ifndef GAME_INPUT_ICONTROLLER_H_
+#define GAME_INPUT_ICONTROLLER_H_
 
 struct KeyInfo;
 
 class IController {
 public:
-    virtual void process(const KeyInfo &inputMessage) = 0;
+    virtual void process(const KeyInfo& input_message) = 0;
 };
 
-
-#endif //GAME_ICONTROLLER_H
+#endif //GAME_INPUT_ICONTROLLER_H_

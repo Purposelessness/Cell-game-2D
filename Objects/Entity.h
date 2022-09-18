@@ -1,6 +1,5 @@
-#ifndef GAME_ENTITY_H
-#define GAME_ENTITY_H
-
+#ifndef GAME_OBJECTS_ENTITY_H_
+#define GAME_OBJECTS_ENTITY_H_
 
 #include "../Utility/IConvertibleToString.h"
 #include "../Components/ComponentBag.h"
@@ -10,11 +9,10 @@ public:
     explicit Entity(std::string name);
 
     std::string toString() override;
-    ComponentBag componentBag;
+    ComponentBag _component_bag;
 
 private:
-    std::string name;
+    std::string _name;
 };
 
-
-#endif //GAME_ENTITY_H
+#endif //GAME_OBJECTS_ENTITY_H_

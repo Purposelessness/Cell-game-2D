@@ -5,7 +5,7 @@
 
 #include "../config.h"
 #include "../Input/ControlScheme.h"
-#include "../Input/InputReader.h"
+#include "../Input/KeyboardInputReader.h"
 
 namespace Test {
 
@@ -19,12 +19,12 @@ namespace Test {
         isRunning = true;
         auto controller = std::make_shared<Controller>();
         auto controlScheme = std::make_shared<ControlScheme>();
-        auto inputReader = std::make_shared<InputReader>(controlScheme, controller);
+//        auto inputReader = std::make_shared<KeyboardInputReader>(controlScheme, controller);
 
         addKeys(*controlScheme);
 
         while (isRunning) {
-            inputReader->tick();
+//            inputReader->tick();
             usleep(UPDATE_TIME_MCSEC);
         }
 

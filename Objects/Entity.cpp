@@ -2,12 +2,12 @@
 
 #include <utility>
 
-Entity::Entity(std::string name) : name(std::move(name)) {}
+Entity::Entity(std::string name) : _name(std::move(name)) {}
 
 std::string Entity::toString() {
     std::string out;
     out = "------------------";
-    out += "Entity:" + name + '\n' + componentBag.toString();
+    out += "Entity:" + _name + '\n' + _component_bag.toString();
     out += "------------------";
     return out;
 }

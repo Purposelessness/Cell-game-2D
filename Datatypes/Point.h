@@ -1,8 +1,8 @@
-#ifndef GAME_POINT_H
-#define GAME_POINT_H
+#ifndef GAME_DATATYPES_POINT_H_
+#define GAME_DATATYPES_POINT_H_
 
 class Point {
 public:
 };
 
-#endif //GAME_POINT_H
+#endif //GAME_DATATYPES_POINT_H_
