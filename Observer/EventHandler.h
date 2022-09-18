@@ -1,5 +1,5 @@
-#ifndef GAME_EVENTHANDLER_H
-#define GAME_EVENTHANDLER_H
+#ifndef GAME_UTILITY_EVENTHANDLER_H_
+#define GAME_UTILITY_EVENTHANDLER_H_
 
 
 #include <map>
@@ -18,4 +18,4 @@ private:
 };
 
 
-#endif //GAME_EVENTHANDLER_H
+#endif //GAME_UTILITY_EVENTHANDLER_H_
