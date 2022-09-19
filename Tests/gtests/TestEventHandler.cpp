@@ -48,42 +48,56 @@ TEST(EventHandlerTest, StaticFunctions) {
     EXPECT_EQ(vec, ans);
 }
 
+std::vector<std::string> str_ans;
+
 class T1 {
 public:
-    void t(int a, int b) {
-        vec.emplace_back(a);
-        vec.emplace_back(b);
+    void t(std::string a, std::string b) {
+        str_ans.emplace_back(a);
+        str_ans.emplace_back(b);
     }
 };
 
 class T2 {
 public:
-    void t(int a, int b) {
-        vec.emplace_back(a);
-        vec.emplace_back(b);
-        vec.emplace_back(x);
+    void t(std::string a, std::string b) {
+        str_ans.emplace_back(a);
+        str_ans.emplace_back(b);
+        str_ans.emplace_back(x);
     }
 
-    int x = 199;
+    std::string x = "aboba";
+};
+
+class Tc {
+public:
+    void test(const std::string& s1, const std::string& s2) {
+        str_ans.emplace_back(s1);
+        str_ans.emplace_back(s2);
+    }
 };
 
 TEST(EventHandlerTest, MemberFunctions) {
-    vec.clear();
-    EventHandler<int, int> event_handler;
+    str_ans.clear();
+    EventHandler<std::string, std::string> event_handler;
     T1 t1;
     T2 t2;
+    Tc tc;
     event_handler.add(&t1, &T1::t);
     event_handler.add(&t2, &T2::t);
-    event_handler(1, 2);
-    t2.x = 10;
-    event_handler(3, 4);
+    event_handler.add(&tc, &Tc::test);
+    event_handler("aboba", "zeleboba");
+    t2.x = "new_x";
+    event_handler("second", "testing");
     event_handler.remove(&t2, &T2::t);
-    event_handler(5, 6);
-    std::vector<int> ans{1, 2, 1, 2, 199, 3, 4, 3, 4, 10, 5, 6};
-    EXPECT_EQ(vec, ans);
+    event_handler("third", "string");
+    event_handler.remove(&tc, &Tc::test);
+    event_handler("last", "least");
+    std::vector<std::string> ans
+        {"aboba", "zeleboba", "aboba", "zeleboba", "aboba", "aboba", "zeleboba", "second", "testing", "second",
+         "testing", "new_x", "second", "testing", "third", "string", "third", "string", "last", "least"};
+    EXPECT_EQ(str_ans, ans);
 }
-
-std::vector<std::string> str_ans;
 
 void printStr1(const std::string& s, const std::string& s2) {
     str_ans.emplace_back(s);
@@ -104,6 +118,7 @@ public:
 };
 
 TEST(EventHandlerTest, All) {
+    str_ans.clear();
     EventHandler<std::string, std::string> event_handler;
     auto lambda = [&str_ans = str_ans](std::string s, std::string s2) {
         str_ans.emplace_back(s);
