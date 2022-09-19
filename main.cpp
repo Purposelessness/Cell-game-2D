@@ -1,3 +1,7 @@
+#include "config.h"
+#include "Core/Application.h"
+
 int main() {
-    return 0;
+    Application a;
+    return a.execute(UPDATE_TIME_MCSEC);
 }

@@ -24,7 +24,7 @@ set(Headers
         ECSLib/Components/Component.h
         ECSLib/Components/ComponentBag.h
         ECS/Components/Transform.h
-        ECS/Systems/ObjectController.h
+        Controllers/ObjectController.h
         Utility/Tuple.h
         ECSLib/Core/World.h
         Engine/Core/IApplication.h Engine/Input/InputReader.h Utility/MethodContainer.h)
@@ -40,10 +40,10 @@ set(Sources
         Engine/Input/ControlScheme.cpp
         ECSLib/Components/Component.cpp
         ECS/Components/Transform.cpp
-        ECS/Systems/ObjectController.cpp
+        Controllers/ObjectController.cpp
         ECSLib/Components/ComponentBag.cpp
         ECSLib/Core/World.cpp
-        Engine/Core/Application.cpp Engine/Core/Application.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h)
+        Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests/gtests)
