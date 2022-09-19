@@ -1,10 +1,10 @@
-#ifndef GAME_COMPONENTS_TRANSFORM_H_
-#define GAME_COMPONENTS_TRANSFORM_H_
+#ifndef GAME_ECS_COMPONENTS_TRANSFORM_H_
+#define GAME_ECS_COMPONENTS_TRANSFORM_H_
 
 #include <memory>
 
-#include "Component.h"
-#include "../Datatypes/Point.h"
+#include "../../ECSLib/Components/Component.h"
+#include "../../Datatypes/Point.h"
 
 class Field;
 
@@ -22,4 +22,4 @@ private:
     std::shared_ptr<Field> _field;
 };
 
-#endif //GAME_COMPONENTS_TRANSFORM_H_
+#endif //GAME_ECS_COMPONENTS_TRANSFORM_H_

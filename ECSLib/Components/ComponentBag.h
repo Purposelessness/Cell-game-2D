@@ -1,5 +1,5 @@
-#ifndef GAME_COMPONENTS_COMPONENTBAG_H_
-#define GAME_COMPONENTS_COMPONENTBAG_H_
+#ifndef GAME_ECSLIB_COMPONENTS_COMPONENTBAG_H_
+#define GAME_ECSLIB_COMPONENTS_COMPONENTBAG_H_
 
 #include <unordered_map>
 #include <memory>
@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <tuple>
 
-#include "../Utility/Tuple.h"
+#include "../../Utility/Tuple.h"
 #include "Component.h"
 
 class ComponentBag : public IConvertibleToString {
@@ -82,4 +82,4 @@ private:
     std::unordered_map<std::string, std::shared_ptr<Component>> _components;
 };
 
-#endif //GAME_COMPONENTS_COMPONENTBAG_H_
+#endif //GAME_ECSLIB_COMPONENTS_COMPONENTBAG_H_

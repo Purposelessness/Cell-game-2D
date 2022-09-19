@@ -1,10 +1,10 @@
-#ifndef GAME_COMPONENTS_COMPONENT_H_
-#define GAME_COMPONENTS_COMPONENT_H_
+#ifndef GAME_ECSLIB_COMPONENTS_COMPONENT_H_
+#define GAME_ECSLIB_COMPONENTS_COMPONENT_H_
 
 #include <type_traits>
 #include <string>
 
-#include "../Utility/IConvertibleToString.h"
+#include "../../Utility/IConvertibleToString.h"
 
 class Component;
 
@@ -35,4 +35,4 @@ private:
     bool _deleted;
 };
 
-#endif //GAME_COMPONENTS_COMPONENT_H_
+#endif //GAME_ECSLIB_COMPONENTS_COMPONENT_H_

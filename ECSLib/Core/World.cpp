@@ -1,6 +1,6 @@
 #include "World.h"
 
-#include "../Objects/Entity.h"
+#include "Entity.h"
 
 void World::addEntity(std::shared_ptr<Entity> entity) {
     _entities.emplace(std::move(entity));

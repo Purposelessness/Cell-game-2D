@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-recover=address -O1 -fno-omit-frame-pointer -g")
 
 set(Headers
-        Objects/Map/Cell.h
+        Objects/Field/Cell.h
         Observer/EventMessage.h
-        Objects/Entity.h
-        Objects/Map/Field.h
+        ECSLib/Core/Entity.h
+        Objects/Field/Field.h
         Datatypes/Point.h
         Observer/EventListener.h
         Observer/EventManager.h
@@ -17,35 +17,35 @@ set(Headers
         Utility/IConvertibleToString.h
         Utility/Concepts.h
         Events/IEvent.h
-        Input/IController.h
-        Input/ControlScheme.h
-        Input/InputMessage.h
+        Engine/Input/IController.h
+        Engine/Input/ControlScheme.h
+        Engine/Input/InputMessage.h
         Tests/TestInput.h
-        Core/ITickable.h
-        Components/Component.h
-        Components/ComponentBag.h
-        Components/Transform.h
-        Systems/ObjectController.h
+        Engine/Core/ITickable.h
+        ECSLib/Components/Component.h
+        ECSLib/Components/ComponentBag.h
+        ECS/Components/Transform.h
+        ECS/Systems/ObjectController.h
         Utility/Tuple.h
-        Core/World.h
-        Core/IApplication.h Input/InputReader.h Utility/MethodContainer.h)
+        ECSLib/Core/World.h
+        Engine/Core/IApplication.h Engine/Input/InputReader.h Utility/MethodContainer.h)
 
 set(Sources
         main.cpp
-        Objects/Map/Cell.cpp
-        Objects/Entity.cpp
-        Objects/Map/Field.cpp
+        Objects/Field/Cell.cpp
+        ECSLib/Core/Entity.cpp
+        Objects/Field/Field.cpp
         Observer/EventListener.cpp
         Observer/EventManager.cpp
         Input/KeyboardInputReader.cpp
-        Input/ControlScheme.cpp
+        Engine/Input/ControlScheme.cpp
         Tests/TestInput.cpp
-        Components/Component.cpp
-        Components/Transform.cpp
-        Systems/ObjectController.cpp
-        Components/ComponentBag.cpp
-        Core/World.cpp
-        Core/Application.cpp Core/Application.h Input/InputMediator.cpp Input/InputMediator.h Utility/EventHandler.h Utility/Template.h)
+        ECSLib/Components/Component.cpp
+        ECS/Components/Transform.cpp
+        ECS/Systems/ObjectController.cpp
+        ECSLib/Components/ComponentBag.cpp
+        ECSLib/Core/World.cpp
+        Engine/Core/Application.cpp Engine/Core/Application.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests/gtests)
