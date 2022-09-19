@@ -12,7 +12,7 @@ set(Headers
         Datatypes/Point.h
         Observer/EventListener.h
         Observer/EventManager.h
-        Input/KeyboardInputReader.h
+        Engine/Input/KeyboardInputReader.h
         config.h
         Utility/IConvertibleToString.h
         Utility/Concepts.h
@@ -20,7 +20,6 @@ set(Headers
         Engine/Input/IController.h
         Engine/Input/ControlScheme.h
         Engine/Input/InputMessage.h
-        Tests/TestInput.h
         Engine/Core/ITickable.h
         ECSLib/Components/Component.h
         ECSLib/Components/ComponentBag.h
@@ -37,9 +36,8 @@ set(Sources
         Objects/Field/Field.cpp
         Observer/EventListener.cpp
         Observer/EventManager.cpp
-        Input/KeyboardInputReader.cpp
+        Engine/Input/KeyboardInputReader.cpp
         Engine/Input/ControlScheme.cpp
-        Tests/TestInput.cpp
         ECSLib/Components/Component.cpp
         ECS/Components/Transform.cpp
         ECS/Systems/ObjectController.cpp
