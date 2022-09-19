@@ -6,53 +6,8 @@
 #include <vector>
 #include <tuple>
 
+#include "MethodContainer.h"
 #include "Template.h"
-
-class IArguments {
-public:
-    virtual ~IArguments() = default;
-};
-
-template<typename... Args>
-class Arguments : public IArguments {
-public:
-    explicit Arguments(Args... args) : _tuple(std::make_tuple(std::forward<Args>(args)...)) {}
-    std::tuple<Args...> _tuple;
-};
-
-class IContainer {
-public:
-    virtual void invoke(IArguments* arguments) = 0;
-};
-
-template<typename T, typename... Args>
-class Container : public IContainer {
-    using F = void (T::*)(Args...);
-    using CorrectArguments = Arguments<Args...>;
-
-public:
-    Container(T* obj, F func) : _obj(obj), _func(func) {}
-
-    void invoke(IArguments* arguments) override {
-        auto args = dynamic_cast<CorrectArguments*>(arguments);
-        auto lambda = [obj = _obj, func = _func](Args... args) {
-            (obj->*func)(args...);
-        };
-        std::apply(lambda, std::move(args->_tuple));
-    }
-
-    T* getObject() {
-        return _obj;
-    }
-
-    F getFunction() {
-        return _func;
-    }
-
-private:
-    T* _obj;
-    F _func;
-};
 
 template<typename... Args>
 class EventHandler {
@@ -73,13 +28,18 @@ public:
 
     template<typename T>
     void add(T* obj, void (T::*func)(Args...)) {
-        _containers.emplace_back(std::make_unique<Container<T, Args...>>(obj, func));
+        _containers.emplace_back(std::make_unique<event_handler::MethodContainer<T, Args...>>(obj, func));
+    }
+
+    template<typename T>
+    void add(T* obj, void (T::*func)(const Args&...)) {
+        _const_containers.emplace_back(std::make_unique<event_handler::MethodContainer<T, const Args&...>>(obj, func));
     }
 
     template<typename T>
     void remove(T* obj, void (T::*func)(Args...)) {
         for (size_t i = 0; i < _containers.size(); ++i) {
-            auto container = dynamic_cast<Container<T, Args...>*>(_containers[i].get());
+            auto container = dynamic_cast<event_handler::MethodContainer<T, Args...>*>(_containers[i].get());
             if (container == nullptr)
                 continue;
             if (container->getObject() == obj && container->getFunction() == func) {
@@ -89,19 +49,40 @@ public:
         }
     }
 
+    template<typename T>
+    void remove(T* obj, void (T::*func)(const Args&...)) {
+        for (size_t i = 0; i < _const_containers.size(); ++i) {
+            auto container = dynamic_cast<event_handler::MethodContainer<T, const Args&...>*>(_const_containers[i].get());
+            if (container == nullptr)
+                continue;
+            if (container->getObject() == obj && container->getFunction() == func) {
+                _const_containers.erase(_const_containers.begin() + i);
+                break;
+            }
+        }
+    }
+
     void operator()(Args... args) {
         for (const auto& func : _functions) {
             func(args...);
         }
-        Arguments<Args...> arguments(std::forward<Args>(args)...);
-        for (const auto& kPtr : _containers) {
-            kPtr->invoke(&arguments);
+        event_handler::Arguments<Args...> arguments(std::forward<Args>(args)...);
+        if (!_containers.empty()) {
+            for (const auto& kPtr : _containers) {
+                kPtr->invoke(&arguments);
+            }
+        }
+        if (!_const_containers.empty()) {
+            for (const auto& kPtr : _const_containers) {
+                kPtr->invoke(&arguments);
+            }
         }
     }
 
 private:
     std::vector<std::function<void(Args...)>> _functions;
-    std::vector<std::unique_ptr<IContainer>> _containers;
+    std::vector<std::unique_ptr<event_handler::IMethodContainer>> _containers;
+    std::vector<std::unique_ptr<event_handler::IMethodContainer>> _const_containers;
 };
 
 #endif //GAME_UTILITY_EVENTHANDLER_H_

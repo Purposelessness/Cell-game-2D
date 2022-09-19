@@ -19,7 +19,7 @@ set(Headers
         Events/IEvent.h
         Input/IController.h
         Input/ControlScheme.h
-        Input/KeyInfo.h
+        Input/InputMessage.h
         Tests/TestInput.h
         Core/ITickable.h
         Components/Component.h
@@ -28,7 +28,7 @@ set(Headers
         Systems/ObjectController.h
         Utility/Tuple.h
         Core/World.h
-        Core/IApplication.h Input/IInputMediator.h Input/InputReader.h)
+        Core/IApplication.h Input/InputReader.h Utility/MethodContainer.h)
 
 set(Sources
         main.cpp
