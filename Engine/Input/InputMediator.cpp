@@ -10,6 +10,12 @@ void InputMediator::notify(const InputMessage& input_message) {
     }
 }
 
+void InputMediator::tick() {
+    for (auto& kReader : _readers) {
+        kReader->process();
+    }
+}
+
 void InputMediator::addReader(const std::shared_ptr<InputReader>& input_reader) {
     _readers.insert(input_reader);
     input_reader->event_handler.add(this, &InputMediator::notify);

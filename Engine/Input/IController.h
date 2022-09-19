@@ -1,7 +1,7 @@
 #ifndef GAME_ENGINE_INPUT_ICONTROLLER_H_
 #define GAME_ENGINE_INPUT_ICONTROLLER_H_
 
-struct InputMessage;
+#include "InputMessage.h"
 
 class IController {
 public:

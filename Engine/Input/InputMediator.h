@@ -10,6 +10,8 @@ struct InputMessage;
 
 class InputMediator {
 public:
+    void tick();
+
     void addReader(const std::shared_ptr<InputReader>& input_reader);
     void removeReader(const std::shared_ptr<InputReader>& input_reader);
 

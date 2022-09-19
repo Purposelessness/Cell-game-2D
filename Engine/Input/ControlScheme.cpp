@@ -1,22 +1,27 @@
 #include "ControlScheme.h"
+
+#include <utility>
+
 #include "InputMessage.h"
 
-ControlScheme::ControlScheme() : _key_map({}) {}
+ControlScheme::ControlScheme() : ControlScheme(std::unordered_map<char, InputType>{}) {}
+
+ControlScheme::ControlScheme(std::unordered_map<char, InputType> key_map) : _key_map(std::move(key_map)) {}
 
 void ControlScheme::addKey(char key, InputType type) {
-    _key_map[key] = {type, InputState::Released};
+    _key_map[key] = type;
 }
 
 void ControlScheme::deleteKey(char key) {
     _key_map.erase(key);
 }
 
-InputMessage ControlScheme::key(char key) {
+InputType ControlScheme::key(char key) {
     if (_key_map.count(key) == 0)
         return {};
     return _key_map[key];
 }
 
-std::map<char, InputMessage>& ControlScheme::keys() {
+std::unordered_map<char, InputType>& ControlScheme::keys() {
     return _key_map;
 }

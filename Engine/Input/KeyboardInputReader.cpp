@@ -10,14 +10,15 @@
 
 // TODO: Linux support
 
-KeyboardInputReader::KeyboardInputReader(std::shared_ptr<ControlScheme> control_scheme)
-    : _control_scheme(std::move(control_scheme)) {}
+KeyboardInputReader::KeyboardInputReader(ControlScheme& control_scheme) {
+    changeControlScheme(control_scheme);
+}
 
 void KeyboardInputReader::process() {
 #ifdef __linux__
     return;
 #elif _WIN32
-    for (auto& k : _control_scheme->keys()) {
+    for (auto& k : _key_map) {
         bool pressed = keyPressed(k.first);
         if (pressed && (k.second.state == InputState::Released)) {
             k.second.state = InputState::Pressed;
@@ -31,8 +32,10 @@ void KeyboardInputReader::process() {
 #endif
 }
 
-void KeyboardInputReader::changeControlScheme(std::shared_ptr<ControlScheme> control_scheme) {
-    this->_control_scheme = std::move(control_scheme);
+void KeyboardInputReader::changeControlScheme(ControlScheme& control_scheme) {
+    for (const auto& kKey : control_scheme.keys()) {
+        _key_map[kKey.first] = {kKey.second, InputState::Released};
+    }
 }
 
 constexpr int kKeyPressed = 0x8000;
