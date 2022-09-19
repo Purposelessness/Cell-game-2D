@@ -1,8 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "ComponentMocks.h"
-
-#include "../../../ECS/Core/World.h"
+#include "../../../ECSLib/Core/World.h"
 
 class WorldTest : public ::testing::Test {
 protected:

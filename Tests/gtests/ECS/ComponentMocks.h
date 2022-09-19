@@ -1,8 +1,8 @@
 #ifndef GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
 #define GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
 
-#include "../../../Components/Component.h"
-#include "../../../Components/ComponentBag.h"
+#include "../../../ECSLib/Components/Component.h"
+#include "../../../ECSLib/Components/ComponentBag.h"
 
 class TransformComponent : public Component {
 public:
