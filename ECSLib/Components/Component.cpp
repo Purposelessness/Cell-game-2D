@@ -1,11 +1,7 @@
 #include "Component.h"
 
-Component::Component() : _type("Unknown"), _enabled(true), _deleted(false) {}
-
-Component::Component(std::string type) : _type(std::move(type)), _enabled(true), _deleted(false) {}
-
-std::string Component::getType() {
-    return _type;
+int Component::getId() const {
+    return _id;
 }
 
 bool Component::isEnabled() const {
@@ -29,5 +25,5 @@ void Component::remove() {
 }
 
 std::string Component::toString() {
-    return _type + "\n";
+    return std::to_string(_id) + "\n";
 }

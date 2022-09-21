@@ -6,35 +6,38 @@
 
 class TransformComponent : public Component {
 public:
-    TransformComponent() : Component("TestTransform") {}
+    TransformComponent() : Component(this) {}
 
     std::string toString() override {
-        std::string out = std::move(Component::toString());
-        out += "\tpos = " + std::to_string(_pos) + '\n';
+        std::string out = "TestTransform\n\tpos = " + std::to_string(pos) + '\n';
         return out;
     }
 
-    int _pos = 0;
+    int pos = 0;
 };
 
 class HealthComponent : public Component {
 public:
-    HealthComponent() : Component("TestHealth") {}
+    HealthComponent() : Component(this) {}
 
     std::string toString() override {
-        std::string out = std::move(Component::toString());
-        out += "\tvalue = " + std::to_string(_value) + '\n';
+        std::string out = "TestHealth\n\tvalue = " + std::to_string(value) + '\n';
         return out;
     }
 
-    int _value = 100;
+    int value = 100;
 };
 
 class StrengthComponent : public Component {
 public:
-    StrengthComponent() : Component("TestStrength") {}
+    StrengthComponent() : Component(this) {}
 
-    int _value = 5;
+    std::string toString() override {
+        std::string out = "TestStrength\n";
+        return out;
+    }
+
+    int value = 5;
 };
 
 class MoveController {
@@ -53,7 +56,7 @@ public:
         if (!_component->isEnabled())
             return;
 
-        _component->_pos += 1;
+        _component->pos += 1;
     }
 
     [[nodiscard]] bool isNull() const {
@@ -67,7 +70,7 @@ private:
 class HealthManager {
 public:
     static void applyDamage(HealthComponent& health_component) {
-        health_component._value -= 10;
+        health_component.value -= 10;
     }
 };
 

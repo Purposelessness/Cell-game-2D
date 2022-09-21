@@ -4,18 +4,13 @@
 #include <type_traits>
 #include <string>
 
+#include "Concept.h"
+#include "TypeIdentifier.h"
 #include "../../Utility/IConvertibleToString.h"
-
-class Component;
-
-template<typename T>
-concept TComponent = std::is_base_of_v<Component, T>;
 
 class Component : public IConvertibleToString {
 public:
-    Component();
-
-    std::string getType();
+    [[nodiscard]] int getId() const;
 
     void enable();
     void disable();
@@ -27,10 +22,14 @@ public:
     std::string toString() override;
 
 protected:
-    explicit Component(std::string);
+    explicit Component(TComponent auto* tc) : _enabled(true), _deleted(false) {
+        using ComponentType = std::remove_pointer_t<decltype(tc)>;
+        TypeIdentifier<ComponentType>::setup();
+        _id = TypeIdentifier<ComponentType>::getId();
+    }
 
 private:
-    std::string _type;
+    int _id;
     bool _enabled;
     bool _deleted;
 };

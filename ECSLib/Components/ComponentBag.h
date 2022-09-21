@@ -14,46 +14,43 @@ class ComponentBag : public IConvertibleToString {
 public:
     template<TComponent T>
     std::shared_ptr<T> getComponent() {
-        T t;
-        auto type = t.getType();
-        if (_components.count(type) < 1)
+        auto id = TypeIdentifier<T>::getId();;
+        if (_components.count(id) < 1)
             return nullptr;
-        return std::reinterpret_pointer_cast<T>(_components[type]);
+        return std::reinterpret_pointer_cast<T>(_components[id]);
     }
 
     template<TComponent T>
     void addComponent() {
-        T t;
-        auto type = t.getType();
-        if (_components.count(type) > 0) {
+        TypeIdentifier<T>::setup();
+        auto id = TypeIdentifier<T>::getId();
+        if (_components.count(id) > 0) {
             // TODO: log warning
             return;
         }
-        _components[type] = std::make_shared<T>();
+        _components[id] = std::make_shared<T>();
     }
 
     template<TComponent T>
     void setState(bool state) {
-        T t;
-        auto type = t.getType();
-        if (_components.count(type) < 1) {
+        auto id = TypeIdentifier<T>::getId();
+        if (_components.count(id) < 1) {
             // TODO: log warning
             return;
         }
-        state ? _components[type]->enable() : _components[type]->disable();
+        state ? _components[id]->enable() : _components[id]->disable();
     }
 
     template<TComponent T>
     void removeComponent() {
-        T t;
-        auto type = t.getType();
-        if (_components.count(type) < 1) {
+        auto id = TypeIdentifier<T>::getId();
+        if (_components.count(id) < 1) {
             // TODO: log warning
             return;
         }
-        _components[type]->remove();
-        _components[type].reset();
-        _components.erase(type);
+        _components[id]->remove();
+        _components[id].reset();
+        _components.erase(id);
     }
 
     template<TComponent... T>
@@ -65,7 +62,7 @@ public:
                        [&out, components = &_components](TComponent auto t) {
                            if (!out)
                                return;
-                           if (!components->contains(t.getType())) {
+                           if (!components->contains(t.getId())) {
                                out = false;
                                return;
                            }
@@ -79,7 +76,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<Component>> getActiveComponents();
-    std::unordered_map<std::string, std::shared_ptr<Component>> _components;
+    std::unordered_map<int, std::shared_ptr<Component>> _components;
 };
 
 #endif //GAME_ECSLIB_COMPONENTS_COMPONENTBAG_H_

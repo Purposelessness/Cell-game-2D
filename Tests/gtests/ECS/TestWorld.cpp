@@ -23,7 +23,7 @@ TEST_F(WorldTest, Test) {
     entity_2->component_bag.addComponent<HealthComponent>();
     entity_2->component_bag.addComponent<TransformComponent>();
     entity_2->component_bag.addComponent<StrengthComponent>();
-    entity_2->component_bag.getComponent<HealthComponent>()->_value = 20;
+    entity_2->component_bag.getComponent<HealthComponent>()->value = 20;
     EXPECT_EQ(entity_2->toString(),
               "------------------Entity:Lupa\n3 components:\nTestStrength\nTestTransform\n\tpos = 0\nTestHealth\n\tvalue = 20\n------------------");
 

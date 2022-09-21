@@ -4,7 +4,7 @@
 
 #include "../../Objects/Field/Field.h"
 
-Transform::Transform() : Component("Transform") {
+Transform::Transform() : Component(this) {
 }
 
 void Transform::setField(std::shared_ptr<Field> field) {
