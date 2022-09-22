@@ -16,6 +16,8 @@ public:
 
 class TestField : public ::testing::Test {
 protected:
+    TestField() : _null_field(Field{0, 0}) {}
+
     void SetUp() override {
         _hello_event = std::make_shared<HelloEvent>();
         _bye_event = std::make_shared<ByeEvent>();
@@ -26,6 +28,7 @@ protected:
 
     Field _f_1;
     Field _f_2;
+    Field _null_field;
 };
 
 TEST_F(TestField, Size) {
@@ -40,11 +43,13 @@ TEST_F(TestField, Size) {
     f_4.getSize(w, h);
     EXPECT_EQ(w, 0);
     EXPECT_EQ(h, 0);
+    EXPECT_EQ(f_4, _null_field);
 
     Field f_5{0, 20};
     f_5.getSize(w, h);
     EXPECT_EQ(w, 0);
     EXPECT_EQ(h, 0);
+    EXPECT_EQ(f_5, _null_field);
 }
 
 TEST_F(TestField, CopyConstructor) {
@@ -54,22 +59,23 @@ TEST_F(TestField, CopyConstructor) {
     f_4.getSize(w, h);
     EXPECT_EQ(w, 0);
     EXPECT_EQ(w, 0);
+    EXPECT_EQ(_f_1, _null_field);
 
     _f_1 = Field{-100, -100};
     Field f_5{_f_1};
     f_5.getSize(w, h);
     EXPECT_EQ(w, 0);
     EXPECT_EQ(w, 0);
+    EXPECT_EQ(_f_1, _null_field);
 
     _f_1 = Field{25, 35};
     _f_1.setCellEvent(0, 0, _hello_event);
 
     Field f_3{_f_1};
-    f_3.getSize(w, h);
-    EXPECT_EQ(w, 25);
-    EXPECT_EQ(h, 35);
+    EXPECT_EQ(f_3, _f_1);
     EXPECT_EQ(_f_1.getCell(0, 0), f_3.getCell(0, 0));
     f_3.setCellEvent(0, 0, _bye_event);
+    EXPECT_NE(f_3, _f_1);
     EXPECT_NE(_f_1.getCell(0, 0), f_3.getCell(0, 0));
 }
 
@@ -80,25 +86,29 @@ TEST_F(TestField, CopyOperator) {
     f_4 = _f_1;
     f_4.getSize(w, h);
     EXPECT_EQ(w, 0);
-    EXPECT_EQ(w, 0);
+    EXPECT_EQ(h, 0);
+    EXPECT_EQ(f_4, _null_field);
 
     _f_1 = Field{-100, -100};
     Field f_5{};
     f_5 = _f_1;
     f_5.getSize(w, h);
     EXPECT_EQ(w, 0);
-    EXPECT_EQ(w, 0);
+    EXPECT_EQ(h, 0);
+    EXPECT_EQ(f_5, _null_field);
 
     _f_1 = Field{25, 35};
     _f_1.setCellEvent(0, 0, _hello_event);
 
     Field f_3{};
     f_3 = _f_1;
+    EXPECT_EQ(f_3, _f_1);
     f_3.getSize(w, h);
     EXPECT_EQ(w, 25);
     EXPECT_EQ(h, 35);
     EXPECT_EQ(_f_1.getCell(0, 0), f_3.getCell(0, 0));
     f_3.setCellEvent(0, 0, _bye_event);
+    EXPECT_NE(f_3, _f_1);
     EXPECT_NE(_f_1.getCell(0, 0), f_3.getCell(0, 0));
 }
 
@@ -107,8 +117,9 @@ TEST_F(TestField, MoveConstructor) {
     int w_2, h_2;
 
     _f_1 = Field{30, 40};
-    _f_1.setCellEvent(0, 0, _hello_event);
+    _f_1.setCellEvent(5, 5, _hello_event);
     Field f_3{std::move(_f_1)};
+    EXPECT_EQ(_f_1, _null_field);
 
     _f_1.getSize(w_1, h_1);
     f_3.getSize(w_2, h_2);
@@ -116,14 +127,16 @@ TEST_F(TestField, MoveConstructor) {
     EXPECT_EQ(h_1, 0);
     EXPECT_EQ(w_2, 30);
     EXPECT_EQ(h_2, 40);
-    EXPECT_EQ(_f_1.getCell(0, 0), Cell{});
     Cell c{};
     c.changeEvent(_hello_event);
-    EXPECT_EQ(f_3.getCell(0, 0), c);
+    EXPECT_EQ(f_3.getCell(5, 5), c);
+    EXPECT_NE(f_3.getCell(0, 0), c);
 
     _f_1 = Field{-20, 40};
     _f_1.setCellEvent(0, 0, _hello_event);
     Field f_4{std::move(_f_1)};
+    EXPECT_EQ(_f_1, _null_field);
+    EXPECT_EQ(f_4, _null_field);
 
     _f_1.getSize(w_1, h_1);
     f_4.getSize(w_2, h_2);
@@ -143,6 +156,7 @@ TEST_F(TestField, MoveOperator) {
     _f_1.setCellEvent(0, 0, _hello_event);
     Field f_3{};
     f_3 = std::move(_f_1);
+    EXPECT_EQ(_f_1, _null_field);
 
     _f_1.getSize(w_1, h_1);
     f_3.getSize(w_2, h_2);
@@ -159,6 +173,8 @@ TEST_F(TestField, MoveOperator) {
     _f_1.setCellEvent(0, 0, _hello_event);
     Field f_4{};
     f_4 = std::move(_f_1);
+    EXPECT_EQ(_f_1, _null_field);
+    EXPECT_EQ(f_4, _null_field);
 
     _f_1.getSize(w_1, h_1);
     f_4.getSize(w_2, h_2);
