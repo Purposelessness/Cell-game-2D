@@ -1,4 +1,5 @@
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCInconsistentNamingInspection"
 #pragma ide diagnostic ignored "NotImplementedFunctions"
 #ifndef GAME_UTILITY_TEMPLATE_H_
 #define GAME_UTILITY_TEMPLATE_H_
