@@ -11,12 +11,9 @@ public:
 template<TComponent T>
 class TypeIdentifier : public CommonTypeInfo {
 public:
-    static void setup() {
+    static int getId() {
         if (_id == -1)
             _id = length++;
-    }
-
-    static int getId() {
         return _id;
     }
 

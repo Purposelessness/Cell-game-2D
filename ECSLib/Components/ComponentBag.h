@@ -22,7 +22,6 @@ public:
 
     template<TComponent T>
     void addComponent() {
-        TypeIdentifier<T>::setup();
         auto id = TypeIdentifier<T>::getId();
         if (_components.count(id) > 0) {
             // TODO: log warning
@@ -55,18 +54,16 @@ public:
 
     template<TComponent... T>
     bool hasComponents() {
-        using TypesTuple = std::tuple<T...>;
-        TypesTuple types;
         bool out = true;
-        Tuple::forEach(std::move(types),
-                       [&out, components = &_components](TComponent auto t) {
-                           if (!out)
-                               return;
-                           if (!components->contains(t.getId())) {
-                               out = false;
-                               return;
-                           }
-                       });
+        ([&out, components = &_components](int id) -> void {
+            if (!out) {
+                return;
+            }
+            if (!components->contains(id)) {
+                out = false;
+                return;
+            }
+        } (TypeIdentifier<T>::getId()), ...);
         return out;
     }
 
