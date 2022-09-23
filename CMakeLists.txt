@@ -43,7 +43,7 @@ set(Sources
         Controllers/ObjectController.cpp
         ECSLib/Components/ComponentBag.cpp
         ECSLib/Core/World.cpp
-        Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h ECSLib/Components/TypeIdentifier.cpp ECSLib/Components/TypeIdentifier.h ECSLib/Components/Concept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h)
+        Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h ECSLib/Components/TypeIdentifier.cpp ECSLib/Components/TypeIdentifier.h ECSLib/Components/Concept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h ECSLib/Core/Filter.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests/gtests)

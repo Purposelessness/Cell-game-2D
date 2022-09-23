@@ -6,6 +6,8 @@
 class IConvertibleToString {
 public:
     [[nodiscard]] virtual std::string toString() = 0;
+
+    auto operator<=>(const IConvertibleToString& other) const = default;
 };
 
 template<typename T>
