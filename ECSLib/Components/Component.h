@@ -11,6 +11,8 @@
 class Component : public IConvertibleToString {
 public:
     [[nodiscard]] int getId() const;
+    [[nodiscard]] int getEntityId() const;
+    void linkEntity(int entity_id);
 
     void enable();
     void disable();
@@ -22,14 +24,14 @@ public:
     std::string toString() override;
 
 protected:
-    explicit Component(TComponent auto* tc) : _enabled(true), _deleted(false) {
+    explicit Component(TComponent auto* tc) : _enabled(true), _deleted(false), _entity_id(-1) {
         using ComponentType = std::remove_pointer_t<decltype(tc)>;
-        TypeIdentifier<ComponentType>::setup();
         _id = TypeIdentifier<ComponentType>::getId();
     }
 
 private:
     int _id;
+    int _entity_id;
     bool _enabled;
     bool _deleted;
 };
