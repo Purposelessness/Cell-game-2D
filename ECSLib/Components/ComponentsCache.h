@@ -2,10 +2,11 @@
 #define GAME_ECSLIB_COMPONENTS_COMPONENTSCACHE_H_
 
 #include <unordered_map>
+#include <memory>
+#include <vector>
 
 #include "TypeIdentifier.h"
 #include "Concept.h"
-#include "../Core/Entity.h"
 
 template<TComponent T>
 class ComponentsCache;
@@ -14,16 +15,29 @@ class CommonCache {
 public:
     template<TComponent T>
     static ComponentsCache<T>& getCache() {
+        auto& cache = getCacheFast<T>();
+        return reinterpret_cast<ComponentsCache<T>&>(cache);
+    }
+
+    template<TComponent T>
+    static CommonCache& getCacheFast() {
         int cur_type_id = TypeIdentifier<T>::getId();
         if (caches[cur_type_id] == nullptr) {
             caches[cur_type_id] = std::make_shared<ComponentsCache<T>>();
         }
-        auto& cache = *caches[cur_type_id];
-        return reinterpret_cast<ComponentsCache<T>&>(cache);
+        return *caches[cur_type_id];
     }
 
-    virtual void removeComponent(const Entity& entity) = 0;
-    virtual bool hasComponent(const Entity& entity) = 0;
+    static std::shared_ptr<CommonCache> getCacheFast(int id) {
+        return caches[id];
+    }
+
+    virtual void removeComponent(int id) {}
+    virtual bool hasComponent(int id) {
+        return false;
+    }
+
+    [[nodiscard]] bool isEmpty() const;
 
 protected:
     static std::unordered_map<int, std::shared_ptr<CommonCache>> caches;
@@ -37,8 +51,7 @@ public:
         type_id = TypeIdentifier<T>::getId();
     }
 
-    T& addComponent(const Entity& entity) {
-        int entity_id = entity.getId();
+    T& addComponent(int entity_id) {
         if (_data.contains(entity_id))
             return _data[entity_id];
         TComponent auto component = T{};
@@ -48,22 +61,19 @@ public:
         return _data[entity_id];
     }
 
-    T& getComponent(const Entity& entity) {
-        return _data[entity.getId()];
+    T& getComponent(int entity_id) {
+        return _data[entity_id];
     }
 
-    T& getComponent(int key) {
-        return _data[key];
-    }
-
-    void removeComponent(const Entity& entity) override {
-        int entity_id = entity.getId();
+    void removeComponent(int entity_id) override {
+        if (!_data.contains(entity_id))
+            return;
         _data.erase(entity_id);
         keys.erase(std::remove(keys.begin(), keys.end(), entity_id)); // NOLINT(bugprone-inaccurate-erase)
     }
 
-    bool hasComponent(const Entity& entity) override {
-        return _data.contains(entity.getId());
+    bool hasComponent(int entity_id) override {
+        return _data.contains(entity_id);
     }
 
     std::vector<int> keys;
