@@ -3,6 +3,9 @@
 
 #include "../../../ECSLib/Components/Component.h"
 #include "../../../ECSLib/Components/ComponentBag.h"
+#include "../../../ECSLib/Components/ComponentsCache.h"
+#include "../../../ECSLib/Core/World.h"
+#include "../../../ECSLib/Core/Filter.h"
 
 class TransformComponent : public Component {
 public:

@@ -10,7 +10,7 @@ set(Test_src
         ECS/TestWorld.cpp
         ECS/ComponentMocks.h
         TestEventHandler.cpp
-        )
+        ECS/TestComponentsCache.cpp ECS/TestFilter.cpp)
 
 # Files of main project that need to be tested
 set(Project_src
@@ -18,6 +18,7 @@ set(Project_src
         ../../Objects/Field/Cell.cpp
         ../../ECSLib/Components/Component.cpp
         ../../ECSLib/Components/ComponentBag.cpp
+        ../../ECSLib/Components/ComponentsCache.cpp
         ../../ECSLib/Components/TypeIdentifier.cpp
         ../../ECSLib/Core/World.cpp
         ../../ECSLib/Core/Entity.cpp
