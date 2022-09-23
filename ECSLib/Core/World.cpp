@@ -2,10 +2,35 @@
 
 #include "Entity.h"
 
-void World::addEntity(std::shared_ptr<Entity> entity) {
-    _entities.emplace(std::move(entity));
+Entity& World::addEntity(const std::string& name) {
+    std::string entity_name = name;
+    bool is_from_array;
+    int id = getId(is_from_array);
+    if (name.empty()) {
+        entity_name = "Entity " + std::to_string(id);
+    }
+    Entity entity{id, entity_name};
+    if (is_from_array) {
+        _entities.push_back(entity);
+    } else {
+        _entities[id] = entity;
+    }
+    return _entities[id];
 }
 
-void World::removeEntity(const std::shared_ptr<Entity> &entity) {
-    _entities.erase(entity);
+void World::removeEntity(const Entity& entity) {
+    int id = entity.getId();
+    _entities[id] = Entity{};
+    _unused_ids.push_back(id);
+}
+
+int World::getId(bool& is_from_array) {
+    if (_unused_ids.empty()) {
+        is_from_array = true;
+        return static_cast<int>(_entities.size());
+    }
+    int index = _unused_ids.back();
+    _unused_ids.pop_back();
+    is_from_array = false;
+    return index;
 }

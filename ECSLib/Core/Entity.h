@@ -6,13 +6,15 @@
 
 class Entity : public IConvertibleToString {
 public:
-    explicit Entity(std::string name);
+    Entity();
+    explicit Entity(int id, std::string name);
 
+    [[nodiscard]] int getId() const;
     std::string toString() override;
-    ComponentBag component_bag;
 
 private:
     std::string _name;
+    int _id;
 };
 
 #endif //GAME_ECSLIB_CORE_ENTITY_H_
