@@ -1,21 +1,7 @@
 #include "Transform.h"
 
-#include <utility>
+Transform::Transform() : Component(this) {}
 
-#include "../../Objects/Field/Field.h"
-
-Transform::Transform() : Component(this) {
-}
-
-void Transform::setField(std::shared_ptr<Field> field) {
-    this->_field = std::move(field);
-}
-
-Point Transform::getPosition() const {
-    return _position;
-}
-
-bool Transform::setPosition(const Point& new_position) {
-    _position = new_position;
-    return true;
+std::string Transform::toString() {
+    return "Transform:\n\tposition: " + position.toString() + "\n\tfield_id: " + std::to_string(field_id) + "\n";
 }

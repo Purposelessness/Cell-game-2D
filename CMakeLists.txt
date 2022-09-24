@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(Headers
         Objects/Field/Cell.h
-        Observer/EventMessage.h
+        Utility/Observer/EventMessage.h
         ECSLib/Core/Entity.h
         Objects/Field/Field.h
         Datatypes/Point.h
-        Observer/EventListener.h
-        Observer/EventManager.h
+        Utility/Observer/EventListener.h
+        Utility/Observer/EventManager.h
         Engine/Input/KeyboardInputReader.h
         config.h
         Utility/IConvertibleToString.h
@@ -34,8 +34,8 @@ set(Sources
         Objects/Field/Cell.cpp
         ECSLib/Core/Entity.cpp
         Objects/Field/Field.cpp
-        Observer/EventListener.cpp
-        Observer/EventManager.cpp
+        Utility/Observer/EventListener.cpp
+        Utility/Observer/EventManager.cpp
         Engine/Input/KeyboardInputReader.cpp
         Engine/Input/ControlScheme.cpp
         ECSLib/Components/Component.cpp
@@ -43,7 +43,7 @@ set(Sources
         Controllers/ObjectController.cpp
         ECSLib/Components/ComponentBag.cpp
         ECSLib/Core/World.cpp
-        Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h ECSLib/Components/TypeIdentifier.cpp ECSLib/Components/TypeIdentifier.h ECSLib/Components/ComponentConcept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h ECSLib/Core/Filter.h ECSLib/Systems/System.h ECSLib/Systems/TickableSystem.h ECSLib/Systems/System.cpp)
+        Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h ECSLib/Components/TypeIdentifier.cpp ECSLib/Components/TypeIdentifier.h ECSLib/Components/ComponentConcept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h ECSLib/Core/Filter.h ECSLib/Systems/System.h ECSLib/Systems/TickableSystem.h ECSLib/Systems/System.cpp ECS/EntityProviders/PlayerProvider.cpp ECS/EntityProviders/PlayerProvider.h ECS/Markers/ControllableMarker.cpp ECS/Markers/ControllableMarker.h ECS/Components/Health.cpp ECS/Components/Health.h ECS/Components/Weapon.cpp ECS/Components/Weapon.h ECS/Components/Intelligence.cpp ECS/Components/Intelligence.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests/gtests)
