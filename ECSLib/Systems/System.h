@@ -4,8 +4,7 @@
 #include <memory>
 #include <utility>
 
-#include "../Core/Filter.h"
-
+class Filter;
 class World;
 
 class System {
@@ -16,7 +15,7 @@ public:
     void resetWorld();
 
 protected:
-    std::weak_ptr<World> world;
+    std::weak_ptr<World> world{};
 };
 
 template<typename T>

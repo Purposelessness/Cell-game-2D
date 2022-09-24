@@ -6,6 +6,7 @@
 struct Vector;
 
 struct Point : public IConvertibleToString {
+    Point();
     Point(int x, int y);
 
     std::string toString() override;
@@ -13,8 +14,8 @@ struct Point : public IConvertibleToString {
     friend Point operator+(Point& a, Point& b);
     friend Point operator+(Point& p, Vector& v);
 
-    int x = -1;
-    int y = -1;
+    int x;
+    int y;
 };
 
 #endif //GAME_DATATYPES_POINT_H_

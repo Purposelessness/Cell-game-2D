@@ -2,6 +2,8 @@
 
 #include "Vector.h"
 
+Point::Point() : Point(0, 0) {}
+
 Point::Point(int x, int y) : x(x), y(y) {}
 
 std::string Point::toString() {

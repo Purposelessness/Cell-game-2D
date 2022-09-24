@@ -11,15 +11,7 @@
 
 class PlayerProvider {
 public:
-    static Entity& create(World& world) {
-        auto& player = world.addEntity("Player");
-        player.addComponent<Transform>();
-        player.addComponent<ControllableMarker>();
-        player.addComponent<Health>();
-        player.addComponent<Weapon>();
-        player.addComponent<Intelligence>();
-        return player;
-    }
+    static Entity& create(World& world);
 };
 
 #endif //GAME_ECS_ENTITYPROVIDERS_PLAYERPROVIDER_H_

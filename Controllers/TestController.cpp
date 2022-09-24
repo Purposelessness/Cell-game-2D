@@ -27,5 +27,5 @@ void TestController::process(const InputMessage& input_message) {
             command = "Reset";
             break;
     }
-    std::cout << "Command is: " << command << "\n";
+    std::cout << "Command is: " << command + std::to_string(static_cast<int>(input_message.state)) << "\n";
 }

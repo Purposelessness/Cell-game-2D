@@ -1,14 +1,17 @@
-#include "ObjectController.h"
+#include "ObjectControllerSystem.h"
 
-#include "../ECS/Markers/ControllableMarker.h"
-#include "../ECS/Components/Velocity.h"
+#include "../../ECSLib/Core/Filter.h"
+#include "../Markers/ControllableMarker.h"
+#include "../Components/Velocity.h"
 
-void ObjectController::process(const InputMessage& input_message) {
+void ObjectControllerSystem::process(const InputMessage& input_message) {
     _message = input_message;
     process();
 }
 
-void ObjectController::process() {
+void ObjectControllerSystem::process() {
+    if (world.expired())
+        return;
     auto filter = Filter::with<ControllableMarker, Velocity>(*world.lock());
     for (auto& entity : filter) {
         auto& velocity = entity.getComponent<Velocity>();
@@ -24,7 +27,7 @@ void ObjectController::process() {
                 velocity.value.x = state;
                 break;
             case InputType::MoveLeft:
-                velocity.value.y = -state;
+                velocity.value.x = -state;
                 break;
             default:
                 break;

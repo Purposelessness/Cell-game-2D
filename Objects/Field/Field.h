@@ -19,12 +19,12 @@ public:
     Cell& getCell(const Point& point);
     void setCellEvent(int x, int y, std::shared_ptr<IEvent> event);
 
-    [[nodiscard]] inline Point normalizePoint(const Point& point) const;
+    [[nodiscard]] Point normalizePoint(const Point& point) const;
 
-    [[nodiscard]] inline bool isPointPassable(const Point& point) const;
+    [[nodiscard]] bool isPointPassable(const Point& point) const;
 
-    [[nodiscard]] inline bool isPointValid(int x, int y) const;
-    [[nodiscard]] inline bool isPointValid(const Point& point) const;
+    [[nodiscard]] bool isPointValid(int x, int y) const;
+    [[nodiscard]] bool isPointValid(const Point& point) const;
 
     Field(const Field& other);
     Field& operator=(const Field& other);

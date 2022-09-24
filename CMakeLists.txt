@@ -24,7 +24,7 @@ set(Headers
         ECSLib/Components/Component.h
         ECSLib/Components/ComponentBag.h
         ECS/Components/Transform.h
-        Controllers/ObjectController.h
+        ECS/Systems/ObjectControllerSystem.h
         Utility/Tuple.h
         ECSLib/Core/World.h
         Engine/Core/IApplication.h Engine/Input/InputReader.h Utility/MethodContainer.h)
@@ -40,7 +40,7 @@ set(Sources
         Engine/Input/ControlScheme.cpp
         ECSLib/Components/Component.cpp
         ECS/Components/Transform.cpp
-        Controllers/ObjectController.cpp
+        ECS/Systems/ObjectControllerSystem.cpp
         ECSLib/Components/ComponentBag.cpp
         ECSLib/Core/World.cpp
         Engine/Core/MainApplication.cpp Engine/Core/MainApplication.h Engine/Input/InputMediator.cpp Engine/Input/InputMediator.h Utility/EventHandler.h Utility/Template.h Core/Application.cpp Core/Application.h Core/InputSystem.cpp Core/InputSystem.h Controllers/TestController.cpp Controllers/TestController.h ECSLib/Components/TypeIdentifier.cpp ECSLib/Components/TypeIdentifier.h ECSLib/Components/ComponentConcept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h ECSLib/Core/Filter.h ECSLib/Systems/System.h ECSLib/Systems/TickableSystem.h ECSLib/Systems/System.cpp ECS/EntityProviders/PlayerProvider.cpp ECS/EntityProviders/PlayerProvider.h ECS/Markers/ControllableMarker.cpp ECS/Markers/ControllableMarker.h ECS/Components/Health.cpp ECS/Components/Health.h ECS/Components/Weapon.cpp ECS/Components/Weapon.h ECS/Components/Intelligence.cpp ECS/Components/Intelligence.h ECS/Components/Velocity.cpp ECS/Components/Velocity.h Datatypes/Vector.cpp Datatypes/Vector.h)
