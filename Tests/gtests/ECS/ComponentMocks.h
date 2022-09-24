@@ -2,7 +2,6 @@
 #define GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
 
 #include "../../../ECSLib/Components/Component.h"
-#include "../../../ECSLib/Components/ComponentBag.h"
 #include "../../../ECSLib/Components/ComponentsCache.h"
 #include "../../../ECSLib/Core/World.h"
 #include "../../../ECSLib/Core/Filter.h"
@@ -41,33 +40,6 @@ public:
     }
 
     int value = 5;
-};
-
-class MoveController {
-public:
-    explicit MoveController(std::shared_ptr<TransformComponent> component) : _component(std::move(component)) {}
-
-    void move() {
-        if (!_component)
-            return;
-
-        if (_component->isRemoved()) {
-            _component.reset();
-            return;
-        }
-
-        if (!_component->isEnabled())
-            return;
-
-        _component->pos += 1;
-    }
-
-    [[nodiscard]] bool isNull() const {
-        return _component == nullptr;
-    }
-
-private:
-    std::shared_ptr<TransformComponent> _component;
 };
 
 class HealthManager {

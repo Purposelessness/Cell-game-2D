@@ -13,6 +13,10 @@ void Cell::changeEvent(std::shared_ptr<IEvent> event) {
     _event = std::move(event);
 }
 
+void Cell::changePassability(bool value) {
+    _is_passable = value;
+}
+
 void Cell::onPlayerStepped() {
     _has_player_on = true;
     if (_event.get())

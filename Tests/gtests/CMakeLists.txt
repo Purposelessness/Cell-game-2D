@@ -6,7 +6,6 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Files with tests
 set(Test_src
         TestField.cpp
-        ECS/TestComponentBag.cpp
         ECS/TestWorld.cpp
         ECS/ComponentMocks.h
         TestEventHandler.cpp
@@ -17,12 +16,13 @@ set(Project_src
         ../../Objects/Field/Field.cpp
         ../../Objects/Field/Cell.cpp
         ../../ECSLib/Components/Component.cpp
-        ../../ECSLib/Components/ComponentBag.cpp
         ../../ECSLib/Components/ComponentsCache.cpp
         ../../ECSLib/Components/TypeIdentifier.cpp
         ../../ECSLib/Core/World.cpp
         ../../ECSLib/Core/Entity.cpp
         ../../ECSLib/Systems/System.cpp
+        ../../Datatypes/Point.cpp
+        ../../Datatypes/Vector.cpp
         )
 
 add_executable(GoogleTest_run ${Test_src} ${Project_src})

@@ -12,6 +12,7 @@ public:
     explicit Cell(bool can_be_passed, std::shared_ptr<IEvent> event);
 
     void changeEvent(std::shared_ptr<IEvent> event);
+    void changePassability(bool value);
     void onPlayerStepped();
     void onPlayerLeft();
 

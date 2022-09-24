@@ -5,7 +5,7 @@
 Entity& World::addEntity(const std::string& name) {
     std::string entity_name = name;
     bool is_from_array;
-    int id = getId(is_from_array);
+    int id = getEntityId(is_from_array);
     if (name.empty()) {
         entity_name = "Entity " + std::to_string(id);
     }
@@ -24,7 +24,7 @@ void World::removeEntity(const Entity& entity) {
     _unused_ids.push_back(id);
 }
 
-int World::getId(bool& is_from_array) {
+int World::getEntityId(bool& is_from_array) {
     if (_unused_ids.empty()) {
         is_from_array = true;
         return static_cast<int>(_entities.size());

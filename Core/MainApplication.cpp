@@ -1,4 +1,6 @@
-#include "Application.h"
+#include "MainApplication.h"
+
+#include <iostream>
 
 #include "InputSystem.h"
 #include "../Controllers/TestController.h"
@@ -9,10 +11,21 @@
 #include "../ECS/EntityProviders/PlayerProvider.h"
 #include "../ECS/Systems/MovementSystem.h"
 
-Application::Application() : MainApplication() {
+class TestEvent : public IEvent {
+public:
+    void invoke() override {
+        std::cout << "Player stepped\n";
+    }
+};
+
+MainApplication::MainApplication() : Application() {
     // Core elements
     _world = std::make_shared<World>();
     auto field = std::make_shared<Field>();
+    field->getCell(5, 5).changeEvent(std::make_shared<TestEvent>());
+    for (int i = 0; i < 20; ++i) {
+        field->getCell(7, i).changePassability(false);
+    }
     std::vector<std::shared_ptr<Field>> fields{field};
 
     // Input
@@ -32,8 +45,8 @@ Application::Application() : MainApplication() {
     auto player = PlayerProvider::create(*_world);
 }
 
-void Application::update() {
-    MainApplication::update();
+void MainApplication::update() {
+    Application::update();
     for (auto& tickable : _tickables) {
         tickable->tick();
     }

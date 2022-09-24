@@ -16,6 +16,8 @@ void MovementSystem::process() {
     auto filter = Filter::with<Velocity, Transform>(*world.lock());
     for (auto& entity : filter) {
         auto& velocity = entity.getComponent<Velocity>();
+        if (velocity.value.isNull())
+            continue;
         auto& transform = entity.getComponent<Transform>();
         auto field_id = transform.field_id;
         if (field_id < 0 || field_id >= _fields.size()) {

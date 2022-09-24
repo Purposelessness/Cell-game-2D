@@ -27,9 +27,9 @@ public:
         auto weak_ptr = std::weak_ptr<World>(this_ptr);
         system->setWorld(weak_ptr);
         if constexpr (std::is_base_of_v<TickableSystem, T>) {
-            _tickable_systems.emplace_back(system);
+            _tickable_systems.emplace_back(std::move(system));
         } else {
-            _systems.emplace_back(system);
+            _systems.emplace_back(std::move(system));
         }
     }
 
@@ -47,7 +47,7 @@ public:
     ~World();
 
 private:
-    int getId(bool& is_from_array);
+    int getEntityId(bool& is_from_array);
 
     std::vector<Entity> _entities;
     std::vector<int> _unused_ids;
