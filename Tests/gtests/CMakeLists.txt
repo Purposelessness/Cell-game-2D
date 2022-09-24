@@ -22,6 +22,7 @@ set(Project_src
         ../../ECSLib/Components/TypeIdentifier.cpp
         ../../ECSLib/Core/World.cpp
         ../../ECSLib/Core/Entity.cpp
+        ../../ECSLib/Systems/System.cpp
         )
 
 add_executable(GoogleTest_run ${Test_src} ${Project_src})

@@ -77,4 +77,24 @@ public:
     }
 };
 
+class TransformSystem : public TickableSystem {
+public:
+    void process() override {
+        auto entities = Filter::with<TransformComponent>(*world.lock());
+        for (auto& entity : entities) {
+            ++entity.getComponent<TransformComponent>().pos;
+        }
+    }
+};
+
+class HealthSystem : public TickableSystem {
+public:
+    void process() override {
+        auto& components = CommonCache::getCache<HealthComponent>();
+        for (auto& component : components.keys) {
+            components.getComponent(component).value -= 50;
+        }
+    }
+};
+
 #endif //GAME_TESTS_GTESTS_ECS_COMPONENTMOCKS_H_
