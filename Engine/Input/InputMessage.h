@@ -1,5 +1,5 @@
-#ifndef GAME_INPUT_INPUTMESSAGE_H_
-#define GAME_INPUT_INPUTMESSAGE_H_
+#ifndef GAME_ENGINE_INPUT_INPUTMESSAGE_H_
+#define GAME_ENGINE_INPUT_INPUTMESSAGE_H_
 
 enum class InputType;
 enum class InputState;
@@ -20,8 +20,8 @@ enum class InputType {
 };
 
 enum class InputState {
-    Released,
-    Pressed
+    Released = 0,
+    Pressed = 1
 };
 
-#endif //GAME_INPUT_INPUTMESSAGE_H_
+#endif //GAME_ENGINE_INPUT_INPUTMESSAGE_H_
