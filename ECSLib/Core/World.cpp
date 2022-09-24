@@ -34,3 +34,15 @@ int World::getId(bool& is_from_array) {
     is_from_array = false;
     return index;
 }
+
+void World::tick() {
+    for (auto& system : _tickable_systems) {
+        system->tick();
+    }
+}
+
+World::~World() {
+    for (auto& entity : _entities) {
+        CommonCache::clear(entity.getId());
+    }
+}
