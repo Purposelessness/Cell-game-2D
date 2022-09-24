@@ -32,9 +32,9 @@ public:
         return caches[id];
     }
 
-    static void clear(int id) {
+    static void clearEntity(int entity_id) {
         for (auto& cache : caches) {
-            cache.second->removeComponent(id);
+            cache.second->removeComponent(entity_id);
         }
     }
 
@@ -63,7 +63,7 @@ public:
         TComponent auto component = T{};
         component.linkEntity(entity_id);
         _data[entity_id] = component;
-        keys.emplace_back(entity_id);
+        _keys.emplace_back(entity_id);
         return _data[entity_id];
     }
 
@@ -75,16 +75,19 @@ public:
         if (!_data.contains(entity_id))
             return;
         _data.erase(entity_id);
-        keys.erase(std::remove(keys.begin(), keys.end(), entity_id)); // NOLINT(bugprone-inaccurate-erase)
+        _keys.erase(std::remove(_keys.begin(), _keys.end(), entity_id)); // NOLINT(bugprone-inaccurate-erase)
     }
 
     bool hasComponent(int entity_id) override {
         return _data.contains(entity_id);
     }
 
-    std::vector<int> keys;
+    std::vector<int>& getKeys() {
+        return _keys;
+    }
 
 private:
+    std::vector<int> _keys;
     std::unordered_map<int, T> _data;
 };
 

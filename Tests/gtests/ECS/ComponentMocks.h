@@ -63,7 +63,7 @@ class HealthSystem : public TickableSystem {
 public:
     void process() override {
         auto& components = CommonCache::getCache<HealthComponent>();
-        for (auto& component : components.keys) {
+        for (auto& component : components.getKeys()) {
             components.getComponent(component).value -= 50;
         }
     }

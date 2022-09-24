@@ -14,7 +14,7 @@ TEST(ComponentsCacheTest, main) {
     CommonCache::getCache<HealthComponent>().addComponent(entity_3.getId());
 
     auto& components = CommonCache::getCache<HealthComponent>();
-    for (auto key : components.keys) {
+    for (auto key : components.getKeys()) {
         HealthManager::applyDamage(components.getComponent(key));
     }
 

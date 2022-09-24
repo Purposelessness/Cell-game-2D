@@ -43,6 +43,6 @@ void World::tick() {
 
 World::~World() {
     for (auto& entity : _entities) {
-        CommonCache::clear(entity.getId());
+        CommonCache::clearEntity(entity.getId());
     }
 }
