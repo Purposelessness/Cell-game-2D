@@ -4,6 +4,8 @@
 #include <memory>
 #include <utility>
 
+#include "../Core/Filter.h"
+
 class World;
 
 class System {

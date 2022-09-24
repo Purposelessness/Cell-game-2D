@@ -3,6 +3,8 @@
 #include <memory>
 #include <utility>
 
+#include "../../Datatypes/Point.h"
+
 Field::Field() : Field(20, 20) {}
 
 Field::Field(int width, int height) {
@@ -53,15 +55,37 @@ void Field::getSize(int& width, int& height) const {
     height = this->_height;
 }
 
+Point Field::normalizePoint(const Point& point) const {
+    if (isPointValid(point))
+        return point;
+    int x = point.x >= 0 ? point.x % _width : _width - (-point.x % _width);
+    int y = point.y >= 0 ? point.y % _height : _height - (-point.y % _height);
+    return Point{x, y};
+}
+
 inline bool Field::isPointValid(int x, int y) const {
     return x >= 0 && x < _width &&
         y >= 0 && y < _height;
 }
 
-Cell Field::getCell(int x, int y) {
+bool Field::isPointValid(const Point& point) const {
+    return isPointValid(point.x, point.y);
+}
+
+bool Field::isPointPassable(const Point& point) const {
+    if (!isPointValid(point))
+        return false;
+    return _cells[point.y][point.x].isPassable();
+}
+
+Cell& Field::getCell(int x, int y) {
     if (!isPointValid(x, y))
-        return {};
+        return _empty_cell;
     return _cells[y][x];
+}
+
+Cell& Field::getCell(const Point& point) {
+    return getCell(point.x, point.y);
 }
 
 void Field::setCellEvent(int x, int y, std::shared_ptr<IEvent> event) {
