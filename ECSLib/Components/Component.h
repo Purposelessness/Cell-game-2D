@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <string>
 
-#include "Concept.h"
+#include "ComponentConcept.h"
 #include "TypeIdentifier.h"
 #include "../../Utility/IConvertibleToString.h"
 

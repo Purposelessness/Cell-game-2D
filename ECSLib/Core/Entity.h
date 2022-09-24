@@ -15,6 +15,11 @@ public:
     }
 
     template<TComponent T>
+    T& getComponent() {
+        return CommonCache::getCache<T>().getComponent(_id);
+    }
+
+    template<TComponent T>
     void removeComponent() {
         CommonCache::getCacheFast<T>().removeComponent(_id);
     }

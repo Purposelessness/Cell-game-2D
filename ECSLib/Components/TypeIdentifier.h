@@ -1,7 +1,7 @@
 #ifndef GAME_ECSLIB_COMPONENTS_TYPEIDENTIFIER_H_
 #define GAME_ECSLIB_COMPONENTS_TYPEIDENTIFIER_H_
 
-#include "Concept.h"
+#include "ComponentConcept.h"
 
 class CommonTypeInfo {
 public:

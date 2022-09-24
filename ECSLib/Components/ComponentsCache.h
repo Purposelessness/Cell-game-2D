@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "TypeIdentifier.h"
-#include "Concept.h"
+#include "ComponentConcept.h"
 
 template<TComponent T>
 class ComponentsCache;
@@ -30,6 +30,12 @@ public:
 
     static std::shared_ptr<CommonCache> getCacheFast(int id) {
         return caches[id];
+    }
+
+    static void clear(int id) {
+        for (auto& cache : caches) {
+            cache.second->removeComponent(id);
+        }
     }
 
     virtual void removeComponent(int id) {}
