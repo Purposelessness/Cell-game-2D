@@ -5,25 +5,23 @@
 #include <string>
 
 #include "ComponentConcept.h"
-#include "TypeIdentifier.h"
+#include "../../Utility/Object.h"
 #include "../../Utility/IConvertibleToString.h"
 
-class Component : public IConvertibleToString {
+class Component : public Object {
 public:
-    [[nodiscard]] int getId() const;
     [[nodiscard]] int getEntityId() const;
     void linkEntity(int entity_id);
 
     std::string toString() override;
 
 protected:
-    explicit Component(TComponent auto* tc) : _entity_id(-1) {
-        using ComponentType = std::remove_pointer_t<decltype(tc)>;
-        _id = TypeIdentifier<ComponentType>::getId();
+    template<TComponent T>
+    explicit Component(T* tc) : Object(tc) {
+        _entity_id = -1;
     }
 
 private:
-    int _id;
     int _entity_id;
 };
 

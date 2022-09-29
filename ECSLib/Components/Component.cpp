@@ -1,11 +1,7 @@
 #include "Component.h"
 
-int Component::getId() const {
-    return _id;
-}
-
 std::string Component::toString() {
-    return std::to_string(_id) + "\n";
+    return std::to_string(getId()) + "\n";
 }
 
 int Component::getEntityId() const {

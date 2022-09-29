@@ -13,11 +13,13 @@ set(Test_src
 
 # Files of main project that need to be tested
 set(Project_src
+        ../../Utility/TypeIdentifier.cpp
+        ../../Utility/Identified.cpp
+        ../../Utility/Object.cpp
         ../../Objects/Field/Field.cpp
         ../../Objects/Field/Cell.cpp
         ../../ECSLib/Components/Component.cpp
         ../../ECSLib/Components/ComponentsCache.cpp
-        ../../ECSLib/Components/TypeIdentifier.cpp
         ../../ECSLib/Core/World.cpp
         ../../ECSLib/Core/Entity.cpp
         ../../ECSLib/Systems/System.cpp

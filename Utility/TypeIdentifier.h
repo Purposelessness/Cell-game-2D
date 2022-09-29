@@ -1,14 +1,12 @@
-#ifndef GAME_ECSLIB_COMPONENTS_TYPEIDENTIFIER_H_
-#define GAME_ECSLIB_COMPONENTS_TYPEIDENTIFIER_H_
-
-#include "ComponentConcept.h"
+#ifndef GAME_UTILITY_TYPEIDENTIFIER_H_
+#define GAME_UTILITY_TYPEIDENTIFIER_H_
 
 class CommonTypeInfo {
-public:
+protected:
     static int length;
 };
 
-template<TComponent T>
+template<typename T>
 class TypeIdentifier : public CommonTypeInfo {
 public:
     static int getId() {
@@ -21,7 +19,7 @@ private:
     static int _id;
 };
 
-template<TComponent T>
+template<typename T>
 int TypeIdentifier<T>::_id = -1;
 
-#endif //GAME_ECSLIB_COMPONENTS_TYPEIDENTIFIER_H_
+#endif //GAME_UTILITY_TYPEIDENTIFIER_H_

@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include "TypeIdentifier.h"
+#include "../../Utility/TypeIdentifier.h"
 #include "ComponentConcept.h"
 
 template<TComponent T>
