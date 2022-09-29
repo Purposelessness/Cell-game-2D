@@ -14,7 +14,7 @@ public:
     explicit Field(int width, int height);
 
     void getSize(int& width, int& height) const;
-    std::vector<Cell> &operator[](int row);
+    std::vector<Cell>& operator[](int row);
     Cell& getCell(int x, int y);
     Cell& getCell(const Point& point);
     void setCellEvent(int x, int y, std::shared_ptr<IEvent> event);
