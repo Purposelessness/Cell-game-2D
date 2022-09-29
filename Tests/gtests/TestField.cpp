@@ -74,6 +74,9 @@ TEST_F(TestField, CopyConstructor) {
     Field f_3{f_1};
     EXPECT_EQ(f_3, f_1);
     EXPECT_EQ(f_1.getCell(0, 0), f_3.getCell(0, 0));
+    EXPECT_NE(&f_1[0], &f_3[0]);
+    EXPECT_NE(&f_1[1], &f_3[1]);
+    EXPECT_NE(&f_1.getCell(0, 0), &f_3.getCell(0, 0));
     f_3.setCellEvent(0, 0, bye_event);
     EXPECT_NE(f_3, f_1);
     EXPECT_NE(f_1.getCell(0, 0), f_3.getCell(0, 0));
