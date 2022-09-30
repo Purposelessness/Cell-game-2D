@@ -64,12 +64,24 @@ inline constexpr bool are_base_of_v = are_base_of<T, U>::value;
 template<typename T, typename U>
 struct of_same_size : std::false_type {};
 
-template<TTuple T, TTuple U>
-requires (std::tuple_size_v<T> == std::tuple_size_v<U>)
+template<TTuple T, TTuple U> requires (std::tuple_size_v<T> == std::tuple_size_v<U>)
 struct of_same_size<T, U> : std::true_type {};
 
 template<TTuple T, TTuple U>
 inline constexpr bool of_same_size_v = of_same_size<T, U>::value;
+
+/// has_type\<T, Tuple\> — if Tuple contains type T
+template<typename T, typename Tuple>
+struct has_type;
+
+template<typename T>
+struct has_type<T, std::tuple<>> : std::false_type {};
+
+template<typename T, typename U, typename... Args>
+struct has_type<T, std::tuple<U, Args...>> : has_type<T, std::tuple<Args...>> {};
+
+template<typename T, typename... Args>
+struct has_type<T, std::tuple<T, Args...>> : std::true_type {};
 
 template<typename... Args>
 struct extract_method_arguments {};
