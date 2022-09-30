@@ -33,6 +33,9 @@ using remove_cv_reference = std::remove_cv_t<std::remove_reference_t<T>>;
 template<typename T, typename U>
 using is_same = std::is_same<remove_cv_reference<T>, remove_cv_reference<U>>;
 
+template<typename T, typename U>
+using is_base_of = std::is_base_of<remove_cv_reference<T>, remove_cv_reference<U>>;
+
 namespace detail {
     template<bool...>
     struct bool_pack;
@@ -43,11 +46,20 @@ namespace detail {
 template<typename... Ts>
 using all_true = detail::all_true<Ts::value...>;
 
-template<typename TTuple, typename UTuple>
+template<typename T, typename U>
 struct are_same;
 
 template<typename... Ts, typename... Us>
 struct are_same<std::tuple<Ts...>, std::tuple<Us...>> : all_true<is_same<Ts, Us>...> {};
+
+template<typename T, typename U>
+struct are_base_of : std::false_type {};
+
+template<typename... Ts, typename U>
+struct are_base_of<std::tuple<Ts...>, U> : all_true<is_base_of<U, Ts>...> {};
+
+template<typename T, typename U>
+inline constexpr bool are_base_of_v = are_base_of<T, U>::value;
 
 template<typename T, typename U>
 struct of_same_size : std::false_type {};
