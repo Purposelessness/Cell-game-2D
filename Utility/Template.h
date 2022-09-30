@@ -8,6 +8,8 @@
 #include <functional>
 #include <tuple>
 
+#include "Concepts.h"
+
 template<template<typename...> class base, typename derived>
 struct is_base_of_template_impl {
     template<typename... Ts>
@@ -37,14 +39,25 @@ namespace detail {
     template<bool... bs>
     using all_true = std::is_same<bool_pack<bs..., true>, bool_pack<true, bs...>>;
 }
+
 template<typename... Ts>
 using all_true = detail::all_true<Ts::value...>;
 
 template<typename TTuple, typename UTuple>
-struct are_same_sized;
+struct are_same;
 
 template<typename... Ts, typename... Us>
-struct are_same_sized<std::tuple<Ts...>, std::tuple<Us...>> : all_true<is_same<Ts, Us>...> {};
+struct are_same<std::tuple<Ts...>, std::tuple<Us...>> : all_true<is_same<Ts, Us>...> {};
+
+template<typename T, typename U>
+struct of_same_size : std::false_type {};
+
+template<TTuple T, TTuple U>
+requires (std::tuple_size_v<T> == std::tuple_size_v<U>)
+struct of_same_size<T, U> : std::true_type {};
+
+template<TTuple T, TTuple U>
+inline constexpr bool of_same_size_v = of_same_size<T, U>::value;
 
 template<typename... Args>
 struct extract_method_arguments {};
@@ -73,40 +86,6 @@ struct extract_method_arguments<F<T, Args...>> {
 
     template<size_t I>
     using get_arg_type = typename extract_tuple_type_by_index<I, args_tuple>::value;
-};
-
-template<typename T1, typename T2>
-struct recursion_call {
-    template<size_t I>
-    using is_same = std::is_same<
-        extract_tuple_type_by_index<I, T1>,
-        extract_tuple_type_by_index<I, T2>>;
-
-    template<size_t I>
-    constexpr static bool value() {
-        return is_same<I>::value && recursion_call::value<I-1>();
-    }
-
-    template<>
-    constexpr static bool value<0>() {
-        return is_same<0>::value;
-    }
-};
-
-template<typename Tuple1, typename Tuple2>
-struct are_same {
-    static constexpr size_t arg_count = std::tuple_size_v<Tuple1>;
-
-    static constexpr bool result = recursion_call<Tuple1, Tuple2>::template value<arg_count>();
-};
-
-struct are_same_arguments {
-    template<typename F1, typename F2>
-    static constexpr bool value(F1 f1, F2 f2) {
-        return are_same<
-            extract_method_arguments<decltype(f1)>::args_tuple,
-            extract_method_arguments<decltype(f2)>::args_tuple>::result
-    }
 };
 
 #endif //GAME_UTILITY_TEMPLATE_H_
