@@ -10,15 +10,19 @@
 template<TViewRenderer... Args>
 class ViewSystem {
 public:
+    explicit ViewSystem(Args*... args) {
+        _types = std::make_tuple(args...);
+    }
+
     template<TViewMessage T>
-    void render(const T& message) {
-        Tuple::forEach(_types, [message](TViewRenderer auto t) {
-            t.update(message);
+    void render(T&& message) {
+        Tuple::forEach(_types, [message=std::forward<T>(message)](TViewRenderer auto* t) {
+            t->update(message);
         });
     }
 
 private:
-    std::tuple<Args...> _types;
+    std::tuple<Args*...> _types;
 };
 
 #endif //GAME_ENGINE_VIEW_VIEWSYSTEM_H_
