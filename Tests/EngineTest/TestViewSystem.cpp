@@ -11,22 +11,31 @@ class GameViewRenderer {
 public:
     explicit GameViewRenderer(int value) : value(value) {}
 
-    void update(const ViewMessage& message) {
+    template<TViewMessage T>
+    void update(const T& message) {
         std::string out = "GameViewRenderer.update() : " + std::to_string(value) + " " + message.information + '\n';
         test.emplace_back(out);
     }
 
-    void update(const GameViewMessage& message) {
-        std::string out = "GameViewRenderer.GAME_update() : " + std::to_string(value) + " " + message.information + '\n';
-        test.emplace_back(out);
-    }
+//    void update(const ViewMessage& message) {
+//    }
+//
+//    void update(const GameViewMessage& message) {
+//    }
 
     int value = 0;
 };
 
+template<>
+void GameViewRenderer::update<GameViewMessage>(const GameViewMessage& message) {
+    std::string out = "GameViewRenderer.GAME_update() : " + std::to_string(value) + " " + message.information + '\n';
+    test.emplace_back(out);
+}
+
 class ViewRenderer {
 public:
-    void update(const ViewMessage& message) {
+    template<TViewMessage T>
+    void update(const T& message) {
         std::string out = "ViewRenderer.update() : " + std::to_string(value) + " " + message.information + '\n';
         test.emplace_back(out);
     }
