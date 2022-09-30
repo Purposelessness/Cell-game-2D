@@ -26,7 +26,35 @@ set(Headers
         ECS/Systems/ObjectControllerSystem.h
         Utility/Tuple.h
         ECSLib/Core/World.h
-        Engine/Core/IApplication.h Engine/Input/InputReader.h Utility/MethodContainer.h)
+        Engine/Core/IApplication.h
+        Engine/Input/InputReader.h
+        Utility/MethodContainer.h
+        Engine/Core/Application.h
+        Engine/Input/InputSystem.h
+        Utility/EventHandler.h
+        Utility/Template.h
+        Core/MainApplication.h
+        Controllers/TestController.h
+        Utility/TypeIdentifier.h
+        ECSLib/Components/ComponentConcept.h
+        ECS/Systems/MovementSystem.h
+        ECSLib/Components/ComponentsCache.h
+        ECSLib/Core/Filter.h
+        ECSLib/Systems/System.h
+        ECSLib/Systems/TickableSystem.h
+        ECS/EntityProviders/PlayerProvider.h
+        ECS/Markers/ControllableMarker.h
+        ECS/Components/Health.h
+        ECS/Components/Weapon.h
+        ECS/Components/Intelligence.h
+        ECS/Components/Velocity.h
+        Datatypes/Vector.h
+        Engine/View/ViewSystem.h
+        Engine/View/ViewRenderer.h
+        Engine/View/ViewMessage.h
+        Utility/Identified.h
+        Utility/Object.h
+        )
 
 set(Sources
         main.cpp
@@ -41,7 +69,26 @@ set(Sources
         ECS/Components/Transform.cpp
         ECS/Systems/ObjectControllerSystem.cpp
         ECSLib/Core/World.cpp
-        Engine/Core/Application.cpp Engine/Core/Application.h Engine/Input/InputSystem.cpp Engine/Input/InputSystem.h Utility/EventHandler.h Utility/Template.h Core/MainApplication.cpp Core/MainApplication.h Controllers/TestController.cpp Controllers/TestController.h Utility/TypeIdentifier.h ECSLib/Components/ComponentConcept.h Datatypes/Point.cpp ECS/Systems/MovementSystem.cpp ECS/Systems/MovementSystem.h ECSLib/Components/ComponentsCache.cpp ECSLib/Components/ComponentsCache.h ECSLib/Core/Filter.h ECSLib/Systems/System.h ECSLib/Systems/TickableSystem.h ECSLib/Systems/System.cpp ECS/EntityProviders/PlayerProvider.cpp ECS/EntityProviders/PlayerProvider.h ECS/Markers/ControllableMarker.cpp ECS/Markers/ControllableMarker.h ECS/Components/Health.cpp ECS/Components/Health.h ECS/Components/Weapon.cpp ECS/Components/Weapon.h ECS/Components/Intelligence.cpp ECS/Components/Intelligence.h ECS/Components/Velocity.cpp ECS/Components/Velocity.h Datatypes/Vector.cpp Datatypes/Vector.h Engine/View/ViewSystem.cpp Engine/View/ViewSystem.h Engine/View/ViewRenderer.h Engine/View/ViewMessage.h Utility/TypeIdentifier.cpp Utility/Identified.cpp Utility/Identified.h Utility/Object.cpp Utility/Object.h)
+        Engine/Core/Application.cpp
+        Engine/Input/InputSystem.cpp
+        Core/MainApplication.cpp
+        Controllers/TestController.cpp
+        Datatypes/Point.cpp
+        ECS/Systems/MovementSystem.cpp
+        ECSLib/Components/ComponentsCache.cpp
+        ECSLib/Systems/System.cpp
+        ECS/EntityProviders/PlayerProvider.cpp
+        ECS/Markers/ControllableMarker.cpp
+        ECS/Components/Health.cpp
+        ECS/Components/Weapon.cpp
+        ECS/Components/Intelligence.cpp
+        ECS/Components/Velocity.cpp
+        Datatypes/Vector.cpp
+        Engine/View/ViewSystem.cpp
+        Utility/TypeIdentifier.cpp
+        Utility/Identified.cpp
+        Utility/Object.cpp
+        )
 
 add_executable(Game ${Sources} ${Headers})
-add_subdirectory(Tests/gtests)
+add_subdirectory(Tests)

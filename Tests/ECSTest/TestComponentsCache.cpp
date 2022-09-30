@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../../../../ECSLib/Components/ComponentsCache.h"
+#include "../../../ECSLib/Components/ComponentsCache.h"
 #include "ComponentMocks.h"
 
 TEST(ComponentsCacheTest, main) {
