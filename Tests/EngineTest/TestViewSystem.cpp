@@ -9,38 +9,49 @@ std::vector<std::string> test;
 
 class GameViewRenderer {
 public:
+    explicit GameViewRenderer(int value) : value(value) {}
+
     void update(const ViewMessage& message) {
-        std::string out = "GameViewRenderer.update() : " + message.information + '\n';
+        std::string out = "GameViewRenderer.update() : " + std::to_string(value) + " " + message.information + '\n';
         test.emplace_back(out);
     }
 
     void update(const GameViewMessage& message) {
-        std::string out = "GameViewRenderer.GAME_update() : " + message.information + '\n';
+        std::string out = "GameViewRenderer.GAME_update() : " + std::to_string(value) + " " + message.information + '\n';
         test.emplace_back(out);
     }
+
+    int value = 0;
 };
 
 class ViewRenderer {
 public:
     void update(const ViewMessage& message) {
-        std::string out = "ViewRenderer.update() : " + message.information + '\n';
+        std::string out = "ViewRenderer.update() : " + std::to_string(value) + " " + message.information + '\n';
         test.emplace_back(out);
     }
+
+    int value = 0;
 };
 
-TEST(ViewSystemTest, Concepts) {
-    auto game_view_renderer = new GameViewRenderer;
-    auto view_renderer = new ViewRenderer;
+TEST(ViewSystemTest, AddRemoveRenderers) {
+    ViewSystem<GameViewRenderer, ViewRenderer> view_system;
 
-    ViewSystem view_system(game_view_renderer, view_renderer);
+    view_system.addRenderer<GameViewRenderer>(10);
+    view_system.addRenderer<ViewRenderer>();
+
     GameViewMessage game_view_message{"gaming boy"};
     ViewMessage view_message{"simple dimple"};
 
     view_system.render(game_view_message);
     view_system.render(view_message);
 
-    EXPECT_EQ(test[0], "GameViewRenderer.GAME_update() : gaming boy\n");
-    EXPECT_EQ(test[1], "ViewRenderer.update() : gaming boy\n");
-    EXPECT_EQ(test[2], "GameViewRenderer.update() : simple dimple\n");
-    EXPECT_EQ(test[3], "ViewRenderer.update() : simple dimple\n");
+    view_system.removeRenderer<ViewRenderer>();
+    view_system.render(game_view_message);
+
+    EXPECT_EQ(test[0], "GameViewRenderer.GAME_update() : 10 gaming boy\n");
+    EXPECT_EQ(test[1], "ViewRenderer.update() : 0 gaming boy\n");
+    EXPECT_EQ(test[2], "GameViewRenderer.update() : 10 simple dimple\n");
+    EXPECT_EQ(test[3], "ViewRenderer.update() : 0 simple dimple\n");
+    EXPECT_EQ(test[4], "GameViewRenderer.GAME_update() : 10 gaming boy\n");
 }
