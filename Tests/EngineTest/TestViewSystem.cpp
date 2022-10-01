@@ -46,7 +46,13 @@ public:
 TEST(ViewSystemTest, AddRemoveRenderers) {
     ViewSystem<GameViewRenderer, ViewRenderer> view_system;
 
-    view_system.addRenderer<GameViewRenderer>(10);
+    auto game_view_renderer = std::make_unique<GameViewRenderer>(10);
+
+    view_system.addRenderer(std::move(game_view_renderer));
+
+    auto game_view_renderer_2 = std::make_unique<GameViewRenderer>(10);
+    view_system.addRenderer(std::move(game_view_renderer_2));
+
     view_system.addRenderer<ViewRenderer>();
 
     GameViewMessage game_view_message{"gaming boy"};

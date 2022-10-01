@@ -14,16 +14,22 @@ class ViewSystem {
     using Types = std::tuple<Ts...>;
 
 public:
-    ViewSystem() {
-
-    }
-
     template<TViewRenderer T, typename... Args>
     requires (has_type<T, Types>::value)
     void addRenderer(Args&&... args) {
         auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
         if (!ptr.get())
             ptr = std::make_unique<T>(std::forward<Args>(args)...);
+    }
+
+    template<TViewRenderer T>
+    requires (has_type<T, Types>::value)
+    void addRenderer(std::unique_ptr<T>&& renderer) {
+        auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
+        if (ptr.get()) {
+            ptr.reset();
+        }
+        ptr = std::move(renderer);
     }
 
     template<TViewRenderer T>
@@ -35,7 +41,7 @@ public:
     template<TViewMessage T>
     void render(T&& message) {
         Tuple::forEach(_renderers, [message=std::forward<T>(message)](auto& t) -> void {
-            if (t.get() == nullptr)
+            if (t == nullptr)
                 return;
             t->update(message);
         });
