@@ -2,7 +2,8 @@
 #define GAME_ENGINE_VIEW_VIEWMESSAGE_H_
 
 #include <type_traits>
-#include "../../Utility/IConvertibleToString.h"
+#include <string>
+
 #include "../../Utility/Template.h"
 
 struct ViewMessage {
