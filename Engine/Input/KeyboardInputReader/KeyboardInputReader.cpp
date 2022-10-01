@@ -6,7 +6,7 @@
 #endif
 
 #include "ControlScheme.h"
-#include "InputMessage.h"
+#include "../InputMessage.h"
 
 // TODO: Linux support
 

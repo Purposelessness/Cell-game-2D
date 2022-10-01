@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "InputMessage.h"
+#include "../InputMessage.h"
 
 ControlScheme::ControlScheme() : ControlScheme(std::unordered_map<char, InputType>{}) {}
 

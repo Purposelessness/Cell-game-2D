@@ -1,10 +1,10 @@
-#ifndef GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_H_
-#define GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_H_
+#ifndef GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_KEYBOARDINPUTREADER_H_
+#define GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_KEYBOARDINPUTREADER_H_
 
 #include <memory>
 
-#include "InputReader.h"
-#include "InputMessage.h"
+#include "../InputReader.h"
+#include "../InputMessage.h"
 
 class ControlScheme;
 
@@ -21,4 +21,4 @@ private:
     std::unordered_map<char, InputMessage> _key_map;
 };
 
-#endif //GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_H_
+#endif //GAME_ENGINE_INPUT_KEYBOARDINPUTREADER_KEYBOARDINPUTREADER_H_
