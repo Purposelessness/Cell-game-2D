@@ -21,6 +21,7 @@ void TestController::process(const InputMessage& input_message) {
             command = "MoveLeft";
             break;
         case InputType::Exit:
+            _application->quit();
             command = "Exit";
             break;
         case InputType::Reset:
@@ -29,3 +30,5 @@ void TestController::process(const InputMessage& input_message) {
     }
     std::cout << "Command is: " << command + std::to_string(static_cast<int>(input_message.state)) << "\n";
 }
+
+TestController::TestController(IApplication* application) : _application(application) {}

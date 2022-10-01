@@ -61,3 +61,7 @@ void MainApplication::addTickable(const std::shared_ptr<ITickable>& tickable) {
 void MainApplication::addDisposable(const std::shared_ptr<IDisposable>& disposable) {
     _disposables.emplace_back(disposable);
 }
+
+void MainApplication::quit() {
+    Application::quit();
+}

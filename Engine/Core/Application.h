@@ -1,10 +1,9 @@
 #ifndef GAME_ENGINE_CORE_APPLICATION_H_
 #define GAME_ENGINE_CORE_APPLICATION_H_
 
-#include "IApplication.h"
 #include "ITickable.h"
 
-class Application : public IApplication {
+class Application {
 public:
     Application();
 
@@ -12,7 +11,7 @@ public:
 
     virtual void update();
 
-    void quit() final;
+    void quit();
 
 private:
     bool _is_executing;

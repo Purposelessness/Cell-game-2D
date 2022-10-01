@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "../Engine/View/ViewSystem.h"
-#include "View/ConsoleView/ConsoleViewRenderer.h"
+#include "../View/ConsoleView/ConsoleViewRenderer.h"
 
 class ViewSystemDeployer {
 public:

@@ -26,7 +26,6 @@ set(Headers
         ECS/Systems/ObjectControllerSystem.h
         Utility/Tuple.h
         ECSLib/Core/World.h
-        Engine/Core/IApplication.h
         Engine/Input/InputReader.h
         Utility/MethodContainer.h
         Engine/Core/Application.h
@@ -88,7 +87,7 @@ set(Sources
         Utility/TypeIdentifier.cpp
         Utility/Identified.cpp
         Utility/Object.cpp
-        Core/View/ConsoleView/ConsoleViewRenderer.cpp Core/View/ConsoleView/ConsoleViewRenderer.h Core/View/ConsoleView/ConsoleFieldViewAdapter.cpp Core/View/ConsoleView/ConsoleFieldViewAdapter.h Engine/View/ViewMessage.h Core/View/FieldViewMessage.h Core/View/ConsoleView/ConsoleHelper.h Core/View/ConsoleView/ConsoleFieldViewTab.cpp Core/View/ConsoleView/ConsoleFieldViewTab.h Core/View/ConsoleView/ConsoleLogViewTab.cpp Core/View/ConsoleView/ConsoleLogViewTab.h Utility/IDisposable.h Core/ViewSystemDeployer.cpp Core/ViewSystemDeployer.h Core/View/ConsoleView/ConsoleHelper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/View/IMainApplication.h)
+        View/ConsoleView/ConsoleViewRenderer.cpp View/ConsoleView/ConsoleViewRenderer.h View/ConsoleView/ConsoleFieldViewAdapter.cpp View/ConsoleView/ConsoleFieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/ConsoleView/ConsoleHelper.h View/ConsoleView/ConsoleFieldViewTab.cpp View/ConsoleView/ConsoleFieldViewTab.h View/ConsoleView/ConsoleLogViewTab.cpp View/ConsoleView/ConsoleLogViewTab.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/ConsoleView/ConsoleHelper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h)
 
 add_executable(Game ${Sources} ${Headers})
-#add_subdirectory(Tests)
+add_subdirectory(Tests)

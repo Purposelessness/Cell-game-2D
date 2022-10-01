@@ -1,9 +1,9 @@
-#ifndef GAME_CORE_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
-#define GAME_CORE_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
+#ifndef GAME_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
+#define GAME_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
 
 #include <memory>
 
-#include "../../../Engine/View/ViewMessage.h"
+#include "../../Engine/View/ViewMessage.h"
 #include "../FieldViewMessage.h"
 #include "ConsoleFieldViewTab.h"
 #include "ConsoleLogViewTab.h"
@@ -25,4 +25,4 @@ private:
     std::unique_ptr<ConsoleLogViewTab> _log_view_tab;
 };
 
-#endif //GAME_CORE_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
+#endif //GAME_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_

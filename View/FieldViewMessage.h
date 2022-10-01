@@ -1,10 +1,10 @@
-#ifndef GAME_CORE_VIEW_FIELDVIEWMESSAGE_H_
-#define GAME_CORE_VIEW_FIELDVIEWMESSAGE_H_
+#ifndef GAME_VIEW_FIELDVIEWMESSAGE_H_
+#define GAME_VIEW_FIELDVIEWMESSAGE_H_
 
 #include <vector>
 
-#include "../../Engine/View/ViewMessage.h"
-#include "../../Datatypes/Point.h"
+#include "../Engine/View/ViewMessage.h"
+#include "../Datatypes/Point.h"
 
 enum class FieldViewType;
 
@@ -19,4 +19,4 @@ enum class FieldViewType {
     Player
 };
 
-#endif //GAME_CORE_VIEW_FIELDVIEWMESSAGE_H_
+#endif //GAME_VIEW_FIELDVIEWMESSAGE_H_
