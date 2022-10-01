@@ -11,6 +11,10 @@
 #include "../ECS/EntityProviders/PlayerProvider.h"
 #include "../ECS/Systems/MovementSystem.h"
 
+#include "ViewSystemDeployer.h"
+#include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
+#include "InputSystemDeployer.h"
+
 class TestEvent : public IEvent {
 public:
     void invoke() override {
@@ -28,18 +32,15 @@ MainApplication::MainApplication() : Application() {
     }
     std::vector<std::shared_ptr<Field>> fields{field};
 
+    // View
+    _disposables.emplace_back(ViewSystemDeployer::deploy());
+
     // Input
-    auto input_system = std::make_shared<InputSystem>();
-    auto object_controller_system = std::make_shared<ObjectControllerSystem>();
-    auto test_controller = std::make_shared<TestController>();
-    input_system->addController(object_controller_system);
-    input_system->addController(test_controller);
-    _tickables.emplace_back(input_system);
+    _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
 
     // Systems
     auto movement_system = std::make_shared<MovementSystem>(fields);
     _world->addSystem(movement_system);
-    _world->addSystem(object_controller_system);
 
     // Entities
     auto player = PlayerProvider::create(*_world);
@@ -51,4 +52,12 @@ void MainApplication::update() {
         tickable->tick();
     }
     _world->tick();
+}
+
+void MainApplication::addTickable(const std::shared_ptr<ITickable>& tickable) {
+    _tickables.emplace_back(tickable);
+}
+
+void MainApplication::addDisposable(const std::shared_ptr<IDisposable>& disposable) {
+    _disposables.emplace_back(disposable);
 }
