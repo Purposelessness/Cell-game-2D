@@ -3,13 +3,14 @@
 
 #include "Identified.h"
 #include "IConvertibleToString.h"
+#include "IDisposable.h"
 
 class Object;
 
 template<typename T>
 concept TObject = std::is_base_of_v<Object, T>;
 
-class Object : public Identified, public IConvertibleToString {
+class Object : public Identified, public IConvertibleToString, public IDisposable {
 public:
     Object();
 

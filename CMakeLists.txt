@@ -12,13 +12,13 @@ set(Headers
         Datatypes/Point.h
         Utility/Observer/EventListener.h
         Utility/Observer/EventManager.h
-        Engine/Input/KeyboardInputReader.h
+        Engine/Input/KeyboardInputReader/KeyboardInputReader.h
         config.h
         Utility/IConvertibleToString.h
         Utility/Concepts.h
         Events/IEvent.h
         Engine/Input/IController.h
-        Engine/Input/ControlScheme.h
+        Engine/Input/KeyboardInputReader/ControlScheme.h
         Engine/Input/InputMessage.h
         Engine/Core/ITickable.h
         ECSLib/Components/Component.h
@@ -63,8 +63,8 @@ set(Sources
         Objects/Field/Field.cpp
         Utility/Observer/EventListener.cpp
         Utility/Observer/EventManager.cpp
-        Engine/Input/KeyboardInputReader.cpp
-        Engine/Input/ControlScheme.cpp
+        Engine/Input/KeyboardInputReader/KeyboardInputReader.cpp
+        Engine/Input/KeyboardInputReader/ControlScheme.cpp
         ECSLib/Components/Component.cpp
         ECS/Components/Transform.cpp
         ECS/Systems/ObjectControllerSystem.cpp
@@ -88,7 +88,7 @@ set(Sources
         Utility/TypeIdentifier.cpp
         Utility/Identified.cpp
         Utility/Object.cpp
-        )
+        Core/View/ConsoleView/ConsoleViewRenderer.cpp Core/View/ConsoleView/ConsoleViewRenderer.h Core/View/ConsoleView/ConsoleFieldViewAdapter.cpp Core/View/ConsoleView/ConsoleFieldViewAdapter.h Engine/View/ViewMessage.h Core/View/FieldViewMessage.h Core/View/ConsoleView/ConsoleHelper.h Core/View/ConsoleView/ConsoleFieldViewTab.cpp Core/View/ConsoleView/ConsoleFieldViewTab.h Core/View/ConsoleView/ConsoleLogViewTab.cpp Core/View/ConsoleView/ConsoleLogViewTab.h Utility/IDisposable.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests)
