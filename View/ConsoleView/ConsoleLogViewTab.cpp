@@ -6,7 +6,7 @@
 
 void ConsoleLogViewTab::update(const ViewMessage& message) const {
     ConsoleHelper::setCursorPosition(_x_margin, _y_margin);
-    std::cout << "Log: " + message.information + '\n';
+    std::cout << "Log: " + message.toString() + '\n';
 }
 
 void ConsoleLogViewTab::setMargin(int x, int y) {

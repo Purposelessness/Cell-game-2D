@@ -1,5 +1,5 @@
 #include "ConsoleFieldViewAdapter.h"
 
-char ConsoleFieldViewAdapter::symbol(FieldViewType type) {
+char ConsoleFieldViewAdapter::symbol(CellView type) {
     return symbols[type];
 }

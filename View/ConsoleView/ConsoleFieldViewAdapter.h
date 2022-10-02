@@ -4,10 +4,13 @@
 #include "../FieldViewMessage.h"
 
 class ConsoleFieldViewAdapter {
-public:
-    char symbol(FieldViewType type);
+    using Map = std::unordered_map<CellView, char>;
 
-    std::unordered_map<FieldViewType, char> symbols;
+public:
+    explicit ConsoleFieldViewAdapter(Map symbols) : symbols(std::move(symbols)) {}
+
+    char symbol(CellView type);
+    Map symbols;
 };
 
 #endif //GAME_VIEW_CONSOLEVIEW_CONSOLEFIELDVIEWADAPTER_H_
