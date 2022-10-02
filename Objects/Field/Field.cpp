@@ -3,8 +3,6 @@
 #include <memory>
 #include <utility>
 
-#include "../../Datatypes/Point.h"
-
 Field::Field() : Field(20, 20) {}
 
 Field::Field(int width, int height) {
@@ -55,6 +53,16 @@ void Field::getSize(int& width, int& height) const {
     height = this->_height;
 }
 
+Cell& Field::getCell(int x, int y) {
+    if (!isPointValid(x, y))
+        return _empty_cell;
+    return _cells[y][x];
+}
+
+Cell& Field::getCell(const Point& point) {
+    return getCell(point.x, point.y);
+}
+
 Point Field::normalizePoint(const Point& point) const {
     if (isPointValid(point))
         return point;
@@ -63,7 +71,7 @@ Point Field::normalizePoint(const Point& point) const {
     return Point{x, y};
 }
 
-inline bool Field::isPointValid(int x, int y) const {
+bool Field::isPointValid(int x, int y) const {
     return x >= 0 && x < _width &&
         y >= 0 && y < _height;
 }
@@ -78,22 +86,31 @@ bool Field::isPointPassable(const Point& point) const {
     return _cells[point.y][point.x].isPassable();
 }
 
-Cell& Field::getCell(int x, int y) {
-    if (!isPointValid(x, y))
-        return _empty_cell;
-    return _cells[y][x];
-}
-
-Cell& Field::getCell(const Point& point) {
-    return getCell(point.x, point.y);
-}
-
 void Field::setCellEvent(int x, int y, std::shared_ptr<IEvent> event) {
     if (!isPointValid(x, y))
         return;
     _cells[y][x].changeEvent(std::move(event));
+    event_handler({std::vector<Point>{Point{x, y}}});
+}
+
+void Field::setCellEvent(const Point& point, std::shared_ptr<IEvent> event) {
+    setCellEvent(point.x, point.y, std::move(event));
 }
 
 std::vector<Cell>& Field::operator[](int row) {
     return _cells[row];
+}
+
+bool Field::operator==(const Field& other) const {
+    return _width == other._width && _height == other._height && _cells == other._cells;
+}
+
+void Field::onPlayerStepped(const Point& point) {
+    _cells[point.y][point.x].onPlayerStepped();
+    event_handler({std::vector<Point>{Point{point.x, point.y}}});
+}
+
+void Field::onPlayerLeft(const Point& point) {
+    _cells[point.y][point.x].onPlayerLeft();
+    event_handler({std::vector<Point>{Point{point.x, point.y}}});
 }

@@ -29,9 +29,9 @@ void MovementSystem::process() {
         if (!field->isPointPassable(new_pos)) {
             continue;
         }
-        field->getCell(transform.position).onPlayerLeft();
+        field->onPlayerLeft(transform.position);
         transform.position = new_pos;
-        field->getCell(new_pos).onPlayerStepped();
+        field->onPlayerStepped(new_pos);
         std::cout << new_pos.toString() << '\n';
     }
 }

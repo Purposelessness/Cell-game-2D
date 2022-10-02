@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "Cell.h"
+#include "FieldEventMessage.h"
+#include "../../Utility/EventHandler.h"
 
 struct Point;
 
@@ -18,6 +20,10 @@ public:
     Cell& getCell(int x, int y);
     Cell& getCell(const Point& point);
     void setCellEvent(int x, int y, std::shared_ptr<IEvent> event);
+    void setCellEvent(const Point& point, std::shared_ptr<IEvent> event);
+
+    void onPlayerStepped(const Point& point);
+    void onPlayerLeft(const Point& point);
 
     [[nodiscard]] Point normalizePoint(const Point& point) const;
 
@@ -32,7 +38,9 @@ public:
     Field(Field&& other) noexcept;
     Field& operator=(Field&& other) noexcept;
 
-    auto operator<=>(const Field& other) const = default;
+    bool operator==(const Field& other) const;
+
+    EventHandler<FieldEventMessage> event_handler;
 
 private:
     void swap(Field& other);

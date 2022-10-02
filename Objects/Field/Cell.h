@@ -6,6 +6,8 @@
 #include "../../Events/IEvent.h"
 
 class Cell {
+    friend class Field;
+
 public:
     Cell();
     explicit Cell(std::shared_ptr<IEvent> event);
@@ -13,8 +15,6 @@ public:
 
     void changeEvent(std::shared_ptr<IEvent> event);
     void changePassability(bool value);
-    void onPlayerStepped();
-    void onPlayerLeft();
 
     [[nodiscard]] bool isPassable() const;
     [[nodiscard]] bool hasPlayerOn() const;
@@ -22,6 +22,9 @@ public:
     auto operator<=>(const Cell&) const = default;
 
 private:
+    void onPlayerStepped();
+    void onPlayerLeft();
+
     bool _is_passable;
     bool _has_player_on;
     std::shared_ptr<IEvent> _event;
