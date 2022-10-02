@@ -6,13 +6,12 @@
 #include <tuple>
 #include <unordered_map>
 
-#include "../../Utility/IDisposable.h"
 #include "../../Utility/Tuple.h"
 #include "../../Utility/Template.h"
 #include "ViewRenderer.h"
 
 template<TViewRenderer... Ts>
-class ViewSystem : public IDisposable {
+class ViewSystem {
     using Types = std::tuple<Ts...>;
 
 public:
@@ -47,8 +46,6 @@ public:
             t->update(message);
         });
     }
-
-    ~ViewSystem() override = default;
 
 private:
     std::tuple<std::unique_ptr<Ts>...> _renderers;

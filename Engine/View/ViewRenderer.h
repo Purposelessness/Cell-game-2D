@@ -5,8 +5,8 @@
 #include "../../Utility/Template.h"
 
 template<typename T>
-concept TViewRenderer = requires (T t, ViewMessage* view_message) {
-    t.update(*view_message);
+concept TViewRenderer = requires (T t) {
+    t.update(std::declval<ViewMessage>());
 };
 
 #endif //GAME_ENGINE_VIEW_VIEWRENDERER_H_

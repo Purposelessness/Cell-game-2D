@@ -33,7 +33,7 @@ MainApplication::MainApplication() : Application() {
     std::vector<std::shared_ptr<Field>> fields{field};
 
     // View
-    _disposables.emplace_back(ViewSystemDeployer::deploy());
+    _disposables.emplace_back(std::make_shared<ViewSystemDeployer>());
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
