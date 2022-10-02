@@ -9,7 +9,7 @@ struct Point : public IConvertibleToString {
     Point();
     Point(int x, int y);
 
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     friend Point operator+(Point& a, Point& b);
     friend Point operator+(Point& p, Vector& v);

@@ -4,7 +4,7 @@ Vector::Vector() : Vector(0, 0) {}
 
 Vector::Vector(int x, int y) : x(x), y(y) {}
 
-std::string Vector::toString() {
+std::string Vector::toString() const {
     return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }
 

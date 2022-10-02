@@ -30,7 +30,7 @@ public:
     }
     
     [[nodiscard]] int getId() const;
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     auto operator<=>(const Entity& other) const = default;
 

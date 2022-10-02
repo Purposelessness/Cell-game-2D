@@ -7,7 +7,7 @@ struct Vector : public IConvertibleToString {
     Vector();
     Vector(int x, int y);
 
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
     [[nodiscard]] bool isNull() const;
 
     int x = 0;

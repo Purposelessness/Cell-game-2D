@@ -2,6 +2,6 @@
 
 ControllableMarker::ControllableMarker() : Component(this) {}
 
-std::string ControllableMarker::toString() {
+std::string ControllableMarker::toString() const {
     return "ControllableMarker\n";
 }

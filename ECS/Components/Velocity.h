@@ -7,7 +7,7 @@
 struct Velocity : public Component {
     Velocity();
 
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     Vector value;
 };

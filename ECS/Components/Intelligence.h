@@ -6,7 +6,7 @@
 struct Intelligence : public Component {
     Intelligence();
 
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     int value = 4;
 };

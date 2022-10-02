@@ -8,7 +8,7 @@ class Field;
 
 struct Transform : public Component {
     Transform();
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     Point position = {};
     int field_id = 0;

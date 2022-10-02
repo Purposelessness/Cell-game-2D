@@ -10,7 +10,7 @@ int Entity::getId() const {
     return _id;
 }
 
-std::string Entity::toString() {
+std::string Entity::toString() const {
     std::string out;
     out = "------------------";
 //    out += "Entity:" + _name + '\n' + component_bag.toString();

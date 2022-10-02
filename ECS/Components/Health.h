@@ -6,7 +6,7 @@
 struct Health : public Component {
     Health();
 
-    std::string toString() override;
+    [[nodiscard]] std::string toString() const override;
 
     int value = 100;
 };

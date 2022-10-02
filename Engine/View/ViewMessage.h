@@ -2,12 +2,12 @@
 #define GAME_ENGINE_VIEW_VIEWMESSAGE_H_
 
 #include <type_traits>
-#include <string>
 
 #include "../../Utility/Template.h"
+#include "../../Utility/IConvertibleToString.h"
 
-struct ViewMessage {
-    std::string information;
+struct ViewMessage : public IConvertibleToString {
+    [[nodiscard]] std::string toString() const override = 0;
 };
 
 template<typename T>

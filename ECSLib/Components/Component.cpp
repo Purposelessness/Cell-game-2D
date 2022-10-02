@@ -1,6 +1,6 @@
 #include "Component.h"
 
-std::string Component::toString() {
+std::string Component::toString() const {
     return std::to_string(getId()) + "\n";
 }
 
