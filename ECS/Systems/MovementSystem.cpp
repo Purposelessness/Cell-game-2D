@@ -32,6 +32,5 @@ void MovementSystem::process() {
         field->onPlayerLeft(transform.position);
         transform.position = new_pos;
         field->onPlayerStepped(new_pos);
-        std::cout << new_pos.toString() << '\n';
     }
 }

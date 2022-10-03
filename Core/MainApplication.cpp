@@ -15,6 +15,8 @@
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
 
+#include "../Bridges/FieldViewBridge.h"
+
 class TestEvent : public IEvent {
 public:
     void invoke() override {
@@ -33,7 +35,8 @@ MainApplication::MainApplication() : Application() {
     std::vector<std::shared_ptr<Field>> fields{field};
 
     // View
-    _disposables.emplace_back(std::make_shared<ViewSystemDeployer>());
+    auto view_system_deployer = std::make_shared<ViewSystemDeployer>();
+    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystemDeployer::ViewSystemType, Field>>(view_system_deployer->getSystem(), field);
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
@@ -44,6 +47,9 @@ MainApplication::MainApplication() : Application() {
 
     // Entities
     auto player = PlayerProvider::create(*_world);
+
+    _disposables.emplace_back(view_system_deployer);
+    _disposables.emplace_back(field_view_bridge);
 }
 
 void MainApplication::update() {
