@@ -20,7 +20,7 @@ enum class InputType {
 };
 
 enum class InputState {
-    Released = 0,
+    Released = -1,
     Pressed = 1
 };
 
