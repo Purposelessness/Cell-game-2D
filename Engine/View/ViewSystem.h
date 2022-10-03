@@ -39,7 +39,7 @@ public:
     }
 
     template<TViewMessage T>
-    void render(T&& message) {
+    void update(T&& message) {
         Tuple::forEach(_renderers, [message = std::forward<T>(message)](auto& t) -> void {
             if (t == nullptr)
                 return;

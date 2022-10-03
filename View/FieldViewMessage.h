@@ -17,10 +17,11 @@ struct FieldViewMessage : public ViewMessage {
     explicit FieldViewMessage(std::vector<std::pair<Point, CellView>> changes) : changes(std::move(changes)) {}
 
     [[nodiscard]] std::string toString() const override {
-        std::string out = "\n";
+        std::string out = "Field View Message:\n";
         for (const auto& k : changes) {
             out += "\t" + k.first.toString() + ": " + cellViewToString(k.second) + '\n';
         }
+        return out;
     }
 
     static inline std::string cellViewToString(CellView cell_view) {
@@ -32,6 +33,7 @@ struct FieldViewMessage : public ViewMessage {
             case CellView::Player:
                 return "Player";
             case CellView::Undefined:
+            default:
                 return "Undefined";
         }
     }

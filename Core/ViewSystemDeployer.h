@@ -8,9 +8,9 @@
 #include "../View/ConsoleView/ConsoleViewRenderer.h"
 
 class ViewSystemDeployer : public IDisposable {
+public:
     using ViewSystemType = ViewSystem<ConsoleViewRenderer>;
 
-public:
     ViewSystemDeployer() : _view_system(std::make_shared<ViewSystemType>()) {
         auto console_view_renderer = std::make_unique<ConsoleViewRenderer>();
 
@@ -25,7 +25,7 @@ public:
         _view_system->addRenderer(std::move(console_view_renderer));
 
         auto mes = message();
-        _view_system->render(mes);
+        _view_system->update(mes);
     }
 
     auto& getSystem() {

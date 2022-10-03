@@ -87,7 +87,7 @@ set(Sources
         Utility/TypeIdentifier.cpp
         Utility/Identified.cpp
         Utility/Object.cpp
-        View/ConsoleView/ConsoleViewRenderer.cpp View/ConsoleView/ConsoleViewRenderer.h View/ConsoleView/ConsoleFieldViewAdapter.cpp View/ConsoleView/ConsoleFieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/ConsoleView/ConsoleHelper.h View/ConsoleView/ConsoleFieldViewTab.cpp View/ConsoleView/ConsoleFieldViewTab.h View/ConsoleView/ConsoleLogViewTab.cpp View/ConsoleView/ConsoleLogViewTab.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/ConsoleView/ConsoleHelper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h)
+        View/ConsoleView/ConsoleViewRenderer.cpp View/ConsoleView/ConsoleViewRenderer.h View/ConsoleView/ConsoleFieldViewAdapter.cpp View/ConsoleView/ConsoleFieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/ConsoleView/ConsoleHelper.h View/ConsoleView/ConsoleFieldViewTab.cpp View/ConsoleView/ConsoleFieldViewTab.h View/ConsoleView/ConsoleLogViewTab.cpp View/ConsoleView/ConsoleLogViewTab.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/ConsoleView/ConsoleHelper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h Objects/Field/FieldEventMessage.h Bridges/FieldViewBridge.h View/CellViewRecognizer.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests)

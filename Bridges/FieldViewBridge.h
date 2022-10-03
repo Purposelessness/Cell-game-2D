@@ -1,0 +1,70 @@
+#ifndef GAME_BRIDGES_FIELDVIEWBRIDGE_H_
+#define GAME_BRIDGES_FIELDVIEWBRIDGE_H_
+
+#include <type_traits>
+#include <utility>
+
+#include "../Objects/Field/FieldEventMessage.h"
+#include "../Utility/EventHandler.h"
+#include "../View/CellViewRecognizer.h"
+#include "../View/FieldViewMessage.h"
+
+template<typename T>
+concept TObservableField = requires(T t, int a, int b) {
+    { t.event_handler } -> std::convertible_to<EventHandler<FieldEventMessage>>;
+    { t.getCell(std::declval<Point>()) } -> std::convertible_to<Cell>;
+    t.getSize(a, b);
+};
+
+template<typename T>
+concept TRenderer = requires(T t) {
+    t.update(std::declval<FieldViewMessage>());
+};
+
+template<TRenderer T, TObservableField F>
+class FieldViewBridge : public IDisposable {
+public:
+    FieldViewBridge(std::shared_ptr<T> renderer, std::shared_ptr<F> field);
+
+    void react(const FieldEventMessage& message);
+
+    void setObservableField(std::shared_ptr<F> field);
+
+private:
+    std::shared_ptr<T> _renderer;
+    std::shared_ptr<F> _field;
+};
+
+template<TRenderer T, TObservableField F>
+FieldViewBridge<T, F>::FieldViewBridge(std::shared_ptr<T> renderer, std::shared_ptr<F> field)
+    : _renderer(std::move(renderer)), _field(std::move(field)) {
+    _field->event_handler.add(this, &FieldViewBridge<T, F>::react);
+
+    std::vector<std::pair<Point, CellView>> cells;
+    int width, height;
+    _field->getSize(width, height);
+    for (int i = 0; i < width; ++i) {
+        for (int j = 0; j < height; ++j) {
+            cells.emplace_back(std::pair<Point, CellView>{Point{i, j}, CellViewRecognizer::use(_field->getCell(Point{i, j}))});
+        }
+    }
+    _renderer->update(FieldViewMessage{cells});
+}
+
+template<TRenderer T, TObservableField F>
+void FieldViewBridge<T, F>::react(const FieldEventMessage& message) {
+    std::vector<std::pair<Point, CellView>> cells;
+    for (const auto& kPoint : message.information) {
+        cells.emplace_back(std::pair<Point, CellView>{kPoint, CellViewRecognizer::use(_field->getCell(kPoint))});
+    }
+    _renderer->update(FieldViewMessage{cells});
+}
+
+template<TRenderer T, TObservableField F>
+void FieldViewBridge<T, F>::setObservableField(std::shared_ptr<F> field) {
+    _field->event_handler.remove(this, &FieldViewBridge<T, F>::react);
+    _field = std::move(field);
+    _field->event_handler.add(this, &FieldViewBridge<T, F>::react);
+}
+
+#endif //GAME_BRIDGES_FIELDVIEWBRIDGE_H_
