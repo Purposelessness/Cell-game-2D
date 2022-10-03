@@ -3,7 +3,7 @@
 #include <memory>
 #include <utility>
 
-Field::Field() : Field(20, 20) {}
+Field::Field() : Field(50, 20) {}
 
 Field::Field(int width, int height) {
     if (width <= 0 || height <= 0) {
