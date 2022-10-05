@@ -18,7 +18,7 @@ public:
 
     static Log& instance();
 
-    void operator()(std::string message, Level level);
+    void operator()(std::string message, Level level = Info);
     void operator()(const LogEventMessage& message);
 
     std::vector<std::string>& messages();

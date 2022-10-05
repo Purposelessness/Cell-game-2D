@@ -17,14 +17,15 @@ concept TObservableField = requires(T t, int a, int b) {
 };
 
 template<typename T>
-concept TRenderer = requires(T t) {
+concept TFieldRenderer = requires(T t) {
     t.update(std::declval<FieldViewMessage>());
 };
 
-template<TRenderer T, TObservableField F>
+template<TFieldRenderer T, TObservableField F>
 class FieldViewBridge : public IDisposable {
 public:
     FieldViewBridge(std::shared_ptr<T> renderer, std::shared_ptr<F> field);
+    ~FieldViewBridge() override;
 
     void react(const FieldEventMessage& message);
 
@@ -35,10 +36,10 @@ private:
     std::shared_ptr<F> _field;
 };
 
-template<TRenderer T, TObservableField F>
+template<TFieldRenderer T, TObservableField F>
 FieldViewBridge<T, F>::FieldViewBridge(std::shared_ptr<T> renderer, std::shared_ptr<F> field)
     : _renderer(std::move(renderer)), _field(std::move(field)) {
-    _field->event_handler.add(this, &FieldViewBridge<T, F>::react);
+    _field->event_handler.template add(this, &FieldViewBridge<T, F>::react);
 
     std::vector<std::pair<Point, CellView>> cells;
     int width, height;
@@ -51,7 +52,12 @@ FieldViewBridge<T, F>::FieldViewBridge(std::shared_ptr<T> renderer, std::shared_
     _renderer->update(FieldViewMessage{cells});
 }
 
-template<TRenderer T, TObservableField F>
+template<TFieldRenderer T, TObservableField F>
+FieldViewBridge<T, F>::~FieldViewBridge() {
+    _field->event_handler.template remove(this, &FieldViewBridge<T, F>::react);
+}
+
+template<TFieldRenderer T, TObservableField F>
 void FieldViewBridge<T, F>::react(const FieldEventMessage& message) {
     std::vector<std::pair<Point, CellView>> cells;
     for (const auto& kPoint : message.information) {
@@ -60,7 +66,7 @@ void FieldViewBridge<T, F>::react(const FieldEventMessage& message) {
     _renderer->update(FieldViewMessage{cells});
 }
 
-template<TRenderer T, TObservableField F>
+template<TFieldRenderer T, TObservableField F>
 void FieldViewBridge<T, F>::setObservableField(std::shared_ptr<F> field) {
     _field->event_handler.remove(this, &FieldViewBridge<T, F>::react);
     _field = std::move(field);

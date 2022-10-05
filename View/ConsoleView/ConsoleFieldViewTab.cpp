@@ -4,7 +4,7 @@
 #include <utility>
 
 #include "ConsoleFieldViewAdapter.h"
-#include "ConsoleHelper.h"
+#include "WindowsConsoleHelper.h"
 
 ConsoleFieldViewTab::ConsoleFieldViewTab() : ConsoleFieldViewTab(nullptr) {}
 
@@ -17,7 +17,7 @@ void ConsoleFieldViewTab::update(const FieldViewMessage& message) {
         return;
     }
     for (auto& c : message.changes) {
-        ConsoleHelper::setCursorPosition(_margin_x + c.first.x, _margin_y + c.first.y);
+        WindowsConsoleHelper::setCursorPosition(_margin_x + c.first.x, _margin_y + c.first.y);
         std::cout << _adapter->symbol(c.second);
     }
 }

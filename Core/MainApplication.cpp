@@ -16,11 +16,12 @@
 #include "InputSystemDeployer.h"
 
 #include "../Bridges/FieldViewBridge.h"
+#include "../Bridges/LogViewBridge.h"
 
 class TestEvent : public IEvent {
 public:
     void invoke() override {
-        std::cout << "Player stepped\n";
+        Log::instance()("Player stepped", Log::Info);
     }
 };
 
@@ -28,7 +29,9 @@ MainApplication::MainApplication() : Application() {
     // Core elements
     _world = std::make_shared<World>();
     auto field = std::make_shared<Field>();
-    field->getCell(5, 5).changeEvent(std::make_shared<TestEvent>());
+    for (int i = 0; i < 20; ++i) {
+        field->getCell(5, i).changeEvent(std::make_shared<TestEvent>());
+    }
     for (int i = 0; i < 20; ++i) {
         field->getCell(7, i).changePassability(false);
     }
@@ -37,6 +40,7 @@ MainApplication::MainApplication() : Application() {
     // View
     auto view_system_deployer = std::make_shared<ViewSystemDeployer>();
     auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystemDeployer::ViewSystemType, Field>>(view_system_deployer->getSystem(), field);
+    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystemDeployer::ViewSystemType>>(view_system_deployer->getSystem());
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
@@ -50,6 +54,7 @@ MainApplication::MainApplication() : Application() {
 
     _disposables.emplace_back(view_system_deployer);
     _disposables.emplace_back(field_view_bridge);
+    _disposables.emplace_back(console_view_bridge);
 }
 
 void MainApplication::update() {

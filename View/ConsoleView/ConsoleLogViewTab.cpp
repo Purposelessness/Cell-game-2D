@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include "ConsoleHelper.h"
+#include "WindowsConsoleHelper.h"
 
 void ConsoleLogViewTab::update(const ViewMessage& message) const {
-    ConsoleHelper::setCursorPosition(_x_margin, _y_margin);
+    WindowsConsoleHelper::setCursorPosition(0, 30);
     std::cout << "Log: " + message.toString() + '\n';
 }
 

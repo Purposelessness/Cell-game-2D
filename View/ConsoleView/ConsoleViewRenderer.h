@@ -9,13 +9,14 @@
 #include "ConsoleLogViewTab.h"
 
 #include "ConsoleFieldViewAdapter.h"
+#include "WindowsConsoleHelper.h"
 
 class ConsoleViewRenderer {
 public:
     ConsoleViewRenderer();
 
     template<TViewMessage T>
-    void update(const T& message);
+    inline void update(const T& message);
 
     // TODO: scan from file
     void setAdapter(const std::shared_ptr<ConsoleFieldViewAdapter>& adapter);
@@ -23,6 +24,18 @@ public:
 private:
     std::unique_ptr<ConsoleFieldViewTab> _field_view_tab;
     std::unique_ptr<ConsoleLogViewTab> _log_view_tab;
+
+    WindowsConsoleHelper _helper;
 };
+
+template<TViewMessage T>
+void ConsoleViewRenderer::update(const T& message) {
+    _log_view_tab->update(message);
+}
+
+template<>
+inline void ConsoleViewRenderer::update<FieldViewMessage>(const FieldViewMessage& message) {
+    _field_view_tab->update(message);
+}
 
 #endif //GAME_VIEW_CONSOLEVIEW_CONSOLEVIEWRENDERER_H_
