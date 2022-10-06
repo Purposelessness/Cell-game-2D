@@ -1,0 +1,9 @@
+#ifndef GAME_VIEW_CONSOLEVIEW_CONSOLEWINDOWOBSERVER_H_
+#define GAME_VIEW_CONSOLEVIEW_CONSOLEWINDOWOBSERVER_H_
+
+class ConsoleWindowObserver {
+public:
+    virtual void onSizeUpdated() = 0;
+};
+
+#endif //GAME_VIEW_CONSOLEVIEW_CONSOLEWINDOWOBSERVER_H_

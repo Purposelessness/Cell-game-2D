@@ -1,17 +1,15 @@
 #ifndef GAME_VIEW_CONSOLEVIEW_CONSOLELOGVIEWTAB_H_
 #define GAME_VIEW_CONSOLEVIEW_CONSOLELOGVIEWTAB_H_
 
+#include "ConsoleWindowTab.h"
 #include "../../Engine/View/ViewMessage.h"
+#include "../../Datatypes/Size.h"
 
-class ConsoleLogViewTab {
+class ConsoleLogViewTab : public ConsoleWindowTab {
 public:
-    void setMargin(int x, int y);
-
     void update(const ViewMessage& message) const;
 
 private:
-    int _x_margin;
-    int _y_margin;
 };
 
 #endif //GAME_VIEW_CONSOLEVIEW_CONSOLELOGVIEWTAB_H_

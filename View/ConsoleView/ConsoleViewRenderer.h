@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "ConsoleWindowObserver.h"
+
 #include "../../Engine/View/ViewMessage.h"
 #include "../FieldViewMessage.h"
 #include "ConsoleFieldViewTab.h"
@@ -11,7 +13,7 @@
 #include "ConsoleFieldViewAdapter.h"
 #include "WindowsConsoleHelper.h"
 
-class ConsoleViewRenderer {
+class ConsoleViewRenderer : public ConsoleWindowObserver, public std::enable_shared_from_this<ConsoleViewRenderer> {
 public:
     ConsoleViewRenderer();
 
@@ -21,11 +23,15 @@ public:
     // TODO: scan from file
     void setAdapter(const std::shared_ptr<ConsoleFieldViewAdapter>& adapter);
 
+    void onSizeUpdated() override;
+
 private:
     std::unique_ptr<ConsoleFieldViewTab> _field_view_tab;
     std::unique_ptr<ConsoleLogViewTab> _log_view_tab;
 
     WindowsConsoleHelper _helper;
+
+    Size _window_size;
 };
 
 template<TViewMessage T>
