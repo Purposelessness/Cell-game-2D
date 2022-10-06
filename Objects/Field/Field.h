@@ -7,6 +7,7 @@
 #include "Cell.h"
 #include "FieldEventMessage.h"
 #include "../../Utility/EventHandler.h"
+#include "../../Datatypes/Size.h"
 
 struct Point;
 
@@ -16,6 +17,7 @@ public:
     explicit Field(int width, int height);
 
     void getSize(int& width, int& height) const;
+    [[nodiscard]] Size getSize() const;
     std::vector<Cell>& operator[](int row);
     Cell& getCell(int x, int y);
     Cell& getCell(const Point& point);
@@ -33,7 +35,7 @@ public:
     [[nodiscard]] bool isPointValid(const Point& point) const;
 
     Field(const Field& other);
-    Field& operator=(const Field& other);
+    Field& operator=(Field other);
 
     Field(Field&& other) noexcept;
     Field& operator=(Field&& other) noexcept;
@@ -46,7 +48,7 @@ private:
     void swap(Field& other);
 
     std::vector<std::vector<Cell>> _cells;
-    int _width, _height;
+    Size _size;
     Cell _empty_cell{};
 };
 

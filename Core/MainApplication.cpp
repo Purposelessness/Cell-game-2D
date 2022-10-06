@@ -1,7 +1,5 @@
 #include "MainApplication.h"
 
-#include <iostream>
-
 #include "../Engine/Input/InputSystem.h"
 #include "../Controllers/TestController.h"
 #include "../ECS/Systems/ObjectControllerSystem.h"
@@ -38,7 +36,6 @@ MainApplication::MainApplication() : Application() {
     std::vector<std::shared_ptr<Field>> fields{field};
 
     // View
-
     _view_system = ViewSystemDeployer::start();
     auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, field);
     auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);

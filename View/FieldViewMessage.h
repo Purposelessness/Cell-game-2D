@@ -1,10 +1,12 @@
 #ifndef GAME_VIEW_FIELDVIEWMESSAGE_H_
 #define GAME_VIEW_FIELDVIEWMESSAGE_H_
 
+#include <utility>
 #include <vector>
 
 #include "../Engine/View/ViewMessage.h"
 #include "../Datatypes/Point.h"
+#include "../Datatypes/Size.h"
 
 enum class CellView {
     Undefined,
@@ -14,15 +16,10 @@ enum class CellView {
 };
 
 struct FieldViewMessage : public ViewMessage {
-    explicit FieldViewMessage(std::vector<std::pair<Point, CellView>> changes) : changes(std::move(changes)) {}
+    explicit FieldViewMessage(std::vector<std::pair<Point, CellView>> changes, Size size = Size{})
+        : changes(std::move(changes)), size(std::move(size)) {}
 
-    [[nodiscard]] std::string toString() const override {
-        std::string out = "Field View Message:\n";
-        for (const auto& k : changes) {
-            out += "\t" + k.first.toString() + ": " + cellViewToString(k.second) + '\n';
-        }
-        return out;
-    }
+    [[nodiscard]] std::string toString() const override;
 
     static inline std::string cellViewToString(CellView cell_view) {
         switch (cell_view) {
@@ -39,6 +36,7 @@ struct FieldViewMessage : public ViewMessage {
     }
 
     std::vector<std::pair<Point, CellView>> changes;
+    Size size;
 };
 
 #endif //GAME_VIEW_FIELDVIEWMESSAGE_H_

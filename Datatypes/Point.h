@@ -6,13 +6,14 @@
 struct Vector;
 
 struct Point : public IConvertibleToString {
-    Point();
-    Point(int x, int y);
+    Point(int x = 0, int y = 0);
 
     [[nodiscard]] std::string toString() const override;
 
-    friend Point operator+(Point& a, Point& b);
-    friend Point operator+(Point& p, Vector& v);
+    Point& operator+=(const Point& other);
+    Point& operator+=(const Vector& other);
+    friend Point operator+(const Point& a, const Point& b);
+    friend Point operator+(const Point& p, const Vector& v);
 
     int x;
     int y;

@@ -1,12 +1,10 @@
 #include "MovementSystem.h"
 
-// TODO: mb logger?
 #include <utility>
-
-#include <iostream>
 
 #include "../../ECSLib/Core/Filter.h"
 #include "../../Objects/Field/Field.h"
+#include "../../Utility/Log.h"
 
 MovementSystem::MovementSystem(std::vector<std::shared_ptr<Field>> fields) : _fields(std::move(fields)) {}
 
@@ -21,7 +19,7 @@ void MovementSystem::process() {
         auto& transform = entity.getComponent<Transform>();
         auto field_id = transform.field_id;
         if (field_id < 0 || field_id >= _fields.size()) {
-            // TODO: log warning: "Unknown field id"
+            Log::instance()("MovementSystem: unknown field id", Log::Warning);
             continue;
         }
         auto& field = _fields[field_id];

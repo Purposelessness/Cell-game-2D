@@ -46,10 +46,11 @@ FieldViewBridge<T, F>::FieldViewBridge(std::shared_ptr<T> renderer, std::shared_
     _field->getSize(width, height);
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
-            cells.emplace_back(std::pair<Point, CellView>{Point{i, j}, CellViewRecognizer::use(_field->getCell(Point{i, j}))});
+            auto point = Point{i, j};
+            cells.emplace_back(point, CellViewRecognizer::use(_field->getCell(point)));
         }
     }
-    _renderer->update(FieldViewMessage{cells});
+    _renderer->update(FieldViewMessage{cells, Size{width, height}});
 }
 
 template<TFieldRenderer T, TObservableField F>
