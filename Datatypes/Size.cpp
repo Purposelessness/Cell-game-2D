@@ -22,4 +22,21 @@ Size operator+(const Size& a, const Size& b) {
     return temp;
 }
 
+Size& Size::operator*=(int value) {
+    x *= value;
+    y *= value;
+    return *this;
+}
+
+Size operator*(int value, const Size& size) {
+    Size temp{size};
+    temp *= value;
+    return temp;
+}
+
+Size operator*(const Size& size, int value) {
+    Size temp = operator*(value, size);
+    return temp;
+}
+
 

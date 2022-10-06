@@ -11,6 +11,9 @@ struct Size : IConvertibleToString {
 
     Size& operator+=(const Size& other);
     friend Size operator+(const Size& a, const Size& b);
+    Size& operator*=(int value);
+    friend Size operator*(int value, const Size& size);
+    friend Size operator*(const Size& size, int value);
 
     int x;
     int y;
