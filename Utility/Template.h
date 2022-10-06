@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <functional>
 #include <tuple>
+#include <memory>
 
 #include "Concepts.h"
 
@@ -110,6 +111,40 @@ struct extract_method_arguments<F<T, Args...>> {
 
     template<size_t I>
     using get_arg_type = typename extract_tuple_type_by_index<I, args_tuple>::value;
+};
+
+/// Push `T` type to `Tuple` tuple
+template<typename Tuple, typename T>
+struct tuple_push;
+
+template<template<typename...> class Tuple, typename... Args, typename T>
+struct tuple_push<Tuple<Args...>, T> {
+    using type = Tuple<Args..., T>;
+};
+
+/// Create tuple with unique_ptr from another tuple
+namespace details {
+    template<typename Tuple, typename OutTuple>
+    struct unique_ptr_tuple_impl;
+
+    template<template<typename...> class Tuple, typename T, template<typename...> class OutTuple, typename... OutArgs>
+    struct unique_ptr_tuple_impl<Tuple<T>, OutTuple<OutArgs...>> {
+        using type = OutTuple<OutArgs..., std::unique_ptr<T>>;
+    };
+
+    template<template<typename...> class Tuple, typename... Args, typename T, template<typename...> class OutTuple, typename... OutArgs>
+    struct unique_ptr_tuple_impl<Tuple<T, Args...>, OutTuple<OutArgs...>> {
+        using type = typename unique_ptr_tuple_impl<Tuple<Args...>, OutTuple<OutArgs..., std::unique_ptr<T>>>::type;
+    };
+
+}
+
+template<typename Tuple>
+struct unique_ptr_tuple;
+
+template<template<typename...> class Tuple, typename... Args>
+struct unique_ptr_tuple<Tuple<Args...>> {
+    using type = typename details::unique_ptr_tuple_impl<Tuple<Args...>, std::tuple<>>::type;
 };
 
 #endif //GAME_UTILITY_TEMPLATE_H_
