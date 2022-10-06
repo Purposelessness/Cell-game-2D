@@ -37,8 +37,8 @@ MainApplication::MainApplication() : Application() {
 
     // View
     _view_system = ViewSystemDeployer::start();
-    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, field);
     auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
+    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, field);
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));

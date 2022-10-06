@@ -10,10 +10,10 @@
 #include "../../Utility/Template.h"
 
 #include "ViewRenderer.h"
-#include "../../View/ConsoleView/ConsoleViewRenderer.h"
+#include "../../View/Console/ViewRenderer.h"
 
 class ViewSystem {
-    using Types = std::tuple<ConsoleViewRenderer>;
+    using Types = std::tuple<console::ViewRenderer>;
 
 public:
     template<TViewRenderer T, typename... Args> requires(has_type<T, Types>::value)
