@@ -8,11 +8,12 @@
 
 #include "../../Utility/Tuple.h"
 #include "../../Utility/Template.h"
-#include "ViewRenderer.h"
 
-template<TViewRenderer... Ts>
+#include "ViewRenderer.h"
+#include "../../View/ConsoleView/ConsoleViewRenderer.h"
+
 class ViewSystem {
-    using Types = std::tuple<Ts...>;
+    using Types = std::tuple<ConsoleViewRenderer>;
 
 public:
     template<TViewRenderer T, typename... Args> requires(has_type<T, Types>::value)
@@ -23,8 +24,7 @@ public:
     }
 
     template<TViewRenderer T> requires(has_type<T, Types>::value)
-    void addRenderer(std::unique_ptr<T>
-    && renderer) {
+    void addRenderer(std::unique_ptr<T>&& renderer) {
         auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
         if (ptr.get()) {
             ptr.reset();
@@ -48,7 +48,7 @@ public:
     }
 
 private:
-    std::tuple<std::unique_ptr<Ts>...> _renderers;
+    unique_ptr_tuple<Types>::type _renderers;
 };
 
 #endif //GAME_ENGINE_VIEW_VIEWSYSTEM_H_

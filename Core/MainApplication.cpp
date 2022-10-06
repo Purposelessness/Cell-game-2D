@@ -38,9 +38,10 @@ MainApplication::MainApplication() : Application() {
     std::vector<std::shared_ptr<Field>> fields{field};
 
     // View
-    auto view_system_deployer = std::make_shared<ViewSystemDeployer>();
-    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystemDeployer::ViewSystemType, Field>>(view_system_deployer->getSystem(), field);
-    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystemDeployer::ViewSystemType>>(view_system_deployer->getSystem());
+
+    _view_system = ViewSystemDeployer::start();
+    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, field);
+    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
@@ -52,7 +53,6 @@ MainApplication::MainApplication() : Application() {
     // Entities
     auto player = PlayerProvider::create(*_world);
 
-    _disposables.emplace_back(view_system_deployer);
     _disposables.emplace_back(field_view_bridge);
     _disposables.emplace_back(console_view_bridge);
 }
