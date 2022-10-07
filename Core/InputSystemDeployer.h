@@ -6,7 +6,6 @@
 #include "../ECSLib/Core/World.h"
 #include "../Engine/Input/InputSystem.h"
 #include "../ECS/Systems/ObjectControllerSystem.h"
-#include "../Controllers/TestController.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "../Engine/Input/KeyboardInputReader/ControlScheme.h"
 #include "IApplication.h"
@@ -16,9 +15,7 @@ public:
     static auto deploy(IApplication& application, const std::shared_ptr<World>& world) {
         auto input_system = std::make_shared<InputSystem>();
         auto object_controller_system = std::make_shared<ObjectControllerSystem>();
-//        auto test_controller = std::make_shared<TestController>(&application);
         input_system->addController(object_controller_system);
-//        input_system->addController(test_controller);
         application.addTickable(input_system);
 
         auto map = std::unordered_map<char, InputType>{};
