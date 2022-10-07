@@ -19,14 +19,14 @@ namespace console {
         this->observer = observer;
     }
 
-    void Widget::resize(const Size& new_size) {
+    void Widget::resize(const Size& new_size, bool notify) {
         rect.setSize(new_size);
-        if (observer)
+        if (observer && notify)
             observer->onSizeUpdated(this);
     }
 
-    void Widget::resize(int x, int y) {
-        resize(Size{x, y});
+    void Widget::resize(int x, int y, bool notify) {
+        resize(Size{x, y}, notify);
     }
 
     Size Widget::getSize() const {

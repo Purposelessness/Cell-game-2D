@@ -14,6 +14,7 @@ namespace console {
         Helper();
 
         void resize(const Size& size);
+        void fitBuffer();
 
         static inline void setCursorPosition(const Point& point) {
             setCursorPosition(point.x, point.y);

@@ -24,8 +24,8 @@ namespace console {
         void setBottom(int value);
         void setRight(int value);
         void setBottomRight(const Point& value);
-        void resize(const Size& new_size);
-        void resize(int width, int height);
+        void resize(const Size& new_size, bool notify = true);
+        void resize(int width, int height, bool notify = true);
 
         [[nodiscard]] Size getSize() const;
 

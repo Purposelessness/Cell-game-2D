@@ -13,15 +13,18 @@ namespace console {
     public:
         explicit Grid(WidgetObserver* observer = nullptr);
 
-        void addWidget(std::shared_ptr<Widget> widget);
+        void addWidget(std::shared_ptr<Widget> widget, int row, int column);
 
+        void setSize(int row_count, int column_count);
         void setMargin(const Size& size);
 
         void onSizeUpdated(Widget* widget) override;
 
     private:
+        Size _grid_size;
+
         WidgetObserver* _observer;
-        std::vector<std::shared_ptr<Widget>> _elements;
+        std::vector<std::vector<std::shared_ptr<Widget>>> _elements;
 
         Size _margin;
     };
