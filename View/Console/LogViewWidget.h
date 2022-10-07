@@ -11,10 +11,13 @@ namespace console {
 
     class LogViewWidget : public Widget {
     public:
+        LogViewWidget();
+
         void update(const ViewMessage& message);
 
     private:
         std::deque<std::string> _buffer;
+        std::string _flush;
     };
 
 }

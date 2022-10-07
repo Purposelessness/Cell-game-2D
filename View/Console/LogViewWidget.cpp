@@ -6,13 +6,18 @@
 
 namespace console {
 
+    LogViewWidget::LogViewWidget() : _buffer({}), _flush({}) {}
+
     void LogViewWidget::update(const ViewMessage& message) {
-        if (_buffer.size() >= rect.height()) {
+        if (_buffer.size() >= rect.height() && rect.height() > 0) {
+            std::string flush = std::string(rect.width(), ' ');
             _buffer.pop_front();
             _buffer.emplace_back(message.toString());
             for (auto i = 0; i < _buffer.size(); ++i) {
                 Helper::setCursorPosition(rect.left(), rect.top() + i);
-                std::cout << _buffer.at(i) + std::to_string(rect.top()) + std::to_string(i) +'\n';
+                std::cout << flush;
+                Helper::setCursorPosition(rect.left(), rect.top() + i);
+                std::cout << _buffer.at(i) + '\n';
             }
         } else {
             std::string str = message.toString();
