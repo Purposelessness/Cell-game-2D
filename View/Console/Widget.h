@@ -8,14 +8,14 @@
 
 namespace console {
 
-    class WidgetObserver;
+    class IWidgetObserver;
 
     class Widget {
     public:
-        explicit Widget(Rect rect = Rect{}, WidgetObserver* observer = nullptr);
-        explicit Widget(WidgetObserver* observer);
+        explicit Widget(Rect rect = Rect{}, IWidgetObserver* observer = nullptr);
+        explicit Widget(IWidgetObserver* observer);
 
-        void setObserver(WidgetObserver* observer);
+        void setObserver(IWidgetObserver* observer);
 
         void setRect(const Rect& rect);
         void setTop(int value);
@@ -31,7 +31,7 @@ namespace console {
 
     protected:
         Rect rect;
-        WidgetObserver* observer;
+        IWidgetObserver* observer;
     };
 
 }

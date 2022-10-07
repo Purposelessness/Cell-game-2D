@@ -13,7 +13,7 @@ namespace console {
     public:
         Helper();
 
-        void resize(const Size& size);
+        void resizeWindow(const Size& size);
         void fitBuffer();
 
         static inline void setCursorPosition(const Point& point) {

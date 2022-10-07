@@ -8,8 +8,8 @@ class IDisposable;
 
 class IApplication {
 public:
-    virtual void addTickable(const std::shared_ptr<ITickable>& tickable) = 0;
-    virtual void addDisposable(const std::shared_ptr<IDisposable>& disposable) = 0;
+    virtual void addTickable(std::shared_ptr<ITickable> tickable) = 0;
+    virtual void addDisposable(std::shared_ptr<IDisposable> disposable) = 0;
     virtual void quit() = 0;
 };
 

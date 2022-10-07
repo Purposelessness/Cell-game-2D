@@ -7,13 +7,13 @@ Application::Application() : _is_executing(false) {}
 int Application::execute(int delta_time) {
     _is_executing = true;
     while (_is_executing) {
-        update();
+        tick();
         usleep(delta_time);
     }
     return 0;
 }
 
-void Application::update() {
+void Application::tick() {
 
 }
 

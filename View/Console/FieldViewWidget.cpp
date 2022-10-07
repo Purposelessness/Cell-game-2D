@@ -27,8 +27,8 @@ namespace console {
         }
     }
 
-    void FieldViewWidget::setAdapter(const std::shared_ptr<FieldViewAdapter>& adapter) {
-        _adapter = adapter;
+    void FieldViewWidget::setAdapter(std::shared_ptr<FieldViewAdapter> adapter) {
+        _adapter = std::move(adapter);
     }
 
 }

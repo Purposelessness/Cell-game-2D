@@ -16,10 +16,10 @@ class MainApplication : public Application, public IApplication {
 public:
     MainApplication();
 
-    void update() override;
+    void tick() override;
 
-    void addTickable(const std::shared_ptr<ITickable>& tickable) override;
-    void addDisposable(const std::shared_ptr<IDisposable>& disposable) override;
+    void addTickable(std::shared_ptr<ITickable> tickable) override;
+    void addDisposable(std::shared_ptr<IDisposable> disposable) override;
     void quit() override;
 
 private:

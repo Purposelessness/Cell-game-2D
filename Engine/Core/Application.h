@@ -9,7 +9,7 @@ public:
 
     int execute(int delta_time);
 
-    virtual void update();
+    virtual void tick();
 
     void quit();
 

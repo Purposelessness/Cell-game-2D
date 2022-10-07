@@ -17,7 +17,7 @@ namespace console {
     public:
         explicit FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter = nullptr);
 
-        void setAdapter(const std::shared_ptr<FieldViewAdapter>& adapter);
+        void setAdapter(std::shared_ptr<FieldViewAdapter> adapter);
         void update(const FieldViewMessage& message);
 
     private:

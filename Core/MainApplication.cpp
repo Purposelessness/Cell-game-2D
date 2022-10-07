@@ -53,20 +53,20 @@ MainApplication::MainApplication() : Application() {
     _disposables.emplace_back(console_view_bridge);
 }
 
-void MainApplication::update() {
-    Application::update();
+void MainApplication::tick() {
+    Application::tick();
     for (auto& tickable : _tickables) {
         tickable->tick();
     }
     _world->tick();
 }
 
-void MainApplication::addTickable(const std::shared_ptr<ITickable>& tickable) {
-    _tickables.emplace_back(tickable);
+void MainApplication::addTickable(std::shared_ptr<ITickable> tickable) {
+    _tickables.emplace_back(std::move(tickable));
 }
 
-void MainApplication::addDisposable(const std::shared_ptr<IDisposable>& disposable) {
-    _disposables.emplace_back(disposable);
+void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
+    _disposables.emplace_back(std::move(disposable));
 }
 
 void MainApplication::quit() {

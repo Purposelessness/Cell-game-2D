@@ -30,8 +30,8 @@ namespace console {
 
     private:
         Grid _grid;
-        std::shared_ptr<FieldViewWidget> _field_view_tab;
-        std::shared_ptr<LogViewWidget> _log_view_tab;
+        std::shared_ptr<FieldViewWidget> _field_widget;
+        std::shared_ptr<LogViewWidget> _log_widget;
 
         Helper _helper;
 
@@ -40,12 +40,12 @@ namespace console {
 
     template<TViewMessage T>
     void ViewRenderer::update(const T& message) {
-        _log_view_tab->update(message);
+        _log_widget->update(message);
     }
 
     template<>
     inline void ViewRenderer::update<FieldViewMessage>(const FieldViewMessage& message) {
-        _field_view_tab->update(message);
+        _field_widget->update(message);
     }
 
 }

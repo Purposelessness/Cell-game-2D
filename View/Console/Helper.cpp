@@ -6,7 +6,7 @@ namespace console {
 
     Helper::Helper() : _handle(GetStdHandle(STD_OUTPUT_HANDLE)), _hwnd(GetConsoleWindow()) {}
 
-    void Helper::resize(const Size& size) {
+    void Helper::resizeWindow(const Size& size) {
         COORD new_size_in_ch{static_cast<SHORT>(size.x), static_cast<SHORT>(size.y)};
         SetConsoleScreenBufferSize(_handle, new_size_in_ch);
         CONSOLE_FONT_INFO font_info;
