@@ -22,7 +22,7 @@ namespace console {
         }
 
         for (auto& c : message.changes) {
-            Helper::setCursorPosition(margin.x + c.first.x, margin.y + c.first.y);
+            Helper::setCursorPosition(rect.top_left + c.first);
             std::cout << _adapter->symbol(c.second);
         }
     }

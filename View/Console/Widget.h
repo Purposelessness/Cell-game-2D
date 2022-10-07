@@ -4,30 +4,34 @@
 #include <memory>
 
 #include "../../Datatypes/Size.h"
+#include "../../Datatypes/Rect.h"
 
 namespace console {
 
-    class Observer;
+    class WidgetObserver;
 
     class Widget {
     public:
-        explicit Widget(Size size = Size{}, Size margin = Size{}, Observer* observer = nullptr);
-        explicit Widget(Observer* observer);
+        explicit Widget(Rect rect = Rect{}, WidgetObserver* observer = nullptr);
+        explicit Widget(WidgetObserver* observer);
 
-        void setObserver(Observer* observer);
+        void setObserver(WidgetObserver* observer);
 
-        void resize(const Size& new_size, bool notify = true);
-        void resize(int width, int height, bool notify = true);
-        void setMargin(const Size& new_margin, bool notify = true);
-        void setMargin(int x, int y, bool notify = true);
+        void setRect(const Rect& rect);
+        void setTop(int value);
+        void setLeft(int value);
+        void setTopLeft(const Point& value);
+        void setBottom(int value);
+        void setRight(int value);
+        void setBottomRight(const Point& value);
+        void resize(const Size& new_size);
+        void resize(int width, int height);
 
         [[nodiscard]] Size getSize() const;
-        [[nodiscard]] Size getMargin() const;
 
     protected:
-        Size size;
-        Size margin;
-        Observer* observer;
+        Rect rect;
+        WidgetObserver* observer;
     };
 
 }

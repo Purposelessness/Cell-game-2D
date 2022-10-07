@@ -3,19 +3,20 @@
 
 #include <memory>
 
-#include "Observer.h"
+#include "WidgetObserver.h"
 
 #include "../../Engine/View/ViewMessage.h"
 #include "../FieldViewMessage.h"
 #include "FieldViewWidget.h"
 #include "LogViewWidget.h"
 
+#include "Grid.h"
 #include "FieldViewAdapter.h"
 #include "Helper.h"
 
 namespace console {
 
-    class ViewRenderer : public Observer, public std::enable_shared_from_this<ViewRenderer> {
+    class ViewRenderer : public WidgetObserver, public std::enable_shared_from_this<ViewRenderer> {
     public:
         ViewRenderer();
 
@@ -25,11 +26,12 @@ namespace console {
         // TODO: scan from file
         void setAdapter(const std::shared_ptr<FieldViewAdapter>& adapter);
 
-        void onSizeUpdated() override;
+        void onSizeUpdated(Widget* widget) override;
 
     private:
-        std::unique_ptr<FieldViewWidget> _field_view_tab;
-        std::unique_ptr<LogViewWidget> _log_view_tab;
+        Grid _grid;
+        std::shared_ptr<FieldViewWidget> _field_view_tab;
+        std::shared_ptr<LogViewWidget> _log_view_tab;
 
         Helper _helper;
 

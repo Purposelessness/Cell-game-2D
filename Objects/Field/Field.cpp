@@ -6,13 +6,7 @@
 Field::Field() : Field(50, 20) {}
 
 Field::Field(int width, int height) {
-    if (width <= 0 || height <= 0) {
-        this->_size.x = 0;
-        this->_size.y = 0;
-    } else {
-        this->_size.x = width;
-        this->_size.y = height;
-    }
+    _size = width <= 0 || height <= 0 ? Size{0, 0} : Size{width, height};
     _cells.resize(this->_size.y);
     for (int j = 0; j < this->_size.y; ++j) {
         _cells[j].resize(this->_size.x);

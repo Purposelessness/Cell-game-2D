@@ -5,6 +5,7 @@
 
 #include "../../Utility/Log.h"
 #include "../../Datatypes/Size.h"
+#include "../../Datatypes/Point.h"
 
 namespace console {
 
@@ -12,13 +13,11 @@ namespace console {
     public:
         Helper();
 
-//    void resizeWindow(const Size& size);
-//    void resizeWindow(int width, int height);
-//    void resizeBuffer(const COORD& size);
-//    void resizeBuffer(const Size& size);
-//    void fitWindowSize();
-
         void resize(const Size& size);
+
+        static inline void setCursorPosition(const Point& point) {
+            setCursorPosition(point.x, point.y);
+        }
 
         static inline void setCursorPosition(int x, int y) {
             COORD coord = {static_cast<SHORT>(x), static_cast<SHORT>(y)};

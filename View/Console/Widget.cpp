@@ -5,52 +5,60 @@
 
 #include <utility>
 
-#include "Observer.h"
+#include "WidgetObserver.h"
 
 namespace console {
 
-    Widget::Widget(Size size, Size margin, Observer* observer)
-        : observer(observer), size(std::move(size)), margin(std::move(margin)) {
+    Widget::Widget(Rect rect, WidgetObserver* observer)
+        : observer(observer), rect(std::move(rect)) {
     }
 
-    Widget::Widget(Observer* observer) : observer(observer), size({}), margin({}) {}
+    Widget::Widget(WidgetObserver* observer) : observer(observer), rect({}) {}
 
-    void Widget::setObserver(Observer* observer) {
+    void Widget::setObserver(WidgetObserver* observer) {
         this->observer = observer;
     }
 
-    void Widget::resize(const Size& new_size, bool notify) {
-        size = new_size;
+    void Widget::resize(const Size& new_size) {
+        rect.setSize(new_size);
         if (observer)
-            observer->onSizeUpdated();
+            observer->onSizeUpdated(this);
     }
 
-    void Widget::resize(int x, int y, bool notify) {
-        size.x = x;
-        size.y = y;
-        if (observer && notify)
-            observer->onSizeUpdated();
-    }
-
-    void Widget::setMargin(const Size& new_margin, bool notify) {
-        margin = new_margin;
-        if (observer && notify)
-            observer->onSizeUpdated();
-    }
-
-    void Widget::setMargin(int x, int y, bool notify) {
-        margin.x = x;
-        margin.y = y;
-        if (observer && notify)
-            observer->onSizeUpdated();
+    void Widget::resize(int x, int y) {
+        resize(Size{x, y});
     }
 
     Size Widget::getSize() const {
-        return size;
+        return rect.size();
     }
 
-    Size Widget::getMargin() const {
-        return margin;
+    void Widget::setRect(const Rect& n_rect) {
+        rect = n_rect;
+    }
+
+    void Widget::setTop(int value) {
+        rect.setTop(value);
+    }
+
+    void Widget::setLeft(int value) {
+        rect.setLeft(value);
+    }
+
+    void Widget::setTopLeft(const Point& value) {
+        rect.setTopLeft(value);
+    }
+
+    void Widget::setBottom(int value) {
+        rect.setBottom(value);
+    }
+
+    void Widget::setRight(int value) {
+        rect.setRight(value);
+    }
+
+    void Widget::setBottomRight(const Point& value) {
+        rect.setBottomRight(value);
     }
 
 }
