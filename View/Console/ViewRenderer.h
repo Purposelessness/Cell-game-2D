@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "WidgetObserver.h"
+#include "IWidgetObserver.h"
 
 #include "../../Engine/View/ViewMessage.h"
 #include "../FieldViewMessage.h"
@@ -16,7 +16,7 @@
 
 namespace console {
 
-    class ViewRenderer : public WidgetObserver, public std::enable_shared_from_this<ViewRenderer> {
+    class ViewRenderer : public IWidgetObserver, public std::enable_shared_from_this<ViewRenderer> {
     public:
         ViewRenderer();
 

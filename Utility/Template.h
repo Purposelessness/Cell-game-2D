@@ -147,5 +147,58 @@ struct unique_ptr_tuple<Tuple<Args...>> {
     using type = typename details::unique_ptr_tuple_impl<Tuple<Args...>, std::tuple<>>::type;
 };
 
+template<typename T>
+struct remove_smart_pointer {
+    using type = T;
+};
+
+template<typename T>
+struct remove_smart_pointer<std::shared_ptr<T>> {
+    using type = T;
+};
+
+template<typename T>
+struct remove_smart_pointer<std::unique_ptr<T>> {
+    using type = T;
+};
+
+template<typename T>
+struct remove_smart_pointer<std::decay<std::weak_ptr<T>>> {
+    using type = T;
+};
+
+/// If tuple `TTuple` contains type `T`
+template<typename TTuple, typename T>
+struct has_type;
+
+template<typename T>
+struct has_type<std::tuple<>, T> : std::false_type {};
+
+template<typename T, typename U, typename... Args>
+struct has_type<std::tuple<U, Args...>, T> : has_type<std::tuple<Args...>, T> {};
+
+template<typename T, typename... Args>
+struct has_type<std::tuple<T, Args...>, T> : std::true_type {};
+
+namespace details {
+    template<typename T1, typename T2>
+    struct has_all_type_impl;
+
+    template<typename... Args, typename T>
+    struct has_all_type_impl<std::tuple<Args...>, std::tuple<T>> : has_type<std::tuple<Args...>, typename remove_smart_pointer<T>::type> {};
+
+    template<typename... Args, typename T, typename... Ts>
+    struct has_all_type_impl<std::tuple<Args...>, std::tuple<T, Ts...>> : std::false_type {};
+
+    template<typename... Args, typename T, typename... Ts> requires (has_type<std::tuple<Args...>, typename remove_smart_pointer<T>::type>::value)
+    struct has_all_type_impl<std::tuple<Args...>, std::tuple<T, Ts...>> : has_all_type_impl<std::tuple<Args...>, std::tuple<Ts...>>{};
+}
+
+template<typename TTuple, typename Ts>
+struct has_all_type : std::false_type {};
+
+template<typename... Args, typename... Ts>
+struct has_all_type<std::tuple<Args...>, std::tuple<Ts...>> : details::has_all_type_impl<std::tuple<Args...>, std::tuple<Ts...>> {};
+
 #endif //GAME_UTILITY_TEMPLATE_H_
 #pragma clang diagnostic pop

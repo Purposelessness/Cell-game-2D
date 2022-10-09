@@ -5,17 +5,17 @@
 
 #include <utility>
 
-#include "WidgetObserver.h"
+#include "IWidgetObserver.h"
 
 namespace console {
 
-    Widget::Widget(Rect rect, WidgetObserver* observer)
+    Widget::Widget(Rect rect, IWidgetObserver* observer)
         : observer(observer), rect(std::move(rect)) {
     }
 
-    Widget::Widget(WidgetObserver* observer) : observer(observer), rect({}) {}
+    Widget::Widget(IWidgetObserver* observer) : observer(observer), rect({}) {}
 
-    void Widget::setObserver(WidgetObserver* observer) {
+    void Widget::setObserver(IWidgetObserver* observer) {
         this->observer = observer;
     }
 

@@ -4,7 +4,7 @@
 
 namespace console {
 
-    Grid::Grid(WidgetObserver* observer) : _observer(observer), _margin({}), _elements({}) {}
+    Grid::Grid(IWidgetObserver* observer) : _observer(observer), _margin({}), _elements({}) {}
 
     void Grid::addWidget(std::shared_ptr<Widget> widget, int row, int column) {
         widget->setObserver(this);

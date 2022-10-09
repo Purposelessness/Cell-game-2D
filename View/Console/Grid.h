@@ -5,13 +5,13 @@
 #include <memory>
 
 #include "Widget.h"
-#include "WidgetObserver.h"
+#include "IWidgetObserver.h"
 
 namespace console {
 
-    class Grid : public WidgetObserver, public Widget {
+    class Grid : public IWidgetObserver, public Widget {
     public:
-        explicit Grid(WidgetObserver* observer = nullptr);
+        explicit Grid(IWidgetObserver* observer = nullptr);
 
         void addWidget(std::shared_ptr<Widget> widget, int row, int column);
 
@@ -23,7 +23,7 @@ namespace console {
     private:
         Size _grid_size;
 
-        WidgetObserver* _observer;
+        IWidgetObserver* _observer;
         std::vector<std::vector<std::shared_ptr<Widget>>> _elements;
 
         Size _margin;
