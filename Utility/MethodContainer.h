@@ -20,6 +20,7 @@ namespace event_handler {
     class IMethodContainer {
     public:
         virtual void invoke(IArguments* arguments) = 0;
+        virtual ~IMethodContainer() = default;
     };
 
     template<typename T, typename... Args>
