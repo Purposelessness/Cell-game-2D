@@ -9,8 +9,11 @@
 #include "../ECS/Systems/MovementSystem.h"
 
 #include "ViewSystemDeployer.h"
+#include "../Engine/View/ViewSystem.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
+
+#include "GameInstaller.h"
 
 #include "../Bridges/FieldViewBridge.h"
 #include "../Bridges/LogViewBridge.h"
@@ -27,10 +30,10 @@ MainApplication::MainApplication() : Application() {
     _world = std::make_shared<World>();
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
-        field->getCell(5, i).changeEvent(std::make_shared<TestEvent>());
+        field->setCellEvent({5, i}, std::make_shared<TestEvent>());
     }
     for (int i = 0; i < 20; ++i) {
-        field->getCell(7, i).changePassability(false);
+        field->setCellPassability({7, i}, false);
     }
     std::vector<std::shared_ptr<Field>> fields{field};
 
@@ -41,6 +44,10 @@ MainApplication::MainApplication() : Application() {
 
     // Input
     _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
+
+    // Game
+    _game_installer = std::make_shared<GameInstaller>();
+    _game_installer->initialize();
 
     // Systems
     auto movement_system = std::make_shared<MovementSystem>(fields);
