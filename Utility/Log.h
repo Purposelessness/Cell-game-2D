@@ -18,6 +18,9 @@ public:
 
     static Log& instance();
 
+    Log(const Log&) = delete;
+    Log& operator=(const Log&) = delete;
+
     void operator()(std::string message, Level level = Info);
     void operator()(const LogEventMessage& message);
 
@@ -25,6 +28,8 @@ public:
     EventHandler<LogEventMessage> event_handler;
 
 private:
+    Log() = default;
+
     static inline std::string levelToString(Level level) {
         switch (level) {
             case Warning:
