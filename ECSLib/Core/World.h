@@ -7,15 +7,18 @@
 
 #include "Entity.h"
 #include "../Components/Component.h"
-#include "../Systems/System.h"
-#include "../Systems/TickableSystem.h"
+#include "../Systems/TSystem.h"
 
 class Filter;
+class System;
+class TickableSystem;
 
 class World : public std::enable_shared_from_this<World> {
     friend class Filter;
 
 public:
+    ~World();
+
     void tick();
 
     Entity& addEntity(const std::string& name = std::string{});
@@ -36,15 +39,15 @@ public:
     template<TSystem T>
     void removeSystem(std::shared_ptr<T> system) {
         if constexpr (std::is_base_of_v<TickableSystem, T>) {
-            _tickable_systems.erase(std::remove(_tickable_systems.begin(), _tickable_systems.end(), system)); // NOLINT(bugprone-inaccurate-erase)
+            _tickable_systems.erase(std::remove(_tickable_systems.begin(),
+                                                _tickable_systems.end(),
+                                                system)); // NOLINT(bugprone-inaccurate-erase)
         } else {
             _systems.erase(std::remove(_systems.begin(), _systems.end(), system)); // NOLINT(bugprone-inaccurate-erase)
         }
         system->setWorld(shared_from_this());
         system->resetWorld();
     }
-
-    ~World();
 
 private:
     int getEntityId(bool& is_from_array);

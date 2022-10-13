@@ -2,7 +2,6 @@
 
 #include <utility>
 
-#include "../../ECSLib/Core/Filter.h"
 #include "../../Objects/Field/Field.h"
 #include "../../Utility/Log.h"
 

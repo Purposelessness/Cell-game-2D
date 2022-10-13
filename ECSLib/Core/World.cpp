@@ -1,6 +1,14 @@
 #include "World.h"
 
 #include "Entity.h"
+#include "../Systems/System.h"
+#include "../Systems/TickableSystem.h"
+
+World::~World() {
+    for (auto& entity : _entities) {
+        CommonCache::clearEntity(entity.getId());
+    }
+}
 
 Entity& World::addEntity(const std::string& name) {
     std::string entity_name = name;
@@ -41,8 +49,3 @@ void World::tick() {
     }
 }
 
-World::~World() {
-    for (auto& entity : _entities) {
-        CommonCache::clearEntity(entity.getId());
-    }
-}

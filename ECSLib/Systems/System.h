@@ -4,7 +4,8 @@
 #include <memory>
 #include <utility>
 
-class Filter;
+#include "../Core/Filter.h"
+
 class World;
 
 class System {
@@ -17,8 +18,5 @@ public:
 protected:
     std::weak_ptr<World> world{};
 };
-
-template<typename T>
-concept TSystem = std::is_base_of_v<System, T>;
 
 #endif //GAME_ECSLIB_SYSTEMS_SYSTEM_H_
