@@ -9,9 +9,9 @@ public:
     explicit Event(Point position = {-1, -1}, int field_index = 0);
     void invoke() override = 0;
 
-private:
-    Point _position;
-    int _field_index;
+protected:
+    Point position;
+    int field_index;
 };
 
 template<typename T>

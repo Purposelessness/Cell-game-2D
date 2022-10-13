@@ -2,4 +2,4 @@
 
 #include <utility>
 
-Event::Event(Point  position, int field_index) : _position(std::move(position)), _field_index(field_index) {}
+Event::Event(Point  position, int field_index) : position(std::move(position)), field_index(field_index) {}

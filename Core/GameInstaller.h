@@ -6,11 +6,11 @@
 class Field;
 class EventFactory;
 
-class GameInstaller {
-    using DiServiceContainer = di::Container<Field, EventFactory>;
+class GameInstaller : public std::enable_shared_from_this<GameInstaller> {
+    using DiContainer = di::Container<Field, EventFactory>;
 
 public:
-    GameInstaller();
+    void initialize();
 
     template<typename T, typename... Args>
     std::shared_ptr<T> create(Args&&... args);
@@ -19,7 +19,7 @@ public:
     void inject(T& obj);
 
 private:
-    DiServiceContainer _container;
+    DiContainer _container;
 };
 
 #endif //GAME_CORE_GAMEINSTALLER_H_

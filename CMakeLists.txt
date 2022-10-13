@@ -88,5 +88,5 @@ set(Sources
         Utility/Object.cpp
         View/Console/ViewRenderer.cpp View/Console/ViewRenderer.h View/Console/FieldViewAdapter.cpp View/Console/FieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/Console/Helper.h View/Console/FieldViewWidget.cpp View/Console/FieldViewWidget.h View/Console/LogViewWidget.cpp View/Console/LogViewWidget.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/Console/Helper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h Objects/Field/FieldEventMessage.h Bridges/FieldViewBridge.h View/CellViewRecognizer.h Utility/Log.cpp Utility/Log.h Bridges/LogViewBridge.h View/LogViewMesssage.h Datatypes/Size.cpp Datatypes/Size.h View/FieldViewMessage.cpp View/Console/IWidgetObserver.h View/Console/Widget.cpp View/Console/Widget.h Datatypes/Rect.cpp Datatypes/Rect.h View/Console/Grid.cpp View/Console/Grid.h Utility/DI/Container.h Utility/DI/Helper.h Events/EventFactory.cpp Events/EventFactory.h Core/GameInstaller.cpp Core/GameInstaller.h Events/Event.cpp)
 
-add_executable(Objects ${Sources} ${Headers})
+add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests)

@@ -25,12 +25,20 @@ public:
     }
 };
 
+class TestEvent2 : public IEvent {
+public:
+    void invoke() override {
+        Log::instance()("Second event", Log::Info);
+    }
+};
+
 MainApplication::MainApplication() : Application() {
     // Core elements
     _world = std::make_shared<World>();
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
         field->setCellEvent({5, i}, std::make_shared<TestEvent>());
+        field->setCellEvent({3, i}, std::make_shared<TestEvent2>());
     }
     for (int i = 0; i < 20; ++i) {
         field->setCellPassability({7, i}, false);

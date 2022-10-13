@@ -10,6 +10,11 @@
 
 class EventFactory {
 public:
+    EventFactory() = default;
+    explicit EventFactory(std::shared_ptr<GameInstaller> game_installer);
+
+    void setInstaller(std::shared_ptr<GameInstaller> game_installer);
+
     template<TEvent T>
     std::shared_ptr<T> get();
 

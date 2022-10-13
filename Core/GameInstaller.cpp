@@ -5,8 +5,10 @@
 #include "../Objects/Field/Field.h"
 #include "../Events/EventFactory.h"
 
-GameInstaller::GameInstaller() : _container(di::Container{std::make_shared<Field>(),
-                                                          std::make_shared<EventFactory>()}) {}
+void GameInstaller::initialize() {
+    _container = di::Container{std::make_shared<Field>(),
+                               std::make_shared<EventFactory>(shared_from_this())};
+}
 
 template<typename T, typename... Args>
 std::shared_ptr<T> GameInstaller::create(Args&& ... args) {
