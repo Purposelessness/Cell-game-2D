@@ -1,8 +1,10 @@
 #include "PlayerProvider.h"
 #include "../Components/Velocity.h"
+#include "../Markers/PlayerMarker.h"
 
 Entity& PlayerProvider::create(World& world) {
     auto& player = world.addEntity("Player");
+    player.addComponent<PlayerMarker>();
     player.addComponent<Transform>();
     player.addComponent<Velocity>();
     player.addComponent<ControllableMarker>();
