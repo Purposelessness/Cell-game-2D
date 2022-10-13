@@ -4,6 +4,7 @@
 
 #include "../../Objects/Field/Field.h"
 #include "../../Utility/Log.h"
+#include "../Markers/InvertControlMarker.h"
 
 MovementSystem::MovementSystem(std::vector<std::shared_ptr<Field>> fields) : _fields(std::move(fields)) {}
 
@@ -22,7 +23,14 @@ void MovementSystem::process() {
             continue;
         }
         auto& field = _fields[field_id];
-        auto new_pos = field->normalizePoint(transform.position + velocity.value);
+
+        Point new_pos;
+        if (entity.hasComponent<InvertControlMarker>()) {
+            new_pos = field->normalizePoint(transform.position - velocity.value);
+        } else {
+            new_pos = field->normalizePoint(transform.position + velocity.value);
+        }
+
         if (!field->isPointPassable(new_pos)) {
             continue;
         }

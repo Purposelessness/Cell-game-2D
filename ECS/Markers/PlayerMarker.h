@@ -3,7 +3,7 @@
 
 #include "../../ECSLib/Components/Component.h"
 
-class PlayerMarker : public Component {
+struct PlayerMarker : public Component {
 public:
     explicit PlayerMarker();
 
