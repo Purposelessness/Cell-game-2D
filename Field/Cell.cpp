@@ -34,3 +34,7 @@ bool Cell::isPassable() const {
 bool Cell::hasPlayerOn() const {
     return _has_player_on;
 }
+
+const std::shared_ptr<IEvent>& Cell::getEvent() const {
+    return _event;
+}

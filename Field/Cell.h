@@ -1,9 +1,9 @@
-#ifndef GAME_OBJECTS_FIELD_CELL_H_
-#define GAME_OBJECTS_FIELD_CELL_H_
+#ifndef GAME_FIELD_CELL_H_
+#define GAME_FIELD_CELL_H_
 
 #include <memory>
 
-#include "../../Events/IEvent.h"
+#include "../Events/IEvent.h"
 
 class Cell {
     friend class Field;
@@ -13,6 +13,7 @@ public:
     explicit Cell(std::shared_ptr<IEvent> event);
     explicit Cell(bool can_be_passed, std::shared_ptr<IEvent> event);
 
+    [[nodiscard]] const std::shared_ptr<IEvent>& getEvent() const;
     void changeEvent(std::shared_ptr<IEvent> event);
     void changePassability(bool value);
 
@@ -30,4 +31,4 @@ private:
     std::shared_ptr<IEvent> _event;
 };
 
-#endif //GAME_OBJECTS_FIELD_CELL_H_
+#endif //GAME_FIELD_CELL_H_
