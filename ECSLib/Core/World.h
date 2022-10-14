@@ -26,9 +26,7 @@ public:
 
     template<TSystem T>
     void addSystem(std::shared_ptr<T> system) {
-        auto this_ptr = shared_from_this();
-        auto weak_ptr = std::weak_ptr<World>(this_ptr);
-        system->setWorld(weak_ptr);
+        system->setWorld(shared_from_this());
         if constexpr (std::is_base_of_v<TickableSystem, T>) {
             _tickable_systems.emplace_back(std::move(system));
         } else {
@@ -36,8 +34,20 @@ public:
         }
     }
 
+    template<TSystem T, typename... Args>
+    std::shared_ptr<T> addSystem(Args&&... args) {
+        auto system = std::make_shared<T>(std::forward<Args>(args)...);
+        system->setWorld(shared_from_this());
+        if constexpr (std::is_base_of_v<TickableSystem, T>) {
+            _tickable_systems.emplace_back(std::move(system));
+        } else {
+            _systems.emplace_back(std::move(system));
+        }
+        return system;
+    }
+
     template<TSystem T>
-    void removeSystem(std::shared_ptr<T> system) {
+    void removeSystem(const std::shared_ptr<T>& system) {
         if constexpr (std::is_base_of_v<TickableSystem, T>) {
             _tickable_systems.erase(std::remove(_tickable_systems.begin(),
                                                 _tickable_systems.end(),
@@ -45,7 +55,6 @@ public:
         } else {
             _systems.erase(std::remove(_systems.begin(), _systems.end(), system)); // NOLINT(bugprone-inaccurate-erase)
         }
-        system->setWorld(shared_from_this());
         system->resetWorld();
     }
 
