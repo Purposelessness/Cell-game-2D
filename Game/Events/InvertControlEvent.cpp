@@ -6,8 +6,9 @@
 #include "../../ECS/Markers/PlayerMarker.h"
 
 void InvertControlEvent::invoke() {
-    if (_world == nullptr)
+    if (_world == nullptr || !is_active)
         return;
+    is_active = false;
     auto filter = Filter::with<PlayerMarker>(*_world);
     for (auto& e : filter) {
         if (e.hasComponent<InvertControlMarker>()) {

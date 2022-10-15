@@ -19,8 +19,11 @@ void Cell::changePassability(bool value) {
 
 void Cell::onPlayerStepped() {
     _has_player_on = true;
-    if (_event.get())
-        _event->invoke();
+    if (_event == nullptr)
+        return;
+    _event->invoke();
+    if (!_event->isActive())
+        _event.reset();
 }
 
 void Cell::onPlayerLeft() {

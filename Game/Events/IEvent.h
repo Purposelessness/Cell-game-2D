@@ -6,6 +6,7 @@
 class IEvent {
 public:
     virtual void invoke() = 0;
+    virtual bool isActive() = 0;
 };
 
 #endif //GAME_GAME_EVENTS_IEVENT_H_

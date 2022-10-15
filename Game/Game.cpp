@@ -6,7 +6,11 @@
 class TestEvent : public IEvent {
 public:
     void invoke() override {
-        Log::instance()("Player stepped", Log::Info);
+        Log::instance()("Frist event", Log::Info);
+    }
+
+    bool isActive() override {
+        return true;
     }
 };
 
@@ -14,6 +18,10 @@ class TestEvent2 : public IEvent {
 public:
     void invoke() override {
         Log::instance()("Second event", Log::Info);
+    }
+
+    bool isActive() override {
+        return true;
     }
 };
 
@@ -23,7 +31,7 @@ Game::Game(std::shared_ptr<World> world) {
 
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
-        field->setCellEvent({5, i}, _event_factory->get<TestEvent>());
+        field->setCellEvent({6, i}, _event_factory->get<TestEvent>());
         field->setCellEvent({3, i}, _event_factory->get<TestEvent2>());
         field->setCellEvent({10, i}, _event_factory->get<InvertControlEvent>());
     }
