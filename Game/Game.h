@@ -6,16 +6,22 @@
 
 #include "Field/Field.h"
 #include "Field/FieldGenerator.h"
+#include "IGame.h"
 
 class World;
+class IApplication;
 
-class Game {
+class Game : public IGame, public std::enable_shared_from_this<Game> {
 public:
-    explicit Game(std::shared_ptr<World> world);
+    explicit Game(IApplication* application, const std::shared_ptr<World>& world);
+    void initialize();
 
     const std::vector<std::shared_ptr<Field>>& fields();
+    void stop() override;
 
 private:
+    IApplication* _application;
+    std::shared_ptr<World> _world;
     std::shared_ptr<FieldGenerator> _field_generator;
     std::shared_ptr<EventFactory> _event_factory;
     std::vector<std::shared_ptr<Field>> _fields;

@@ -18,15 +18,16 @@ void EnemyEvent::invoke() {
         return;
     auto filter = Filter::with<PlayerMarker, Health>(*_world);
     for (auto& e : filter) {
+        std::string out;
+        if (e.hasComponent<Money>()) {
+            e.getComponent<Money>().value += _money;
+            out = "Money changed: " + std::to_string(e.getComponent<Money>().value);
+            Log::instance()(std::move(out));
+        }
         e.getComponent<Health>().value -= _damage;
-        std::string out = "Health changed: " + std::to_string(e.getComponent<Health>().value);
+        out = "Health changed: " + std::to_string(e.getComponent<Health>().value);
         Log::instance()(std::move(out));
 
-        if (!e.hasComponent<Money>())
-            continue;
-        e.getComponent<Money>().value += _money;
-        out = "Money changed: " + std::to_string(e.getComponent<Money>().value);
-        Log::instance()(std::move(out));
     }
     is_active = false;
 }

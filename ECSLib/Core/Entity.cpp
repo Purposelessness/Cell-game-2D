@@ -18,3 +18,7 @@ std::string Entity::toString() const {
     out += "------------------";
     return out;
 }
+
+std::string Entity::getName() const {
+    return _name;
+}

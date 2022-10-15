@@ -6,8 +6,9 @@
 
 class GameDeployer {
 public:
-    static auto start(std::shared_ptr<World> world) {
-        auto game = std::make_shared<Game>(std::move(world));
+    static auto start(IApplication* application, const std::shared_ptr<World>& world) {
+        auto game = std::make_shared<Game>(application, world);
+        game->initialize();
         return game;
     }
 };

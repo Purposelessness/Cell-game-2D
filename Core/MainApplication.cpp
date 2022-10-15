@@ -24,7 +24,7 @@ MainApplication::MainApplication() : Application() {
     _input_system = InputSystemDeployer::start(*_world);
 
     // Game
-    _game = GameDeployer::start(_world);
+    _game = GameDeployer::start(this, _world);
 
     // Bridges
     auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
@@ -61,4 +61,6 @@ void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
 
 void MainApplication::quit() {
     Application::quit();
+    Log::instance()("");
+    system("pause");
 }

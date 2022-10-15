@@ -1,10 +1,17 @@
 #include "Game.h"
 
+#include <utility>
+
+#include "../Core/IApplication.h"
+
 #include "../Utility/Log.h"
+
 #include "Events/ControlInversionEvent.h"
 #include "Events/MoneyEvent.h"
 #include "Events/GenerateMoneyEvent.h"
 #include "Events/EnemyEvent.h"
+#include "../ECS/Systems/HealthSystem.h"
+#include "../ECS/Systems/CleanDeadSystem.h"
 
 class TestEvent : public IEvent {
 public:
@@ -28,9 +35,10 @@ public:
     }
 };
 
-Game::Game(std::shared_ptr<World> world) {
+Game::Game(IApplication* application, const std::shared_ptr<World>& world)
+    : _application(application), _world(world) {
     _field_generator = std::make_shared<FieldGenerator>();
-    _event_factory = std::make_shared<EventFactory>(std::move(world), _field_generator);
+    _event_factory = std::make_shared<EventFactory>(world, _field_generator);
 
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
@@ -50,6 +58,15 @@ Game::Game(std::shared_ptr<World> world) {
     _field_generator->setField(field);
 }
 
+void Game::initialize() {
+    _world->addSystem<HealthSystem>();
+    _world->addSystem<CleanDeadSystem>(shared_from_this());
+}
+
 const std::vector<std::shared_ptr<Field>>& Game::fields() {
     return _fields;
+}
+
+void Game::stop() {
+    _application->quit();
 }
