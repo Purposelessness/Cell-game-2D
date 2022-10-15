@@ -14,13 +14,13 @@ struct Point : public IConvertibleToString {
 
     Point& operator+=(const Point& other);
     Point& operator+=(const Vector& other);
-    friend Point operator+(const Point& a, const Point& b);
-    friend Point operator+(const Point& p, const Vector& v);
+    Point operator+(const Point& b);
+    Point operator+(const Vector& v);
 
     Point& operator-=(const Point& other);
     Point& operator-=(const Vector& other);
-    friend Point operator-(const Point& a, const Point& b);
-    friend Point operator-(const Point& a, const Vector& b);
+    Point operator-(const Point& b);
+    Point operator-(const Vector& b);
 
     int x;
     int y;

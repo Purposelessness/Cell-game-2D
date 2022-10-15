@@ -10,10 +10,9 @@ struct Size : IConvertibleToString {
     [[nodiscard]] bool isNull() const;
 
     Size& operator+=(const Size& other);
-    friend Size operator+(const Size& a, const Size& b);
+    Size operator+(const Size& b);
     Size& operator*=(int value);
-    friend Size operator*(int value, const Size& size);
-    friend Size operator*(const Size& size, int value);
+    Size operator*(int value);
 
     int x;
     int y;

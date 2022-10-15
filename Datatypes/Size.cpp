@@ -16,27 +16,20 @@ Size& Size::operator+=(const Size& other) {
     return *this;
 }
 
-Size operator+(const Size& a, const Size& b) {
-    Size temp{a};
-    temp += b;
-    return temp;
-}
-
 Size& Size::operator*=(int value) {
     x *= value;
     y *= value;
     return *this;
 }
 
-Size operator*(int value, const Size& size) {
-    Size temp{size};
+Size Size::operator+(const Size& b) {
+    Size temp{*this};
+    temp += b;
+    return temp;
+}
+
+Size Size::operator*(int value) {
+    Size temp{*this};
     temp *= value;
     return temp;
 }
-
-Size operator*(const Size& size, int value) {
-    Size temp = operator*(value, size);
-    return temp;
-}
-
-

@@ -22,18 +22,6 @@ Point& Point::operator+=(const Vector& other) {
     return *this;
 }
 
-Point operator+(const Point& a, const Point& b) {
-    Point temp{a};
-    temp += b;
-    return temp;
-}
-
-Point operator+(const Point& p, const Vector& v) {
-    Point temp{p};
-    temp += v;
-    return temp;
-}
-
 Point& Point::operator-=(const Point& other) {
     x -= other.x;
     y -= other.y;
@@ -46,14 +34,26 @@ Point& Point::operator-=(const Vector& other) {
     return *this;
 }
 
-Point operator-(const Point& a, const Point& b) {
-    Point temp{a};
+Point Point::operator+(const Point& b) {
+    Point temp{*this};
+    temp += b;
+    return temp;
+}
+
+Point Point::operator+(const Vector& v) {
+    Point temp{*this};
+    temp += v;
+    return temp;
+}
+
+Point Point::operator-(const Point& b) {
+    Point temp{*this};
     temp -= b;
     return temp;
 }
 
-Point operator-(const Point& a, const Vector& b) {
-    Point temp{a};
+Point Point::operator-(const Vector& b) {
+    Point temp{*this};
     temp -= b;
     return temp;
 }
