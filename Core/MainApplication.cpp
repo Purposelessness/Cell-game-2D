@@ -2,70 +2,45 @@
 
 #include "../Engine/Input/InputSystem.h"
 #include "../ECS/Systems/ObjectControllerSystem.h"
-#include "../Objects/Field/Field.h"
 
-#include "../ECSLib/Core/World.h"
 #include "../ECS/EntityProviders/PlayerProvider.h"
 #include "../ECS/Systems/MovementSystem.h"
 
 #include "ViewSystemDeployer.h"
-#include "../Engine/View/ViewSystem.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
 
-#include "GameInstaller.h"
-
-#include "../Bridges/FieldViewBridge.h"
 #include "../Bridges/LogViewBridge.h"
-
-class TestEvent : public IEvent {
-public:
-    void invoke() override {
-        Log::instance()("Player stepped", Log::Info);
-    }
-};
-
-class TestEvent2 : public IEvent {
-public:
-    void invoke() override {
-        Log::instance()("Second event", Log::Info);
-    }
-};
+#include "../Bridges/FieldViewBridge.h"
+#include "GameDeployer.h"
 
 MainApplication::MainApplication() : Application() {
-    // Core elements
     _world = std::make_shared<World>();
-    auto field = std::make_shared<Field>();
-    for (int i = 0; i < 20; ++i) {
-        field->setCellEvent({5, i}, std::make_shared<TestEvent>());
-        field->setCellEvent({3, i}, std::make_shared<TestEvent2>());
-    }
-    for (int i = 0; i < 20; ++i) {
-        field->setCellPassability({7, i}, false);
-    }
-    std::vector<std::shared_ptr<Field>> fields{field};
 
     // View
     _view_system = ViewSystemDeployer::start();
-    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
-    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, field);
 
     // Input
-    _tickables.emplace_back(InputSystemDeployer::deploy(*this, _world));
+    _input_system = InputSystemDeployer::start(*_world);
 
     // Game
-    _game_installer = std::make_shared<GameInstaller>();
-    _game_installer->initialize();
+    _game = GameDeployer::start(_world);
+
+    // Bridges
+    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
+    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, _game->fields()[0]);
 
     // Systems
-    auto movement_system = std::make_shared<MovementSystem>(fields);
-    _world->addSystem(movement_system);
+    _world->addSystem<MovementSystem>(_game->fields());
 
     // Entities
     auto player = PlayerProvider::create(*_world);
 
-    _disposables.emplace_back(field_view_bridge);
-    _disposables.emplace_back(console_view_bridge);
+    // Others
+    _tickables.emplace_back(_input_system);
+
+    _disposables.emplace_back(std::move(console_view_bridge));
+    _disposables.emplace_back(std::move(field_view_bridge));
 }
 
 void MainApplication::tick() {

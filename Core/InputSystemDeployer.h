@@ -12,11 +12,10 @@
 
 class InputSystemDeployer {
 public:
-    static auto deploy(IApplication& application, const std::shared_ptr<World>& world) {
+    static auto start(World& world) {
         auto input_system = std::make_shared<InputSystem>();
         auto object_controller_system = std::make_shared<ObjectControllerSystem>();
         input_system->addController(object_controller_system);
-        application.addTickable(input_system);
 
         auto map = std::unordered_map<char, InputType>{};
         map['W'] = InputType::MoveUp;
@@ -30,7 +29,7 @@ public:
         auto keyboard_reader = std::make_shared<KeyboardInputReader>(scheme);
         input_system->addReader(keyboard_reader);
 
-        world->addSystem(object_controller_system);
+        world.addSystem(object_controller_system);
 
         return input_system;
     }

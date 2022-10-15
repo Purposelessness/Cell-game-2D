@@ -18,6 +18,7 @@ public:
         symbols[CellView::Empty] = '.';
         symbols[CellView::Wall] = '#';
         symbols[CellView::Player] = '&';
+        symbols[CellView::ControlInversion] = 'i';
         auto adapter = std::make_shared<console::FieldViewAdapter>(symbols);
 
         console_view_renderer->setAdapter(adapter);
