@@ -19,7 +19,7 @@ Entity& World::addEntity(const std::string& name) {
     }
     Entity entity{id, entity_name};
     if (is_from_array) {
-        _entities.push_back(entity);
+        _entities.emplace_back(entity);
     } else {
         _entities[id] = entity;
     }
@@ -29,7 +29,7 @@ Entity& World::addEntity(const std::string& name) {
 void World::removeEntity(const Entity& entity) {
     int id = entity.getId();
     _entities[id] = Entity{};
-    _unused_ids.push_back(id);
+    _unused_ids.emplace_back(id);
 }
 
 int World::getEntityId(bool& is_from_array) {
