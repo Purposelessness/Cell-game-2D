@@ -12,7 +12,8 @@ enum class CellView {
     Undefined,
     Empty,
     Wall,
-    Player
+    Player,
+    ControlInversion
 };
 
 struct FieldViewMessage : public ViewMessage {
@@ -29,6 +30,8 @@ struct FieldViewMessage : public ViewMessage {
                 return "Wall";
             case CellView::Player:
                 return "Player";
+            case CellView::ControlInversion:
+                return "ControlInversion";
             case CellView::Undefined:
             default:
                 return "Undefined";
