@@ -13,7 +13,11 @@ enum class CellView {
     Empty,
     Wall,
     Player,
-    ControlInversion
+    ControlInversion,
+    Money,
+    Enemy,
+    Exit,
+    GenerateMoney
 };
 
 struct FieldViewMessage : public ViewMessage {
