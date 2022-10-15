@@ -4,10 +4,14 @@
 #include <type_traits>
 #include <utility>
 
-#include "../Objects/Field/FieldEventMessage.h"
 #include "../Utility/EventHandler.h"
+#include "../Utility/IDisposable.h"
+
 #include "../View/CellViewRecognizer.h"
 #include "../View/FieldViewMessage.h"
+
+#include "../Game/Field/FieldEventMessage.h"
+#include "../Game/Field/Cell.h"
 
 template<typename T>
 concept TObservableField = requires(T t, int a, int b) {

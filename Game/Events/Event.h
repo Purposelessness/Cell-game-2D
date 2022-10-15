@@ -15,6 +15,6 @@ protected:
 };
 
 template<typename T>
-concept TEvent = std::is_base_of_v<Event, T>;
+concept TEvent = std::is_base_of_v<IEvent, T>;
 
 #endif //GAME_GAME_EVENTS_EVENT_H_

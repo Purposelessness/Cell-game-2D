@@ -8,6 +8,7 @@
 #include "../../Utility/DI/Container.h"
 
 class World;
+
 class FieldGenerator;
 
 class EventFactory {
@@ -21,7 +22,7 @@ public:
     void addService(std::shared_ptr<T> service);
 
     template<typename T, typename... Args>
-    std::shared_ptr<T> addServices(Args&&... args);
+    std::shared_ptr<T> addServices(Args&& ... args);
 
     template<TEvent T, typename... Args>
     std::shared_ptr<T> get(Args&& ... args);
@@ -32,5 +33,32 @@ public:
 private:
     DiContainer _container;
 };
+
+template<typename... Ts>
+EventFactory::EventFactory(std::shared_ptr<Ts>... services) : _container({std::move(services)}...) {}
+
+template<typename T>
+void EventFactory::addService(std::shared_ptr<T> service) {
+    _container.template addService(std::move(service));
+}
+
+template<typename T, typename... Args>
+std::shared_ptr<T> EventFactory::addServices(Args&& ... args) {
+    return _container.template addService(std::forward<Args>(args)...);
+}
+
+template<TEvent T, typename... Args>
+std::shared_ptr<T> EventFactory::get(Args&& ... args) {
+    if constexpr (di::TInjectClient<T>) {
+        return _container.template create<T>(std::forward<Args>(args)...);
+    } else {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
+}
+
+template<typename T>
+void EventFactory::inject(T& obj) {
+    _container.template inject(obj);
+}
 
 #endif //GAME_GAME_EVENTS_EVENTFACTORY_H_
