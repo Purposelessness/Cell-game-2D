@@ -3,5 +3,5 @@
 
 int main() {
     MainApplication a;
-    return a.execute(UPDATE_TIME_MCSEC);
+    return a.execute(kUpdateTimeMcsec);
 }

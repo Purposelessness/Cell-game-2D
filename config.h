@@ -1,15 +1,13 @@
 #ifndef GAME_CONFIG_H
 #define GAME_CONFIG_H
 
-
 // control settings
-constexpr char MOVE_TOP = 'W';
-constexpr char MOVE_BOTTOM = 'S';
-constexpr char MOVE_RIGHT = 'D';
-constexpr char MOVE_LEFT = 'A';
+constexpr char kMoveTop = 'W';
+constexpr char kMoveBottom = 'S';
+constexpr char kMoveRight = 'D';
+constexpr char kMoveLeft = 'A';
 
 // tick time in microseconds
-constexpr int UPDATE_TIME_MCSEC = 3000;
-
+constexpr int kUpdateTimeMcsec = 70000;
 
 #endif //GAME_CONFIG_H
