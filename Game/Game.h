@@ -13,7 +13,7 @@ class IApplication;
 
 class Game : public IGame, public std::enable_shared_from_this<Game> {
 public:
-    explicit Game(IApplication* application, const std::shared_ptr<World>& world);
+    explicit Game(IApplication* application, std::shared_ptr<World>  world);
     void initialize();
 
     const std::vector<std::shared_ptr<Field>>& fields();

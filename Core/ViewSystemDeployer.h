@@ -22,6 +22,7 @@ public:
         symbols[CellView::Money] = '$';
         symbols[CellView::GenerateMoney] = 'g';
         symbols[CellView::Enemy] = '%';
+        symbols[CellView::Exit] = '!';
         auto adapter = std::make_shared<console::FieldViewAdapter>(symbols);
 
         console_view_renderer->setAdapter(adapter);
