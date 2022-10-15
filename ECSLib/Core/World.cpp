@@ -28,6 +28,7 @@ Entity& World::addEntity(const std::string& name) {
 
 void World::removeEntity(const Entity& entity) {
     int id = entity.getId();
+    CommonCache::clearEntity(id);
     _entities[id] = Entity{};
     _unused_ids.emplace_back(id);
 }

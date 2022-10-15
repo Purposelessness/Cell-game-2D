@@ -13,6 +13,7 @@ class Filter;
 class System;
 class TickableSystem;
 
+/// TODO: get entity by id (and mb access through component cache)
 class World : public std::enable_shared_from_this<World> {
     friend class Filter;
 
