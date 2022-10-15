@@ -4,6 +4,7 @@
 #include "Events/ControlInversionEvent.h"
 #include "Events/MoneyEvent.h"
 #include "Events/GenerateMoneyEvent.h"
+#include "Events/EnemyEvent.h"
 
 class TestEvent : public IEvent {
 public:
@@ -35,9 +36,10 @@ Game::Game(std::shared_ptr<World> world) {
     for (int i = 0; i < 20; ++i) {
 //        field->setCellEvent({6, i}, _event_factory->get<TestEvent>());
 //        field->setCellEvent({3, i}, _event_factory->get<TestEvent2>());
-        field->setCellEvent({10, i}, _event_factory->get<ControlInversionEvent>());
-        field->setCellEvent({13, i}, _event_factory->get<MoneyEvent>());
+        field->setCellEvent({11, i}, _event_factory->get<ControlInversionEvent>());
+        field->setCellEvent({18, i}, _event_factory->get<MoneyEvent>());
         field->setCellEvent({5, i}, _event_factory->get<GenerateMoneyEvent>());
+        field->setCellEvent({37, i}, _event_factory->get<EnemyEvent>());
     }
 //    for (int i = 0; i < 20; ++i) {
 //        field->setCellPassability({17, i}, false);
