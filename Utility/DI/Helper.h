@@ -10,7 +10,7 @@ namespace di {
 
     template<typename T>
     concept TInjectClient = requires (T t) {
-        &(T::inject);
+        &T::inject;
     };
 
     namespace details {
