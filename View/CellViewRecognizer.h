@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpotentially-evaluated-expression"
 #ifndef GAME_VIEW_CELLVIEWRECOGNIZER_H_
 #define GAME_VIEW_CELLVIEWRECOGNIZER_H_
 
@@ -9,10 +11,13 @@
 class CellViewRecognizer {
 public:
     static inline CellView use(const Cell& cell) {
+        if (cell.hasPlayerOn())
+            return CellView::Player;
         if (cell.getEvent() == nullptr) {
-            return cell.hasPlayerOn() ? CellView::Player : (cell.isPassable() ? CellView::Empty : CellView::Wall);
+            return cell.isPassable() ? CellView::Empty : CellView::Wall;
         } else {
-            return _event_types[typeid(cell.getEvent()).hash_code()];
+            auto a = _event_types[typeid(*cell.getEvent()).hash_code()];
+            return a;
         }
     }
 
@@ -21,3 +26,4 @@ private:
 };
 
 #endif //GAME_VIEW_CELLVIEWRECOGNIZER_H_
+#pragma clang diagnostic pop
