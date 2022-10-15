@@ -5,10 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-recover=address -O1 -fno-omit-frame-pointer -g")
 
 set(Headers
-        Objects/Field/Cell.h
+        Game/Field/Cell.h
         Utility/Observer/EventMessage.h
         ECSLib/Core/Entity.h
-        Objects/Field/Field.h
+        Game/Field/Field.h
         Datatypes/Point.h
         Utility/Observer/EventListener.h
         Utility/Observer/EventManager.h
@@ -16,7 +16,7 @@ set(Headers
         config.h
         Utility/IConvertibleToString.h
         Utility/Concepts.h
-        Events/IEvent.h
+        Game/Events/IEvent.h
         Engine/Input/IController.h
         Engine/Input/KeyboardInputReader/ControlScheme.h
         Engine/Input/InputMessage.h
@@ -52,14 +52,14 @@ set(Headers
         Engine/View/ViewMessage.h
         Utility/Identified.h
         Utility/Object.h
-        Events/Event.h
+        Game/Events/Event.h
         )
 
 set(Sources
         main.cpp
-        Objects/Field/Cell.cpp
+        Game/Field/Cell.cpp
         ECSLib/Core/Entity.cpp
-        Objects/Field/Field.cpp
+        Game/Field/Field.cpp
         Utility/Observer/EventListener.cpp
         Utility/Observer/EventManager.cpp
         Engine/Input/KeyboardInputReader/KeyboardInputReader.cpp
@@ -86,7 +86,7 @@ set(Sources
         Utility/TypeIdentifier.cpp
         Utility/Identified.cpp
         Utility/Object.cpp
-        View/Console/ViewRenderer.cpp View/Console/ViewRenderer.h View/Console/FieldViewAdapter.cpp View/Console/FieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/Console/Helper.h View/Console/FieldViewWidget.cpp View/Console/FieldViewWidget.h View/Console/LogViewWidget.cpp View/Console/LogViewWidget.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/Console/Helper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h Objects/Field/FieldEventMessage.h Bridges/FieldViewBridge.h View/CellViewRecognizer.h Utility/Log.cpp Utility/Log.h Bridges/LogViewBridge.h View/LogViewMesssage.h Datatypes/Size.cpp Datatypes/Size.h View/FieldViewMessage.cpp View/Console/IWidgetObserver.h View/Console/Widget.cpp View/Console/Widget.h Datatypes/Rect.cpp Datatypes/Rect.h View/Console/Grid.cpp View/Console/Grid.h Utility/DI/Container.h Utility/DI/Helper.h Events/EventFactory.cpp Events/EventFactory.h Events/Event.cpp ECS/Markers/PlayerMarker.cpp ECS/Markers/PlayerMarker.h Events/InvertControlEvent.cpp Events/InvertControlEvent.h ECSLib/Systems/TSystem.h ECS/Markers/InvertControlMarker.cpp ECS/Markers/InvertControlMarker.h View/CellViewRecognizer.cpp)
+        View/Console/ViewRenderer.cpp View/Console/ViewRenderer.h View/Console/FieldViewAdapter.cpp View/Console/FieldViewAdapter.h Engine/View/ViewMessage.h View/FieldViewMessage.h View/Console/Helper.h View/Console/FieldViewWidget.cpp View/Console/FieldViewWidget.h View/Console/LogViewWidget.cpp View/Console/LogViewWidget.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/Console/Helper.cpp Core/InputSystemDeployer.cpp Core/InputSystemDeployer.h Core/IApplication.h Game/Field/FieldEventMessage.h Bridges/FieldViewBridge.h View/CellViewRecognizer.h Utility/Log.cpp Utility/Log.h Bridges/LogViewBridge.h View/LogViewMesssage.h Datatypes/Size.cpp Datatypes/Size.h View/FieldViewMessage.cpp View/Console/IWidgetObserver.h View/Console/Widget.cpp View/Console/Widget.h Datatypes/Rect.cpp Datatypes/Rect.h View/Console/Grid.cpp View/Console/Grid.h Utility/DI/Container.h Utility/DI/Helper.h Game/Events/EventFactory.cpp Game/Events/EventFactory.h Game/Events/Event.cpp ECS/Markers/PlayerMarker.cpp ECS/Markers/PlayerMarker.h Game/Events/InvertControlEvent.cpp Game/Events/InvertControlEvent.h ECSLib/Systems/TSystem.h ECS/Markers/InvertControlMarker.cpp ECS/Markers/InvertControlMarker.h View/CellViewRecognizer.cpp Game/Field/FieldGenerator.cpp Game/Field/FieldGenerator.h Core/GameDeployer.h)
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests)

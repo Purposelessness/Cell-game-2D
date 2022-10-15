@@ -1,8 +1,8 @@
-#ifndef GAME_EVENTS_EVENT_H_
-#define GAME_EVENTS_EVENT_H_
+#ifndef GAME_GAME_EVENTS_EVENT_H_
+#define GAME_GAME_EVENTS_EVENT_H_
 
 #include "IEvent.h"
-#include "../Datatypes/Point.h"
+#include "../../Datatypes/Point.h"
 
 class Event : public IEvent {
 public:
@@ -17,4 +17,4 @@ protected:
 template<typename T>
 concept TEvent = std::is_base_of_v<Event, T>;
 
-#endif //GAME_EVENTS_EVENT_H_
+#endif //GAME_GAME_EVENTS_EVENT_H_

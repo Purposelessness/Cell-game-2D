@@ -19,8 +19,8 @@ set(Project_src
         ../Utility/TypeIdentifier.cpp
         ../Utility/Identified.cpp
         ../Utility/Object.cpp
-        ../Objects/Field/Field.cpp
-        ../Objects/Field/Cell.cpp
+        ../Game/Field/Field.cpp
+        ../Game/Field/Cell.cpp
         ../ECSLib/Components/Component.cpp
         ../ECSLib/Components/ComponentsCache.cpp
         ../ECSLib/Core/World.cpp

@@ -1,5 +1,5 @@
-#ifndef GAME_FIELD_CELL_H_
-#define GAME_FIELD_CELL_H_
+#ifndef GAME_GAME_FIELD_CELL_H_
+#define GAME_GAME_FIELD_CELL_H_
 
 #include <memory>
 
@@ -31,4 +31,4 @@ private:
     std::shared_ptr<IEvent> _event;
 };
 
-#endif //GAME_FIELD_CELL_H_
+#endif //GAME_GAME_FIELD_CELL_H_

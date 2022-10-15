@@ -1,13 +1,13 @@
-#ifndef GAME_FIELD_FIELD_H_
-#define GAME_FIELD_FIELD_H_
+#ifndef GAME_GAME_FIELD_FIELD_H_
+#define GAME_GAME_FIELD_FIELD_H_
 
 #include <memory>
 #include <vector>
 
 #include "Cell.h"
 #include "FieldEventMessage.h"
-#include "../Utility/EventHandler.h"
-#include "../Datatypes/Size.h"
+#include "../../Utility/EventHandler.h"
+#include "../../Datatypes/Size.h"
 
 struct Point;
 
@@ -56,4 +56,4 @@ private:
     Cell _empty_cell{};
 };
 
-#endif //GAME_FIELD_FIELD_H_
+#endif //GAME_GAME_FIELD_FIELD_H_
