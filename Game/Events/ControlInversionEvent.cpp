@@ -1,11 +1,13 @@
-#include "InvertControlEvent.h"
+#include "ControlInversionEvent.h"
 
 #include <utility>
 
 #include "../../ECS/Markers/InvertControlMarker.h"
 #include "../../ECS/Markers/PlayerMarker.h"
+#include "../../ECSLib/Core/Filter.h"
+#include "../../Utility/Log.h"
 
-void InvertControlEvent::invoke() {
+void ControlInversionEvent::invoke() {
     if (_world == nullptr || !is_active)
         return;
     is_active = false;
@@ -16,9 +18,10 @@ void InvertControlEvent::invoke() {
         } else {
             e.addComponent<InvertControlMarker>();
         }
+        Log::instance()("Controls inverted");
     }
 }
 
-void InvertControlEvent::inject(std::shared_ptr<World> world) {
+void ControlInversionEvent::inject(std::shared_ptr<World> world) {
     _world = std::move(world);
 }
