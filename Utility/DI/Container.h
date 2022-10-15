@@ -21,8 +21,10 @@ namespace di {
         explicit Container(std::shared_ptr<TServices>... services) : _services(std::make_tuple(services...)) {}
 
         template<typename T, typename... Args>
-        void addService(Args... args) {
-            std::get<std::shared_ptr<T>>(_services) = std::make_shared<T>(std::forward<Args>(args)...);
+        std::shared_ptr<T> addService(Args... args) {
+            auto service = std::make_shared<T>(std::forward<Args>(args)...);
+            std::get<std::shared_ptr<T>>(_services) = service;
+            return service;
         }
 
         template<TInjectClient T, typename... Args>
@@ -31,20 +33,13 @@ namespace di {
             static_assert(has_all_type<Types, MethodArgs>::value);
 
             auto obj = std::make_shared<T>(std::forward<Args>(args)...);
-            MethodArgs services_to_inject;
-            Tuple::forEach(services_to_inject, [services=_services](auto& service) {
-                service = std::get<std::decay_t<decltype(service)>>(services);
-            });
+            inject(obj);
 
-            auto inject_lambda = [&obj]<typename... InjectArgs>(InjectArgs&&... args) {
-                obj->inject(std::move(args)...);
-            };
-            std::apply(inject_lambda, std::move(services_to_inject));
             return obj;
         }
 
         template<TInjectClient T>
-        void inject(T& obj) {
+        void inject(std::shared_ptr<T>& obj) {
             using MethodArgs = typename extract_method_arguments<decltype(&T::inject)>::args_tuple;
             static_assert(has_all_type<Types, MethodArgs>::value);
 
