@@ -12,19 +12,16 @@ namespace di {
     template<typename... TServices>
     class Container {
         using Types = std::tuple<TServices...>;
-        using SharedPtrTuple = typename shared_ptr_tuple<Types>::type;
-        SharedPtrTuple _services;
+        Types _services;
 
     public:
         Container() = default;
 
-        explicit Container(std::shared_ptr<TServices>... services) : _services(std::make_tuple(services...)) {}
+        explicit Container(TServices... services) : _services(std::make_tuple(services...)) {}
 
-        template<typename T, typename... Args>
-        std::shared_ptr<T> addService(Args... args) {
-            auto service = std::make_shared<T>(std::forward<Args>(args)...);
-            std::get<std::shared_ptr<T>>(_services) = service;
-            return service;
+        template<typename T>
+        void addService(T service) {
+            std::get<T>(_services) = service;
         }
 
         template<TInjectClient T, typename... Args>
@@ -49,7 +46,7 @@ namespace di {
             });
 
             auto inject_lambda = [&obj]<typename... InjectArgs>(InjectArgs&&... args) {
-                obj->inject(std::move(args)...);
+                obj.inject(std::move(args)...);
             };
             std::apply(inject_lambda, std::move(services_to_inject));
         }
