@@ -5,11 +5,9 @@
 #include "../../ECS/Components/Money.h"
 #include "../../Utility/Log.h"
 
-ExitEvent::ExitEvent(std::weak_ptr<IGame> game) : _game(std::move(game)) {}
-
-//void ExitEvent::inject(std::weak_ptr<IGame> game) {
-//    _game = std::move(game);
-//}
+void ExitEvent::inject(std::weak_ptr<IGame> game) {
+    _game = std::move(game);
+}
 
 void ExitEvent::invoke() {
     auto filter = Filter::with<PlayerMarker, Money>(*world);
@@ -20,8 +18,4 @@ void ExitEvent::invoke() {
             _game.lock()->stop();
         }
     }
-}
-
-void ExitEvent::setGame(std::weak_ptr<IGame>game) {
-    _game = std::move(game);
 }

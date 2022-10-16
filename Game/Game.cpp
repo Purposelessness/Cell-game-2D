@@ -21,7 +21,8 @@ Game::Game(IApplication* application, std::shared_ptr<World> world)
 
 void Game::initialize() {
     _field_generator = std::make_shared<FieldGenerator>();
-    _event_factory = std::make_shared<EventFactory>(_world, _field_generator);
+    std::weak_ptr<IGame> weak_this = shared_from_this();
+    _event_factory = std::make_shared<EventFactory>(_world, _field_generator, weak_this);
 
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
@@ -31,7 +32,6 @@ void Game::initialize() {
         field->setCellEvent({37, i}, _event_factory->get<EnemyEvent>());
     }
     auto exit = _event_factory->get<ExitEvent>();
-    exit->setGame(shared_from_this());
     field->setCellEvent({30, 10}, exit);
 
     for (int i = 0; i < 10; ++i) {

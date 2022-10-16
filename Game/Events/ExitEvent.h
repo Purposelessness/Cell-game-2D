@@ -8,12 +8,8 @@
 
 class ExitEvent : public WorldEvent {
 public:
-    ExitEvent() = default;
-    explicit ExitEvent(std::weak_ptr<IGame> game);
-
-//    void inject(std::weak_ptr<IGame> game);
+    void inject(std::weak_ptr<IGame> game);
     void invoke() override;
-    void setGame(std::weak_ptr<IGame> game);
 
 private:
     std::weak_ptr<IGame> _game;

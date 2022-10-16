@@ -8,18 +8,15 @@
 #include "WorldEvent.h"
 
 class World;
-
 class FieldGenerator;
-
-struct Nil {};
+class IGame;
 
 class EventFactory {
-    using DiContainer = di::Container<Nil>;
+    using DiContainer = di::Container<std::weak_ptr<IGame>>;
 
 public:
-//    template<typename... Ts>
-//    explicit EventFactory(std::shared_ptr<Ts>... services);
-    EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldGenerator> field_generator);
+    template<typename... Ts>
+    EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldGenerator> field_generator, Ts&&... services);
 
     template<typename T>
     void addService(std::shared_ptr<T> service);
@@ -42,8 +39,9 @@ private:
     std::shared_ptr<FieldGenerator> _field_generator;
 };
 
-//template<typename... Ts>
-//EventFactory::EventFactory(std::shared_ptr<Ts>... services) : _container({std::move(services)}...) {}
+template<typename... Ts>
+EventFactory::EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldGenerator> field_generator, Ts&&... services)
+    : _world(std::move(world)), _field_generator(std::move(field_generator)), _container({std::forward<Ts>(services)}...) {}
 
 template<typename T>
 void EventFactory::addService(std::shared_ptr<T> service) {
