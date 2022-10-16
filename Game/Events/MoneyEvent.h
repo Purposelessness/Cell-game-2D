@@ -3,16 +3,13 @@
 
 #include <memory>
 
-#include "Event.h"
-#include "../../ECSLib/Core/World.h"
+#include "WorldEvent.h"
 
-class MoneyEvent : public Event {
+class MoneyEvent : public WorldEvent {
 public:
-    void inject(std::shared_ptr<World> world);
     void invoke() override;
 
 private:
-    std::shared_ptr<World> _world;
     int _money = 1;
 };
 

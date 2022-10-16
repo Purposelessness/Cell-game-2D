@@ -3,20 +3,14 @@
 
 #include <memory>
 
-#include "Event.h"
-#include "../Field/FieldGenerator.h"
+#include "FieldEvent.h"
 
-class GenerateMoneyEvent : public Event {
+class GenerateMoneyEvent : public FieldEvent {
 public:
-    GenerateMoneyEvent();
-
-    void inject(std::shared_ptr<FieldGenerator> field_generator);
-
     void invoke() override;
 
 private:
-    std::shared_ptr<FieldGenerator> _field_generator;
-    int _money_count;
+    int _money_count = 5;
 };
 
 #endif //GAME_GAME_EVENTS_GENERATEMONEYEVENT_H_

@@ -1,8 +1,10 @@
 #ifndef GAME_GAME_FIELD_FIELDGENERATOR_H_
 #define GAME_GAME_FIELD_FIELDGENERATOR_H_
 
-#include "../Events/EventFactory.h"
-#include "Field.h"
+#include <memory>
+
+class Field;
+class EventFactory;
 
 class FieldGenerator {
 public:

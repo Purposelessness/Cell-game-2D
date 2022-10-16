@@ -33,13 +33,13 @@ namespace di {
             static_assert(has_all_type<Types, MethodArgs>::value);
 
             auto obj = std::make_shared<T>(std::forward<Args>(args)...);
-            inject(obj);
+            inject(*obj);
 
             return obj;
         }
 
         template<TInjectClient T>
-        void inject(std::shared_ptr<T>& obj) {
+        void inject(T& obj) {
             using MethodArgs = typename extract_method_arguments<decltype(&T::inject)>::args_tuple;
             static_assert(has_all_type<Types, MethodArgs>::value);
 

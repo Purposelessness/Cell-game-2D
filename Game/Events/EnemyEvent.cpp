@@ -9,14 +9,10 @@
 #include "../../ECS/Markers/PlayerMarker.h"
 #include "../../ECS/Components/Money.h"
 
-void EnemyEvent::inject(std::shared_ptr<World> world) {
-    _world = std::move(world);
-}
-
 void EnemyEvent::invoke() {
-    if (_world == nullptr || !is_active)
+    if (world == nullptr || !is_active)
         return;
-    auto filter = Filter::with<PlayerMarker, Health>(*_world);
+    auto filter = Filter::with<PlayerMarker, Health>(*world);
     for (auto& e : filter) {
         std::string out;
         if (e.hasComponent<Money>()) {

@@ -3,20 +3,20 @@
 
 #include <memory>
 
-#include "Event.h"
-#include "../../ECSLib/Core/World.h"
+#include "WorldEvent.h"
 #include "../IGame.h"
 
-class ExitEvent : public Event {
+class ExitEvent : public WorldEvent {
 public:
+    ExitEvent() = default;
     explicit ExitEvent(std::weak_ptr<IGame> game);
 
-    void inject(std::shared_ptr<World> world);
+//    void inject(std::weak_ptr<IGame> game);
     void invoke() override;
+    void setGame(std::weak_ptr<IGame> game);
 
 private:
     std::weak_ptr<IGame> _game;
-    std::shared_ptr<World> _world;
     int _win_money = 10;
 };
 
