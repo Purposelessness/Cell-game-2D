@@ -16,6 +16,8 @@ namespace console {
         void resizeWindow(const Size& size);
         void fitBuffer();
 
+        Size getScreenSize();
+
         static inline void setCursorPosition(const Point& point) {
             setCursorPosition(point.x, point.y);
         }
@@ -34,6 +36,7 @@ namespace console {
     private:
         HANDLE _handle;
         HWND _hwnd;
+        Size _screen_size;
     };
 
 }
