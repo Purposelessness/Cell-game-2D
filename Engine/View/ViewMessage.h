@@ -7,7 +7,7 @@
 #include "../../Utility/IConvertibleToString.h"
 
 struct ViewMessage : public IConvertibleToString {
-    [[nodiscard]] std::string toString() const override = 0;
+    explicit operator std::string() const override = 0;
 };
 
 template<typename T>

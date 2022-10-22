@@ -6,7 +6,7 @@
 struct InvertControlMarker : public Component {
     InvertControlMarker();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 };
 
 #endif //GAME_ECS_MARKERS_INVERTCONTROLMARKER_H_

@@ -2,6 +2,6 @@
 
 Money::Money() : Component(this) {}
 
-std::string Money::toString() const {
-    return "Money: " + std::to_string(value);
+Money::operator std::string() const {
+    return "[ Money | value: " + std::to_string(value) + " ]";
 }

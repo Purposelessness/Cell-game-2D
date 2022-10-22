@@ -6,7 +6,7 @@
 struct Money : public Component {
     Money();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
     int value = 0;
 };

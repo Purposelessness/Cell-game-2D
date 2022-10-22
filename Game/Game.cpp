@@ -26,16 +26,16 @@ void Game::initialize() {
 
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
-        field->setCellEvent({11, i}, _event_factory->get<ControlInversionEvent>());
-        field->setCellEvent({18, i}, _event_factory->get<MoneyEvent>());
-        field->setCellEvent({5, i}, _event_factory->get<GenerateMoneyEvent>());
-        field->setCellEvent({37, i}, _event_factory->get<EnemyEvent>());
+        field->setCellEvent(Point{11, i}, _event_factory->get<ControlInversionEvent>());
+        field->setCellEvent(Point{18, i}, _event_factory->get<MoneyEvent>());
+        field->setCellEvent(Point{5, i}, _event_factory->get<GenerateMoneyEvent>());
+        field->setCellEvent(Point{37, i}, _event_factory->get<EnemyEvent>());
     }
     auto exit = _event_factory->get<ExitEvent>();
-    field->setCellEvent({30, 10}, exit);
+    field->setCellEvent(Point{30, 10}, exit);
 
     for (int i = 0; i < 10; ++i) {
-        field->setCellPassability({17, i}, false);
+        field->setCellPassability(Point{17, i}, false);
     }
     _fields = {field};
 

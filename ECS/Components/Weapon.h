@@ -6,7 +6,7 @@
 struct Weapon : public Component {
     Weapon();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
     int damage = 5;
 };

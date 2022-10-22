@@ -4,9 +4,9 @@
 #include "../Utility/IConvertibleToString.h"
 
 struct Vector : public IConvertibleToString {
-    Vector(int x = 0, int y = 0);
+    explicit Vector(int x = 0, int y = 0);
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
     [[nodiscard]] bool isNull() const;
 
     Vector& operator+=(const Vector& other);

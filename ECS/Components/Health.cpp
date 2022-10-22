@@ -2,6 +2,7 @@
 
 Health::Health() : Component(this) {}
 
-std::string Health::toString() const {
-    return "Health:\n\tvalue: " + std::to_string(value) + "\n";
+Health::operator std::string() const {
+    return "[ Health | value: " + std::to_string(value) + " ]";
 }
+

@@ -1,11 +1,18 @@
 #include "Rect.h"
 
-std::string Rect::toString() const {
-    return "Rect: {top-left: " + top_left.toString() + ", bottom-right: " + bottom_right.toString() + " }";
+#include <utility>
+
+Rect::Rect() : Rect(Point{}, Point{}) {}
+
+Rect::Rect(Point top_left, Point bottom_right) : top_left(std::move(top_left)), bottom_right(std::move(bottom_right)) {}
+
+Rect::operator std::string() const {
+    return "(Rect | top-left: " + static_cast<std::string>(top_left) +
+        ", bottom-right: " + static_cast<std::string>(bottom_right) + ")";
 }
 
 Size Rect::size() const {
-    return {width(), height()};
+    return Size{width(), height()};
 }
 
 int Rect::width() const {
@@ -50,9 +57,9 @@ void Rect::setLeft(int value) {
 }
 
 void Rect::setTopLeft(const Point& value) {
-    Size s = {width(), height()};
+    Size s = Size{width(), height()};
     top_left = value;
-    bottom_right = top_left + s;
+    bottom_right = top_left + static_cast<Point>(s);
 }
 
 void Rect::setBottom(int value) {
@@ -68,7 +75,7 @@ void Rect::setRight(int value) {
 }
 
 void Rect::setBottomRight(const Point& value) {
-    Size s = {width(), height()};
+    Size s = Size{width(), height()};
     bottom_right = value;
-    top_left = bottom_right - s;
+    top_left = bottom_right - static_cast<Point>(s);
 }

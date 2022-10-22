@@ -2,6 +2,6 @@
 
 PlayerMarker::PlayerMarker() : Component(this) {}
 
-std::string PlayerMarker::toString() const {
-    return "Player entity\n";
+PlayerMarker::operator std::string() const {
+    return "[ PlayerMarker ]";
 }

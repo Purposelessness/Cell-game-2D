@@ -9,8 +9,8 @@ namespace console {
         MONITORINFO info;
         info.cbSize = sizeof(MONITORINFO);
         GetMonitorInfo(monitor, &info);
-        _screen_size = {static_cast<int>(info.rcMonitor.right - info.rcMonitor.left),
-                        static_cast<int>(info.rcMonitor.bottom - info.rcMonitor.top)};
+        _screen_size = Size{static_cast<int>(info.rcMonitor.right - info.rcMonitor.left),
+                            static_cast<int>(info.rcMonitor.bottom - info.rcMonitor.top)};
     }
 
     void Helper::resizeWindow(const Size& size) {

@@ -5,7 +5,7 @@
 
 class IConvertibleToString {
 public:
-    [[nodiscard]] virtual std::string toString() const = 0;
+    virtual explicit operator std::string() const = 0;
 
     auto operator<=>(const IConvertibleToString& other) const = default;
 };

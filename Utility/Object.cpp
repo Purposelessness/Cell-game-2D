@@ -2,6 +2,6 @@
 
 Object::Object() : Identified(this) {}
 
-std::string Object::toString() const {
-    return std::to_string(Identified::id);
+Object::operator std::string() const {
+    return "Object#" + std::to_string(Identified::id);
 }

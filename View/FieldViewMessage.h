@@ -24,7 +24,7 @@ struct FieldViewMessage : public ViewMessage {
     explicit FieldViewMessage(std::vector<std::pair<Point, CellView>> changes, Size size = Size{})
         : changes(std::move(changes)), size(std::move(size)) {}
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
     static inline std::string cellViewToString(CellView cell_view) {
         switch (cell_view) {
@@ -36,6 +36,14 @@ struct FieldViewMessage : public ViewMessage {
                 return "Player";
             case CellView::ControlInversion:
                 return "ControlInversion";
+            case CellView::Money:
+                return "Money";
+            case CellView::Enemy:
+                return "Enemy";
+            case CellView::Exit:
+                return "Exit";
+            case CellView::GenerateMoney:
+                return "GenerateMoney";
             case CellView::Undefined:
             default:
                 return "Undefined";

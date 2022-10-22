@@ -11,7 +11,7 @@ namespace console {
         Helper::hideCursor();
 
         _grid.setSize(2, 1);
-        _grid.setMargin({2, 1});
+        _grid.setMargin(Size{2, 1});
         _grid.addWidget(_field_widget, 0, 0);
         _grid.addWidget(_log_widget, 1, 0);
         _log_widget->resize(20, 5);

@@ -2,6 +2,6 @@
 
 Intelligence::Intelligence() : Component(this) {}
 
-std::string Intelligence::toString() const {
-    return "Intelligence:\t\nvalue: " + std::to_string(value) + '\n';
+Intelligence::operator std::string() const {
+    return "[ Intelligence | value: " + std::to_string(value) + " ]";
 }

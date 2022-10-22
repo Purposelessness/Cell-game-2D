@@ -13,7 +13,7 @@ namespace console {
     }
 
     void Grid::setSize(int row_count, int column_count) {
-        _grid_size = {column_count, row_count};
+        _grid_size = Size{column_count, row_count};
         _elements.resize(row_count);
         for (auto& el : _elements) {
             el.resize(column_count);
@@ -54,7 +54,7 @@ namespace console {
                 if (element == nullptr)
                     continue;
                 x_offset += _margin.x;
-                element->setTopLeft({x_offset, y_offset});
+                element->setTopLeft(Point{x_offset, y_offset});
                 element->resize(column_width[j], row_height[i], false);
                 x_offset += column_width[j];
             }
@@ -63,13 +63,8 @@ namespace console {
         int width = x_offset + _margin.x;
         int height = y_offset + _margin.y;
 
-        grid_size = {width, height};
+        grid_size = Size{width, height};
 
-//        for (auto& el : _elements) {
-//            size += _margin;
-//            el->setTopLeft(Point{_margin.x, size.y});
-//            size += el->getSize();
-//        }
         resize(grid_size);
         if (_observer)
             _observer->onSizeUpdated(this);

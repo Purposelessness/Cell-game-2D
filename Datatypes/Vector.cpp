@@ -2,7 +2,7 @@
 
 Vector::Vector(int x, int y) : x(x), y(y) {}
 
-std::string Vector::toString() const {
+Vector::operator std::string() const {
     return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }
 

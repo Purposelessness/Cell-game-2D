@@ -2,7 +2,7 @@
 
 Size::Size(int x, int y) : x(x), y(y) {}
 
-std::string Size::toString() const {
+Size::operator std::string() const {
     return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }
 

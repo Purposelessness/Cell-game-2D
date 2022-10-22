@@ -8,7 +8,7 @@ struct LogViewMessage : public ViewMessage {
 
     std::string message;
 
-    [[nodiscard]] std::string toString() const override {
+    explicit operator std::string() const override {
         return message;
     }
 };

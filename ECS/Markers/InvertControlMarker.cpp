@@ -2,6 +2,6 @@
 
 InvertControlMarker::InvertControlMarker() : Component(this) {}
 
-std::string InvertControlMarker::toString() const {
-    return "InvertControlMarker\n";
+InvertControlMarker::operator std::string() const {
+    return "[ InvertControlMarker ]";
 }

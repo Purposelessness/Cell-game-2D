@@ -6,7 +6,7 @@ Point::Point(int x, int y) : x(x), y(y) {}
 
 Point::Point(const Size& size) : x(size.x), y(size.y) {}
 
-std::string Point::toString() const {
+Point::operator std::string() const {
     return "(" + std::to_string(x) + "; " + std::to_string(y) + ")";
 }
 

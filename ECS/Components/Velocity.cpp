@@ -2,6 +2,6 @@
 
 Velocity::Velocity() : Component(this) {}
 
-std::string Velocity::toString() const {
-    return "Velocity:\n\tvalue: " + value.toString() + '\n';
+Velocity::operator std::string() const {
+    return "[ Velocity | value: " + static_cast<std::string>(value) + " ]";
 }

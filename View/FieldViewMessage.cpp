@@ -1,9 +1,10 @@
 #include "FieldViewMessage.h"
 
-std::string FieldViewMessage::toString() const  {
-    std::string out = "Field View Message:\n";
+FieldViewMessage::operator std::string() const {
+    std::string out = "[ Field View Message | ";
     for (const auto& k : changes) {
-        out += "\t" + k.first.toString() + ": " + cellViewToString(k.second) + '\n';
+        out += static_cast<std::string>(k.first) + " - " + cellViewToString(k.second) + "; ";
     }
+    out += ']';
     return out;
 }

@@ -2,7 +2,7 @@
 
 #include <utility>
 
-Entity::Entity() : Entity(-1, "empty") {}
+Entity::Entity() : Entity(-1, "Entity") {}
 
 Entity::Entity(int id, std::string name) : _id(id), _name(std::move(name)) {}
 
@@ -10,13 +10,8 @@ int Entity::getId() const {
     return _id;
 }
 
-std::string Entity::toString() const {
-    std::string out;
-    out = "------------------";
-//    out += "Entity:" + _name + '\n' + component_bag.toString();
-    out += "Entity:" + _name + '\n';
-    out += "------------------";
-    return out;
+Entity::operator std::string() const {
+    return "{ " + _name + "#" + std::to_string(_id) + " }";
 }
 
 std::string Entity::getName() const {

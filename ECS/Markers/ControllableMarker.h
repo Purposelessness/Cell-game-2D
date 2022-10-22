@@ -6,7 +6,7 @@
 struct ControllableMarker : public Component {
     ControllableMarker();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 };
 
 #endif //GAME_ECS_MARKERS_CONTROLLABLEMARKER_H_

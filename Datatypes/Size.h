@@ -4,9 +4,9 @@
 #include "../Utility/IConvertibleToString.h"
 
 struct Size : IConvertibleToString {
-    Size(int x = 0, int y = 0);
+    explicit Size(int x = 0, int y = 0);
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
     [[nodiscard]] bool isNull() const;
 
     Size& operator+=(const Size& other);

@@ -7,7 +7,7 @@ struct PlayerMarker : public Component {
 public:
     explicit PlayerMarker();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 };
 
 #endif //GAME_ECS_MARKERS_PLAYERMARKER_H_

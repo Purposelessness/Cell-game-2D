@@ -7,10 +7,10 @@
 struct Vector;
 
 struct Point : public IConvertibleToString {
-    Point(int x = 0, int y = 0);
-    Point(const Size& size);
+    explicit Point(int x = 0, int y = 0);
+    explicit Point(const Size& size);
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
     Point& operator+=(const Point& other);
     Point& operator+=(const Vector& other);

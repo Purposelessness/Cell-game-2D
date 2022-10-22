@@ -13,7 +13,7 @@ public:
     [[nodiscard]] int getEntityId() const;
     void linkEntity(int entity_id);
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
 protected:
     template<TComponent T>

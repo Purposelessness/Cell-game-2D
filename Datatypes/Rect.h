@@ -6,7 +6,10 @@
 #include "Size.h"
 
 struct Rect : IConvertibleToString {
-    [[nodiscard]] std::string toString() const override;
+    Rect();
+    Rect(Point top_left, Point bottom_right);
+
+    explicit operator std::string() const override;
 
     [[nodiscard]] Size size() const;
 

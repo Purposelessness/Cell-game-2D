@@ -14,7 +14,7 @@ class Object : public Identified, public IConvertibleToString, public IDisposabl
 public:
     Object();
 
-    [[nodiscard]] std::string toString() const override;
+    explicit operator std::string() const override;
 
 protected:
     template<TObject T>
