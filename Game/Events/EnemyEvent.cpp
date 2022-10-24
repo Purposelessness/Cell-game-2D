@@ -1,7 +1,5 @@
 #include "EnemyEvent.h"
 
-#include <utility>
-
 #include "../../Utility/Log/Log.h"
 
 #include "../../ECSLib/Core/Filter.h"
@@ -17,7 +15,7 @@ void EnemyEvent::invoke() {
         std::string out;
         if (e.hasComponent<Money>()) {
             e.getComponent<Money>().value += _money;
-            LOG_INFO << ("Money changed: " + std::to_string(e.getComponent<Money>().value));
+            LOG_TRACE << ("Money changed: " + std::to_string(e.getComponent<Money>().value));
         }
         e.getComponent<Health>().value -= _damage;
         LOG_TRACE << ("Health changed: " + std::to_string(e.getComponent<Health>().value));
