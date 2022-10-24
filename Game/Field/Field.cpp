@@ -69,12 +69,12 @@ const Cell& Field::getCell(const Point& point) {
 
 void Field::onPlayerStepped(const Point& point) {
     _cells[point.y][point.x].onPlayerStepped();
-    event_handler({{point}});
+    event_handler({point, FieldEventMessage::PlayerStepped});
 }
 
 void Field::onPlayerLeft(const Point& point) {
     _cells[point.y][point.x].onPlayerLeft();
-    event_handler({{point}});
+    event_handler({point, FieldEventMessage::PlayerLeft});
 }
 
 void Field::setCellEvent(int x, int y, std::shared_ptr<IEvent> event) {
@@ -85,12 +85,12 @@ void Field::setCellEvent(const Point& point, std::shared_ptr<IEvent> event) {
     if (!isPointValid(point))
         return;
     _cells[point.y][point.x].changeEvent(std::move(event));
-    event_handler({{point}});
+    event_handler({point, FieldEventMessage::CellEventChanged});
 }
 
 void Field::setCellPassability(const Point& point, bool value) {
     _cells[point.y][point.x].changePassability(value);
-    event_handler({{point}});
+    event_handler({point, FieldEventMessage::CellPassabilityChanged});
 }
 
 bool Field::isPointValid(int x, int y) const {

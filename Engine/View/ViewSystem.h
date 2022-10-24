@@ -39,6 +39,12 @@ public:
     }
 
     template<TViewMessage T>
+    ViewSystem& operator<<(T&& message) {
+        update(std::forward<T>(message));
+        return *this;
+    }
+
+    template<TViewMessage T>
     void update(T&& message) {
         Tuple::forEach(_renderers, [message = std::forward<T>(message)](auto& t) -> void {
             if (t == nullptr)

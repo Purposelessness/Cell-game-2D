@@ -8,8 +8,7 @@
 #include "FieldEventMessage.h"
 #include "../../Utility/EventHandler.h"
 #include "../../Datatypes/Size.h"
-
-struct Point;
+#include "../../Datatypes/Point.h"
 
 class Field {
 public:

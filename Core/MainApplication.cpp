@@ -10,8 +10,8 @@
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
 
-#include "../Bridges/LogViewBridge.h"
-#include "../Bridges/FieldViewBridge.h"
+#include "../Observer/LogObserver.h"
+#include "../Observer/FieldObserver.h"
 #include "GameDeployer.h"
 
 MainApplication::MainApplication() : Application() {
@@ -26,9 +26,9 @@ MainApplication::MainApplication() : Application() {
     // Game
     _game = GameDeployer::start(this, _world);
 
-    // Bridges
-    auto console_view_bridge = std::make_shared<LogViewBridge<ViewSystem>>(_view_system);
-    auto field_view_bridge = std::make_shared<FieldViewBridge<ViewSystem, Field>>(_view_system, _game->fields()[0]);
+    // Observers
+    auto log_observer = std::make_shared<LogObserver<ViewSystem>>(_view_system);
+    auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(_game->fields()[0], _view_system);
 
     // Systems
     _world->addSystem<MovementSystem>(_game->fields());
@@ -39,8 +39,8 @@ MainApplication::MainApplication() : Application() {
     // Others
     _tickables.emplace_back(_input_system);
 
-    _disposables.emplace_back(std::move(console_view_bridge));
-    _disposables.emplace_back(std::move(field_view_bridge));
+    _disposables.emplace_back(std::move(log_observer));
+    _disposables.emplace_back(std::move(field_observer));
 }
 
 void MainApplication::tick() {
