@@ -24,6 +24,7 @@ public:
 
     Entity& addEntity(const std::string& name = std::string{});
     void removeEntity(const Entity& entity);
+    void removeEntity(int id);
 
     template<TSystem T>
     void addSystem(std::shared_ptr<T> system) {

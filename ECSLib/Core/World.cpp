@@ -28,6 +28,10 @@ Entity& World::addEntity(const std::string& name) {
 
 void World::removeEntity(const Entity& entity) {
     int id = entity.getId();
+    removeEntity(id);
+}
+
+void World::removeEntity(int id) {
     CommonCache::clearEntity(id);
     _entities[id] = Entity{};
     _unused_ids.emplace_back(id);
@@ -49,4 +53,3 @@ void World::tick() {
         system->tick();
     }
 }
-
