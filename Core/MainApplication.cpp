@@ -61,6 +61,5 @@ void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
 
 void MainApplication::quit() {
     Application::quit();
-    Log::instance()("");
     system("pause");
 }

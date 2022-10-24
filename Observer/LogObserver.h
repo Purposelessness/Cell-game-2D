@@ -3,7 +3,7 @@
 
 #include <type_traits>
 
-#include "../Utility/Log.h"
+#include "../Utility/Log/Logger.h"
 #include "../View/LogViewMesssage.h"
 #include "../Utility/IDisposable.h"
 
@@ -26,12 +26,12 @@ private:
 
 template<TLogObserverClient... Ts>
 LogObserver<Ts...>::LogObserver(std::shared_ptr<Ts>... clients) : _clients(std::make_tuple(std::move(clients)...)) {
-    Log::instance().event_handler.template add(this, &LogObserver<Ts...>::react);
+    Logger::instance().event_handler.template add(this, &LogObserver<Ts...>::react);
 }
 
 template<TLogObserverClient... Ts>
 LogObserver<Ts...>::~LogObserver() {
-    Log::instance().event_handler.template remove(this, &LogObserver<Ts...>::react);
+    Logger::instance().event_handler.template remove(this, &LogObserver<Ts...>::react);
 }
 
 template<TLogObserverClient... Ts>

@@ -1,11 +1,11 @@
 #include "GenerateMoneyEvent.h"
-#include "../../Utility/Log.h"
+#include "../../Utility/Log/Log.h"
 
 void GenerateMoneyEvent::invoke() {
     if (field_generator == nullptr || !is_active)
         return;
     is_active = false;
-    field_generator->addMoneyEvents(_money_count);
-    std::string out = "Money generated: " + std::to_string(_money_count);
-    Log::instance()(std::move(out));
+    int money_count = std::rand() % _max_money_count;
+    field_generator->addMoneyEvents(money_count);
+    LOG_TRACE << ("Money generated: " + std::to_string(money_count));
 }

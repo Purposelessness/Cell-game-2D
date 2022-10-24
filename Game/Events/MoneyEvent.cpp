@@ -2,7 +2,7 @@
 
 #include "../../ECSLib/Core/Filter.h"
 #include "../../ECS/Components/Money.h"
-#include "../../Utility/Log.h"
+#include "../../Utility/Log/Log.h"
 
 void MoneyEvent::invoke() {
     if (world == nullptr || !is_active)
@@ -10,8 +10,7 @@ void MoneyEvent::invoke() {
     auto filter = Filter::with<Money>(*world);
     for (auto& e : filter) {
         e.getComponent<Money>().value += _money;
-        std::string out = "Money changed: " + std::to_string(e.getComponent<Money>().value);
-        Log::instance()(std::move(out));
+        LOG_TRACE << ("Money changed: " + std::to_string(e.getComponent<Money>().value));
     }
     is_active = false;
 }

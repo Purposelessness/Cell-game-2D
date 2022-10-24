@@ -5,6 +5,7 @@
 
 #include "FieldViewAdapter.h"
 #include "Helper.h"
+#include "../../Utility/Log/Log.h"
 
 namespace console {
 
@@ -13,7 +14,7 @@ namespace console {
 
     void FieldViewWidget::update(const FieldViewMessage& message) {
         if (_adapter == nullptr) {
-            Log::instance()("ConsoleFiendViewTab: No adapter!", Log::Warning);
+            LOG_WARNING << "ConsoleFieldViewTab: No adapter!";
             return;
         }
 

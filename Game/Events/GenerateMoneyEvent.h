@@ -10,7 +10,7 @@ public:
     void invoke() override;
 
 private:
-    int _money_count = 5;
+    int _max_money_count = 5;
 };
 
 #endif //GAME_GAME_EVENTS_GENERATEMONEYEVENT_H_

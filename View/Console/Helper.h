@@ -3,7 +3,6 @@
 
 #include <windows.h>
 
-#include "../../Utility/Log.h"
 #include "../../Datatypes/Size.h"
 #include "../../Datatypes/Point.h"
 

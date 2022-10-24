@@ -16,16 +16,15 @@ void FieldGenerator::setField(std::shared_ptr<Field> field) {
     _field = std::move(field);
 }
 
-void FieldGenerator::addMoneyEvents(int max_count) {
+void FieldGenerator::addMoneyEvents(int money_count) {
     if (_event_factory.expired() || _field == nullptr)
         return;
     auto factory = _event_factory.lock();
-    auto count = std::rand() % max_count;
     int w, h;
     auto size = (_field->getSize(w, h), w * h);
     auto iter_count = 0;
     auto max_iter_count = size;
-    while (count < max_count && iter_count < max_iter_count) {
+    while (money_count > 0 && iter_count < max_iter_count) {
         ++iter_count;
         auto x = std::rand() % w;
         auto y = std::rand() % h;
@@ -33,6 +32,6 @@ void FieldGenerator::addMoneyEvents(int max_count) {
         if (cell.hasPlayerOn() || cell.getEvent() != nullptr)
             continue;
         _field->setCellEvent(x, y, factory->get<MoneyEvent>());
-        ++count;
+        --money_count;
     }
 }

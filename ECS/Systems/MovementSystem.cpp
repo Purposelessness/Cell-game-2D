@@ -3,7 +3,7 @@
 #include <utility>
 
 #include "../../Game/Field/Field.h"
-#include "../../Utility/Log.h"
+#include "../../Utility/Log/Log.h"
 #include "../Markers/InvertControlMarker.h"
 
 MovementSystem::MovementSystem(std::vector<std::shared_ptr<Field>> fields) : _fields(std::move(fields)) {}
@@ -17,7 +17,7 @@ void MovementSystem::process() {
         auto& transform = entity.getComponent<Transform>();
         auto field_id = transform.field_id;
         if (field_id < 0 || field_id >= _fields.size()) {
-            Log::instance()("MovementSystem: unknown field id", Log::Warning);
+            LOG_WARNING << "MovementSystem: unknown field id";
             continue;
         }
         auto& field = _fields[field_id];

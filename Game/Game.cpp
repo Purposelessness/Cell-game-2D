@@ -4,8 +4,6 @@
 
 #include "../Core/IApplication.h"
 
-#include "../Utility/Log.h"
-
 #include "Events/EventFactory.h"
 
 #include "Events/ControlInversionEvent.h"

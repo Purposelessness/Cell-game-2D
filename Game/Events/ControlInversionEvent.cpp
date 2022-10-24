@@ -3,7 +3,7 @@
 #include "../../ECS/Markers/InvertControlMarker.h"
 #include "../../ECS/Markers/PlayerMarker.h"
 #include "../../ECSLib/Core/Filter.h"
-#include "../../Utility/Log.h"
+#include "../../Utility/Log/Log.h"
 
 void ControlInversionEvent::invoke() {
     if (world == nullptr || !is_active)
@@ -16,6 +16,6 @@ void ControlInversionEvent::invoke() {
         } else {
             e.addComponent<InvertControlMarker>();
         }
-        Log::instance()("Controls inverted");
+        LOG_TRACE << "Controls inverted";
     }
 }

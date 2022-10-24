@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "../../Utility/Log.h"
+#include "../../Utility/Log/Log.h"
 
 #include "../../ECSLib/Core/Filter.h"
 #include "../../ECS/Components/Health.h"
@@ -17,13 +17,10 @@ void EnemyEvent::invoke() {
         std::string out;
         if (e.hasComponent<Money>()) {
             e.getComponent<Money>().value += _money;
-            out = "Money changed: " + std::to_string(e.getComponent<Money>().value);
-            Log::instance()(std::move(out));
+            LOG_INFO << ("Money changed: " + std::to_string(e.getComponent<Money>().value));
         }
         e.getComponent<Health>().value -= _damage;
-        out = "Health changed: " + std::to_string(e.getComponent<Health>().value);
-        Log::instance()(std::move(out));
-
+        LOG_TRACE << ("Health changed: " + std::to_string(e.getComponent<Health>().value));
     }
     is_active = false;
 }

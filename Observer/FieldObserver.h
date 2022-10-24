@@ -11,6 +11,7 @@
 
 #include "../View/CellViewRecognizer.h"
 #include "../Utility/Tuple.h"
+#include "../Utility/Log/Log.h"
 
 template<typename T>
 concept TFieldObserverClient = requires(T t) {
@@ -60,7 +61,10 @@ FieldObserver<Ts...>& FieldObserver<Ts...>::operator<<(const Field& field) {
             cells.emplace_back(point, CellViewRecognizer::use(_field->getCell(point)));
         }
     }
-    notifyClients(FieldViewMessage{cells, Size{width, height}});
+    Size size{width, height};
+    notifyClients(FieldViewMessage{cells, size});
+    std::string message = "Field size is " + std::string(size);
+    LOG_INFO << message;
     return *this;
 }
 

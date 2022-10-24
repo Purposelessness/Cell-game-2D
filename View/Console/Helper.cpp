@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../../Utility/Log/Log.h"
+
 namespace console {
 
     Helper::Helper() : _handle(GetStdHandle(STD_OUTPUT_HANDLE)), _hwnd(GetConsoleWindow()) {
@@ -38,8 +40,7 @@ namespace console {
 
         int status = SetConsoleScreenBufferSize(_handle, new_size);
         if (status == 0) {
-            std::string out = "SetConsoleScreenBufferSize() failed! Reason : " + std::to_string(GetLastError()) + '\n';
-            Log::instance()(out, Log::Warning);
+            LOG_WARNING << "SetConsoleScreenBufferSize() failed! Reason : " + std::to_string(GetLastError()) + '\n';
         }
     }
 

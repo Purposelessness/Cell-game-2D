@@ -13,7 +13,7 @@ public:
     void setEventFactory(std::weak_ptr<EventFactory> event_factory);
     void setField(std::shared_ptr<Field> field);
 
-    void addMoneyEvents(int max_count);
+    void addMoneyEvents(int money_count);
 
 private:
     std::weak_ptr<EventFactory> _event_factory;
