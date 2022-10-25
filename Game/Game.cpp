@@ -13,6 +13,8 @@
 #include "../ECS/Systems/HealthSystem.h"
 #include "../ECS/Systems/CleanDeadSystem.h"
 #include "Events/ExitEvent.h"
+#include "../ECS/Systems/DealDamageSystem.h"
+#include "../ECS/Systems/AddMoneySystem.h"
 
 Game::Game(IApplication* application, std::shared_ptr<World> world)
     : _application(application), _world(std::move(world)) {}
@@ -40,8 +42,10 @@ void Game::initialize() {
     _field_generator->setEventFactory(_event_factory);
     _field_generator->setField(field);
 
+    _world->addSystem<DealDamageSystem>();
     _world->addSystem<HealthSystem>();
     _world->addSystem<CleanDeadSystem>(shared_from_this());
+    _world->addSystem<AddMoneySystem>();
 }
 
 const std::vector<std::shared_ptr<Field>>& Game::fields() {
