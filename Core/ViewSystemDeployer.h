@@ -6,11 +6,16 @@
 #include "../Utility/IDisposable.h"
 #include "../Engine/View/ViewSystem.h"
 #include "../View/Console/ViewRenderer.h"
+#include "../View/File/ViewRenderer.h"
 
 class ViewSystemDeployer {
 public:
     static auto start() {
         auto view_system = std::make_shared<ViewSystem>();
+
+        auto log_view_renderer = std::make_unique<file::ViewRenderer>();
+        view_system->addRenderer(std::move(log_view_renderer));
+
         auto console_view_renderer = std::make_unique<console::ViewRenderer>();
 
         auto symbols = std::unordered_map<CellView, char>{};

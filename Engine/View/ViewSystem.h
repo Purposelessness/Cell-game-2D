@@ -12,9 +12,10 @@
 
 #include "ViewRenderer.h"
 #include "../../View/Console/ViewRenderer.h"
+#include "../../View/File/ViewRenderer.h"
 
 class ViewSystem {
-    using Types = std::tuple<console::ViewRenderer>;
+    using Types = std::tuple<console::ViewRenderer, file::ViewRenderer>;
 
 public:
     template<TViewRenderer T, typename... Args> requires(has_type<T, Types>::value)

@@ -3,7 +3,8 @@
 
 #include <fstream>
 
-#include "../../Message/FieldInfoMessage.h"
+#include "../../config.h"
+#include "../../Message/LogInfoMesssage.h"
 
 namespace file {
 
@@ -14,19 +15,34 @@ namespace file {
         ~ViewRenderer();
 
         template<TInfoMessage T>
-        inline void update(const T& message);
+        inline ViewRenderer& operator<<(const T& message);
+
+#ifdef OBJECT_FILE_LOGGING
+        void enableObjectLogging(bool value);
+#endif
 
     private:
-        std::ofstream _file;
+        std::ofstream _log_file;
+#ifdef OBJECT_FILE_LOGGING
+        bool _enable_object_logging = false;
+        std::ofstream _object_log_file;
+#endif
     };
 
     template<TInfoMessage T>
-    void ViewRenderer::update(const T& message) {
-
+    ViewRenderer& ViewRenderer::operator<<(const T& message) {
+#ifdef OBJECT_FILE_LOGGING
+        if (_enable_object_logging)
+            _object_log_file << static_cast<std::string>(message) << '\n';
+#endif
+        return *this;
     }
 
     template<>
-    inline void ViewRenderer::update<FieldInfoMessage>(const FieldInfoMessage& message) {}
+    inline ViewRenderer& ViewRenderer::operator<< <LogInfoMessage>(const LogInfoMessage& message) {
+        _log_file << static_cast<std::string>(message) << '\n';
+        return *this;
+    }
 
 } // file
 

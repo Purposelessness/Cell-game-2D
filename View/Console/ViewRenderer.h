@@ -46,6 +46,7 @@ namespace console {
     template<>
     inline ViewRenderer& ViewRenderer::operator<< <FieldInfoMessage>(const FieldInfoMessage& message) {
         *_field_widget << message;
+        return *this;
     }
 
 }
