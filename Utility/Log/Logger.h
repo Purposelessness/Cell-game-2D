@@ -6,7 +6,7 @@
 
 #include "../EventHandler.h"
 
-struct LogEventMessage;
+struct LogMessage;
 struct SubLogger;
 
 class Logger {
@@ -25,13 +25,13 @@ public:
     Logger(const Logger&) = delete;
     Logger& operator=(const Logger&) = delete;
 
-    Logger& operator<<(const LogEventMessage& message);
+    Logger& operator<<(const LogMessage& message);
     void operator()(std::string message, Level level = Info);
-    void operator()(const LogEventMessage& message);
+    void operator()(const LogMessage& message);
 
     std::vector<std::string>& messages();
     SubLogger& logger(Level level);
-    EventHandler<LogEventMessage> event_handler;
+    EventHandler<LogMessage> event_handler;
 
 private:
     Logger();
@@ -54,7 +54,7 @@ private:
     std::vector<std::string> _messages;
 };
 
-struct LogEventMessage {
+struct LogMessage {
     std::string message;
     Logger::Level level;
 };

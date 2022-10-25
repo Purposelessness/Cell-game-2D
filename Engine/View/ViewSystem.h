@@ -6,6 +6,7 @@
 #include <tuple>
 #include <unordered_map>
 
+#include "../Utility/InfoMessage.h"
 #include "../../Utility/Tuple.h"
 #include "../../Utility/Template.h"
 
@@ -38,19 +39,14 @@ public:
         std::get<std::unique_ptr<T>>(_renderers).reset();
     }
 
-    template<TViewMessage T>
+    template<TInfoMessage T>
     ViewSystem& operator<<(T&& message) {
-        update(std::forward<T>(message));
-        return *this;
-    }
-
-    template<TViewMessage T>
-    void update(T&& message) {
         Tuple::forEach(_renderers, [message = std::forward<T>(message)](auto& t) -> void {
             if (t == nullptr)
                 return;
-            t->update(message);
+            *t << message;
         });
+        return *this;
     }
 
 private:

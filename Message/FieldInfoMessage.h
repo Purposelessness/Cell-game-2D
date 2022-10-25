@@ -1,12 +1,12 @@
-#ifndef GAME_VIEW_FIELDVIEWMESSAGE_H_
-#define GAME_VIEW_FIELDVIEWMESSAGE_H_
+#ifndef GAME_MESSAGE_FIELDINFOMESSAGE_H_
+#define GAME_MESSAGE_FIELDINFOMESSAGE_H_
 
 #include <utility>
 #include <vector>
 
-#include "../Engine/View/ViewMessage.h"
 #include "../Datatypes/Point.h"
 #include "../Datatypes/Size.h"
+#include "../Engine/Utility/InfoMessage.h"
 
 enum class CellView {
     Undefined,
@@ -20,8 +20,8 @@ enum class CellView {
     GenerateMoney
 };
 
-struct FieldViewMessage : public ViewMessage {
-    explicit FieldViewMessage(std::vector<std::pair<Point, CellView>> changes, Size size = Size{})
+struct FieldInfoMessage : public InfoMessage {
+    explicit FieldInfoMessage(std::vector<std::pair<Point, CellView>> changes, Size size = Size{})
         : changes(std::move(changes)), size(std::move(size)) {}
 
     explicit operator std::string() const override;
@@ -54,4 +54,4 @@ struct FieldViewMessage : public ViewMessage {
     Size size;
 };
 
-#endif //GAME_VIEW_FIELDVIEWMESSAGE_H_
+#endif //GAME_MESSAGE_FIELDINFOMESSAGE_H_

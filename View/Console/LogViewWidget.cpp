@@ -8,7 +8,7 @@ namespace console {
 
     LogViewWidget::LogViewWidget() : _buffer({}), _flush({}) {}
 
-    void LogViewWidget::update(const ViewMessage& message) {
+    LogViewWidget& LogViewWidget::operator<<(const InfoMessage& message) {
         if (_buffer.size() >= rect.height() && rect.height() > 0) {
             std::string flush = std::string(rect.width(), ' ');
             _buffer.pop_front();
@@ -25,6 +25,7 @@ namespace console {
             Helper::setCursorPosition(rect.left(), rect.top() + static_cast<int>(_buffer.size()) - 1);
             std::cout << str + '\n';
         }
+        return *this;
     }
 
 }

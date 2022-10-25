@@ -5,8 +5,7 @@
 
 #include "IWidgetObserver.h"
 
-#include "../../Engine/View/ViewMessage.h"
-#include "../FieldViewMessage.h"
+#include "../../Message/FieldInfoMessage.h"
 #include "FieldViewWidget.h"
 #include "LogViewWidget.h"
 
@@ -20,8 +19,8 @@ namespace console {
     public:
         ViewRenderer();
 
-        template<TViewMessage T>
-        inline void update(const T& message);
+        template<TInfoMessage T>
+        inline ViewRenderer& operator<<(const T& message);
 
         // TODO: scan from file
         void setAdapter(const std::shared_ptr<FieldViewAdapter>& adapter);
@@ -38,14 +37,15 @@ namespace console {
         Size _window_size;
     };
 
-    template<TViewMessage T>
-    void ViewRenderer::update(const T& message) {
-        _log_widget->update(message);
+    template<TInfoMessage T>
+    ViewRenderer& ViewRenderer::operator<<(const T& message) {
+        *_log_widget << message;
+        return *this;
     }
 
     template<>
-    inline void ViewRenderer::update<FieldViewMessage>(const FieldViewMessage& message) {
-        _field_widget->update(message);
+    inline ViewRenderer& ViewRenderer::operator<< <FieldInfoMessage>(const FieldInfoMessage& message) {
+        *_field_widget << message;
     }
 
 }

@@ -1,7 +1,9 @@
 #ifndef GAME_VIEW_CONSOLE_FIELDVIEWADAPTER_H_
 #define GAME_VIEW_CONSOLE_FIELDVIEWADAPTER_H_
 
-#include "../FieldViewMessage.h"
+#include <unordered_map>
+
+#include "../../Message/FieldInfoMessage.h"
 
 namespace console {
 

@@ -4,7 +4,7 @@
 #include <deque>
 
 #include "Widget.h"
-#include "../../Engine/View/ViewMessage.h"
+#include "../../Engine/Utility/InfoMessage.h"
 #include "../../Datatypes/Size.h"
 
 namespace console {
@@ -13,7 +13,7 @@ namespace console {
     public:
         LogViewWidget();
 
-        void update(const ViewMessage& message);
+        LogViewWidget& operator<<(const InfoMessage& message);
 
     private:
         std::deque<std::string> _buffer;

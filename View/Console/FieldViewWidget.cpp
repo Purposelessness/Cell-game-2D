@@ -12,10 +12,10 @@ namespace console {
     FieldViewWidget::FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter)
         : _adapter(std::move(adapter)) {}
 
-    void FieldViewWidget::update(const FieldViewMessage& message) {
+    FieldViewWidget& FieldViewWidget::operator<<(const FieldInfoMessage& message) {
         if (_adapter == nullptr) {
-            LOG_WARNING << "ConsoleFieldViewTab: No adapter!";
-            return;
+            LOG_WARNING_F("ConsoleFieldViewTab: No adapter!");
+            return *this;
         }
 
         if (!message.size.isNull()) {
@@ -26,6 +26,7 @@ namespace console {
             Helper::setCursorPosition(rect.top_left + c.first);
             std::cout << _adapter->symbol(c.second);
         }
+        return *this;
     }
 
     void FieldViewWidget::setAdapter(std::shared_ptr<FieldViewAdapter> adapter) {

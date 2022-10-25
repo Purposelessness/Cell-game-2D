@@ -6,7 +6,6 @@
 
 #include "../Utility/IDisposable.h"
 #include "../Game/Field/FieldEventMessage.h"
-#include "../View/FieldViewMessage.h"
 #include "../Game/Field/Field.h"
 
 #include "../View/CellViewRecognizer.h"
@@ -15,7 +14,7 @@
 
 template<typename T>
 concept TFieldObserverClient = requires(T t) {
-    t << std::declval<FieldViewMessage>();
+    t << std::declval<FieldInfoMessage>();
 };
 
 template<TFieldObserverClient... Ts>
@@ -31,7 +30,7 @@ public:
     void setObservableField(std::shared_ptr<Field> field);
 
 private:
-    void notifyClients(const FieldViewMessage& message);
+    void notifyClients(const FieldInfoMessage& message);
 
     std::shared_ptr<Field> _field;
     std::tuple<std::shared_ptr<Ts>...> _clients;
@@ -62,9 +61,8 @@ FieldObserver<Ts...>& FieldObserver<Ts...>::operator<<(const Field& field) {
         }
     }
     Size size{width, height};
-    notifyClients(FieldViewMessage{cells, size});
-    std::string message = "Field size is " + std::string(size);
-    LOG_INFO << message;
+    notifyClients(FieldInfoMessage{cells, size});
+    LOG_INFO_F("Field size is " + std::string(size));
     return *this;
 }
 
@@ -73,7 +71,9 @@ void FieldObserver<Ts...>::react(const FieldEventMessage& message) {
     std::vector<std::pair<Point, CellView>> cells;
     cells.emplace_back(std::pair<Point, CellView>{message.position,
                                                   CellViewRecognizer::use(_field->getCell(message.position))});
-    notifyClients(FieldViewMessage{cells});
+    notifyClients(FieldInfoMessage{cells});
+    if (message.type != FieldEventMessage::PlayerLeft)
+        LOG_TRACE_F(static_cast<std::string>(message));
 }
 
 template<TFieldObserverClient... Ts>
@@ -85,7 +85,7 @@ void FieldObserver<Ts...>::setObservableField(std::shared_ptr<Field> field) {
 }
 
 template<TFieldObserverClient... Ts>
-void FieldObserver<Ts...>::notifyClients(const FieldViewMessage& message) {
+void FieldObserver<Ts...>::notifyClients(const FieldInfoMessage& message) {
     Tuple::forEach(_clients, [&message]<TFieldObserverClient T>(std::shared_ptr<T>& client) {
         *client << message;
     });

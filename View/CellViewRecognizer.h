@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 #include "../Game/Field/Cell.h"
-#include "FieldViewMessage.h"
+#include "../Message/FieldInfoMessage.h"
 
 class CellViewRecognizer {
 public:

@@ -7,12 +7,12 @@ struct SubLogger {
     explicit SubLogger(Logger::Level level) : level(level) {}
 
     inline SubLogger& operator<<(const std::string& message) {
-        Logger::instance()(LogEventMessage{message, level});
+        Logger::instance()(LogMessage{message, level});
         return *this;
     }
 
     inline void operator()(const std::string& message) {
-        Logger::instance()(LogEventMessage{message, level});
+        Logger::instance()(LogMessage{message, level});
     }
 
     Logger::Level level = Logger::Trace;

@@ -4,12 +4,12 @@
 #include <type_traits>
 
 #include "../Utility/Log/Logger.h"
-#include "../View/LogViewMesssage.h"
 #include "../Utility/IDisposable.h"
+#include "../Message/LogInfoMesssage.h"
 
 template<typename T>
 concept TLogObserverClient = requires(T t) {
-    t << std::declval<LogViewMessage>();
+    t << std::declval<LogInfoMessage>();
 };
 
 template<TLogObserverClient... Ts>
@@ -18,7 +18,7 @@ public:
     explicit LogObserver(std::shared_ptr<Ts>... clients);
     ~LogObserver() override;
 
-    void react(const LogEventMessage& message);
+    void react(const LogMessage& message);
 
 private:
     std::tuple<std::shared_ptr<Ts>...> _clients;
@@ -35,8 +35,8 @@ LogObserver<Ts...>::~LogObserver() {
 }
 
 template<TLogObserverClient... Ts>
-void LogObserver<Ts...>::react(const LogEventMessage& message) {
-    auto view_message = LogViewMessage{message.message};
+void LogObserver<Ts...>::react(const LogMessage& message) {
+    auto view_message = LogInfoMessage{message.message};
     Tuple::forEach(_clients, [&view_message]<TLogObserverClient T>(std::shared_ptr<T>& client) {
         *client << view_message;
     });

@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "Widget.h"
-#include "../FieldViewMessage.h"
+#include "../../Message/FieldInfoMessage.h"
 #include "../../Datatypes/Size.h"
 
 namespace console {
@@ -18,7 +18,7 @@ namespace console {
         explicit FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter = nullptr);
 
         void setAdapter(std::shared_ptr<FieldViewAdapter> adapter);
-        void update(const FieldViewMessage& message);
+        FieldViewWidget& operator<<(const FieldInfoMessage& message);
 
     private:
         std::shared_ptr<FieldViewAdapter> _adapter;

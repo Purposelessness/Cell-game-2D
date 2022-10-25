@@ -4,19 +4,19 @@
 
 #include "SubLoggers.h"
 
-Logger& Logger::operator<<(const LogEventMessage& message) {
+Logger& Logger::operator<<(const LogMessage& message) {
     this->operator()(message);
     return *this;
 }
 
 void Logger::operator()(std::string message, Logger::Level level) {
-    this->operator()(LogEventMessage{std::move(message), level});
+    this->operator()(LogMessage{std::move(message), level});
 }
 
-void Logger::operator()(const LogEventMessage& message) {
+void Logger::operator()(const LogMessage& message) {
     std::string mes = levelToString(message.level) + ": " + message.message;
     _messages.emplace_back(mes);
-    event_handler(LogEventMessage{std::move(mes), message.level});
+    event_handler(LogMessage{std::move(mes), message.level});
 }
 
 Logger& Logger::instance() {
