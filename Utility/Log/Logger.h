@@ -29,6 +29,8 @@ public:
     void operator()(std::string message, Level level = Info);
     void operator()(const LogMessage& message);
 
+    void setFilterLevel(Level level);
+
     std::vector<std::string>& messages();
     SubLogger& logger(Level level);
     EventHandler<LogMessage> event_handler;
@@ -50,6 +52,7 @@ private:
         }
     }
 
+    Level _filter_level;
     std::array<std::unique_ptr<SubLogger>, kLevelCount> _loggers;
     std::vector<std::string> _messages;
 };
