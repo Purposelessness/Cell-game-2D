@@ -7,12 +7,17 @@
 #include "../Observer/LogObserver.h"
 #include "../Observer/FieldObserver.h"
 #include "GameDeployer.h"
+#include "LoggingSystemDeployer.h"
 
 MainApplication::MainApplication() : Application() {
     _world = std::make_shared<World>();
 
+
     // View
     _view_system = ViewSystemDeployer::start();
+
+    // Logging
+    auto log_observer = LoggingSystemDeployer::start(_view_system);
 
     // Input
     _input_system = InputSystemDeployer::start(*_world);
@@ -21,7 +26,6 @@ MainApplication::MainApplication() : Application() {
     _game = GameDeployer::start(this, _world);
 
     // Observers
-    auto log_observer = std::make_shared<LogObserver<ViewSystem>>(_view_system);
     auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(_game->fields()[0], _view_system);
 
     // Others
