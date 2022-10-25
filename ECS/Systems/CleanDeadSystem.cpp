@@ -9,7 +9,7 @@ void CleanDeadSystem::process() {
     auto w = world.lock();
     auto filter = Filter::with<DeadMarker>(*w);
     for (auto& e : filter) {
-        LOG_TRACE << (static_cast<std::string>(e) + " is dead");
+        LOG_TRACE_F(static_cast<std::string>(e) + " is dead.");
         if (e.hasComponent<PlayerMarker>()) {
             _game.lock()->stop();
         }

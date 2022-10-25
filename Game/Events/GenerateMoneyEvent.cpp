@@ -7,5 +7,5 @@ void GenerateMoneyEvent::invoke() {
     is_active = false;
     int money_count = std::rand() % _max_money_count;
     field_generator->addMoneyEvents(money_count);
-    LOG_TRACE << ("Money generated: " + std::to_string(money_count));
+    LOG_TRACE_F("Money generated: " + std::to_string(money_count));
 }

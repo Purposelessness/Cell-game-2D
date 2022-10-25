@@ -16,6 +16,6 @@ void ControlInversionEvent::invoke() {
         } else {
             e.addComponent<InvertControlMarker>();
         }
-        LOG_TRACE << "Controls inverted";
+        LOG_TRACE_F("Controls inverted");
     }
 }

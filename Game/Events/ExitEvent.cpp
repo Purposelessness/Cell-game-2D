@@ -13,7 +13,7 @@ void ExitEvent::invoke() {
     auto filter = Filter::with<PlayerMarker, Money>(*world);
     for (auto& e : filter) {
         if (e.getComponent<Money>().value >= _win_money) {
-            LOG_TRACE << (e.getName() + " escaped");
+            LOG_TRACE_F(e.getName() + " escaped");
             _game.lock()->stop();
         }
     }

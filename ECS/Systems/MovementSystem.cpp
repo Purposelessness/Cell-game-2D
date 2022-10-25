@@ -17,7 +17,7 @@ void MovementSystem::process() {
         auto& transform = entity.getComponent<Transform>();
         auto field_id = transform.field_id;
         if (field_id < 0 || field_id >= _fields.size()) {
-            LOG_WARNING << "MovementSystem: unknown field id";
+            LOG_ERROR_F("MovementSystem: component " + static_cast<std::string>(transform) + " has invalid field id.");
             continue;
         }
         auto& field = _fields[field_id];
