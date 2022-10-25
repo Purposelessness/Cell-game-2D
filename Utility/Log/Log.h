@@ -1,4 +1,4 @@
-//#ifdef DEBUG
+#define LOGGING
 
 #ifndef GAME_UTILITY_LOG_LOG_H_
 #define GAME_UTILITY_LOG_LOG_H_
@@ -13,6 +13,16 @@
 #define LOG_WARNING Logger::instance().logger(Logger::Warning)
 #define LOG_ERROR Logger::instance().logger(Logger::Error)
 
-#endif //GAME_UTILITY_LOG_LOG_H_
+#ifdef LOGGING
+#define LOG_TRACE_F(x) Logger::instance()(x, Logger::Trace)
+#define LOG_INFO_F(x) Logger::instance()(x, Logger::Info)
+#define LOG_WARNING_F(x) Logger::instance()(x, Logger::Warning)
+#define LOG_ERROR_F(x) Logger::instance()(x, Logger::Error)
+#else
+#define LOG_TRACE_F(x)
+#define LOG_INFO_F(x)
+#define LOG_WARNING_F(x)
+#define LOG_ERROR_F(x)
+#endif
 
-//#endif
+#endif //GAME_UTILITY_LOG_LOG_H_
