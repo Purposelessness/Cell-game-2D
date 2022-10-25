@@ -34,6 +34,8 @@ public:
 
     static void clearEntity(int entity_id) {
         for (auto& cache : caches) {
+            if (cache.second == nullptr)
+                continue;
             cache.second->removeComponent(entity_id);
         }
     }
