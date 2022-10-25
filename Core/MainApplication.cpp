@@ -1,11 +1,5 @@
 #include "MainApplication.h"
 
-#include "../Engine/Input/InputSystem.h"
-#include "../ECS/Systems/ObjectControllerSystem.h"
-
-#include "../ECS/EntityProviders/PlayerProvider.h"
-#include "../ECS/Systems/MovementSystem.h"
-
 #include "ViewSystemDeployer.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
@@ -29,12 +23,6 @@ MainApplication::MainApplication() : Application() {
     // Observers
     auto log_observer = std::make_shared<LogObserver<ViewSystem>>(_view_system);
     auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(_game->fields()[0], _view_system);
-
-    // Systems
-    _world->addSystem<MovementSystem>(_game->fields());
-
-    // Entities
-    auto player = PlayerProvider::create(*_world);
 
     // Others
     _tickables.emplace_back(_input_system);
