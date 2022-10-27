@@ -17,7 +17,7 @@ namespace console {
 
     class ViewRenderer : public IWidgetObserver, public std::enable_shared_from_this<ViewRenderer> {
     public:
-        ViewRenderer();
+        explicit ViewRenderer(bool logging = true);
 
         template<TInfoMessage T>
         inline ViewRenderer& operator<<(const T& message);
@@ -39,7 +39,8 @@ namespace console {
 
     template<TInfoMessage T>
     ViewRenderer& ViewRenderer::operator<<(const T& message) {
-        *_log_widget << message;
+        if (_log_widget != nullptr)
+            *_log_widget << message;
         return *this;
     }
 

@@ -10,13 +10,15 @@
 
 class ViewSystemDeployer {
 public:
-    static auto start() {
+    static auto execute(bool console_logging = true, bool file_logging = true) {
         auto view_system = std::make_shared<ViewSystem>();
 
-        auto log_view_renderer = std::make_unique<file::ViewRenderer>();
-        view_system->addRenderer(std::move(log_view_renderer));
+        if (file_logging) {
+            auto log_view_renderer = std::make_unique<file::ViewRenderer>();
+            view_system->addRenderer(std::move(log_view_renderer));
+        }
 
-        auto console_view_renderer = std::make_unique<console::ViewRenderer>();
+        auto console_view_renderer = std::make_unique<console::ViewRenderer>(console_logging);
 
         auto symbols = std::unordered_map<CellView, char>{};
         symbols[CellView::Undefined] = '?';

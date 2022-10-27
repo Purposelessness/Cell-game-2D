@@ -3,6 +3,7 @@
 #include "ViewSystemDeployer.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "InputSystemDeployer.h"
+#include "LogSystemCustomizer.h"
 
 #include "../Observer/LogObserver.h"
 #include "../Observer/FieldObserver.h"
@@ -11,17 +12,22 @@
 MainApplication::MainApplication() : Application() {
     _world = std::make_shared<World>();
 
+    // Log
+    bool console_logging, file_logging;
+    LogSystemCustomizer::execute(console_logging, file_logging);
+    auto log_observer = std::make_shared<LogObserver<ViewSystem>>();
+
     // View
-    _view_system = ViewSystemDeployer::start();
+    _view_system = ViewSystemDeployer::execute(console_logging, file_logging);
+    log_observer->addClient(_view_system);
 
     // Input
-    _input_system = InputSystemDeployer::start(*_world);
+    _input_system = InputSystemDeployer::execute(*_world);
 
     // Game
-    _game = GameDeployer::start(this, _world);
+    _game = GameDeployer::execute(this, _world);
 
     // Observers
-    auto log_observer = std::make_shared<LogObserver<ViewSystem>>(_view_system);
     auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(_game->fields()[0], _view_system);
 
     // Others

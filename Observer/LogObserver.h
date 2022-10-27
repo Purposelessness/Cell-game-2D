@@ -15,8 +15,16 @@ concept TLogObserverClient = requires(T t) {
 template<TLogObserverClient... Ts>
 class LogObserver : public IDisposable {
 public:
+    LogObserver() {
+        Logger::instance().event_handler.add(this, &LogObserver<Ts...>::react);
+    }
     explicit LogObserver(std::shared_ptr<Ts>... clients);
     ~LogObserver() override;
+
+    template<TLogObserverClient T>
+    void addClient(std::shared_ptr<T> client) {
+        std::get<std::shared_ptr<T>>(_clients) = client;
+    }
 
     void react(const LogMessage& message);
 

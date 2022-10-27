@@ -12,7 +12,7 @@
 
 class InputSystemDeployer {
 public:
-    static auto start(World& world) {
+    static auto execute(World& world) {
         auto input_system = std::make_shared<InputSystem>();
         auto object_controller_system = std::make_shared<ObjectControllerSystem>();
         input_system->addController(object_controller_system);
