@@ -2,8 +2,6 @@
 
 #include <utility>
 
-#include "../InputMessage.h"
-
 ControlScheme::ControlScheme() : ControlScheme(std::unordered_map<char, InputType>{}) {}
 
 ControlScheme::ControlScheme(std::unordered_map<char, InputType> key_map) : _key_map(std::move(key_map)) {}

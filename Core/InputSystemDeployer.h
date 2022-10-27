@@ -9,6 +9,7 @@
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "../Engine/Input/KeyboardInputReader/ControlScheme.h"
 #include "IApplication.h"
+#include "../Provider/ControlSchemeFileProvider.h"
 
 class InputSystemDeployer {
 public:
@@ -17,15 +18,9 @@ public:
         auto object_controller_system = std::make_shared<ObjectControllerSystem>();
         input_system->addController(object_controller_system);
 
-        auto map = std::unordered_map<char, InputType>{};
-        map['W'] = InputType::MoveUp;
-        map['S'] = InputType::MoveDown;
-        map['D'] = InputType::MoveRight;
-        map['A'] = InputType::MoveLeft;
-        map['R'] = InputType::Reset;
-        map['T'] = InputType::Exit;
+        ControlSchemeFileProvider provider;
+        auto scheme = provider.scanScheme();
 
-        auto scheme = ControlScheme{map};
         auto keyboard_reader = std::make_shared<KeyboardInputReader>(scheme);
         input_system->addReader(keyboard_reader);
 

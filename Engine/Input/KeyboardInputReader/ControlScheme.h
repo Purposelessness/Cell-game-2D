@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-enum class InputType;
+#include "../InputMessage.h"
 
 class ControlScheme {
 public:
