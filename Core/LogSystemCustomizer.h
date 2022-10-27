@@ -19,27 +19,11 @@ public:
 
         std::cout << "Enable console logging? (y/n)\n";
         std::cin >> temp;
-        switch (temp) {
-            case 'y':
-            case 'Y':
-                console_logging = true;
-                break;
-            default:
-                console_logging = false;
-                break;
-        }
+        console_logging = temp == 'y' || temp == 'Y';
 
         std::cout << "Enable file logging? (y/n)\n";
         std::cin >> temp;
-        switch (temp) {
-            case 'y':
-            case 'Y':
-                file_logging = true;
-                break;
-            default:
-                file_logging = false;
-                break;
-        }
+        file_logging = temp == 'y' || temp == 'Y';
 
         system("cls");
     }
