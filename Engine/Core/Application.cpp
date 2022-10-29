@@ -12,6 +12,7 @@ int Application::execute(int delta_time) {
         tick();
         usleep(delta_time);
     }
+    LOG_INFO_F("Application quited");
     return 0;
 }
 
@@ -21,5 +22,4 @@ void Application::tick() {
 
 void Application::quit() {
     _is_executing = false;
-    LOG_INFO_F("Application quited");
 }
