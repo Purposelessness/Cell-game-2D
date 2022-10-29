@@ -7,7 +7,7 @@ class Application {
 public:
     Application();
 
-    int execute(int delta_time);
+    virtual int execute(int delta_time);
 
     virtual void tick();
 

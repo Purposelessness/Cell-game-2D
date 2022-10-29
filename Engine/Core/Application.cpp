@@ -6,13 +6,11 @@
 Application::Application() : _is_executing(false) {}
 
 int Application::execute(int delta_time) {
-    LOG_INFO_F("Application executed");
     _is_executing = true;
     while (_is_executing) {
         tick();
         usleep(delta_time);
     }
-    LOG_INFO_F("Application quited");
     return 0;
 }
 

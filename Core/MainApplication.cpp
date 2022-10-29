@@ -21,11 +21,11 @@ MainApplication::MainApplication() : Application() {
     _view_system = ViewSystemDeployer::execute(console_logging, file_logging);
     log_observer->addClient(_view_system);
 
-    // Input
-    _input_system = InputSystemDeployer::execute(*_world);
-
     // Game
     _game = GameDeployer::execute(this, _world);
+
+    // Input
+    _input_system = InputSystemDeployer::execute(*_world, _game);
 
     // Observers
     auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(_game->fields()[0], _view_system);
@@ -35,6 +35,11 @@ MainApplication::MainApplication() : Application() {
 
     _disposables.emplace_back(std::move(log_observer));
     _disposables.emplace_back(std::move(field_observer));
+}
+
+int MainApplication::execute(int delta_time) {
+    LOG_INFO_F("Application executed");
+    return Application::execute(delta_time);
 }
 
 void MainApplication::tick() {
@@ -55,5 +60,6 @@ void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
 
 void MainApplication::quit() {
     Application::quit();
+    LOG_INFO_F("Application quited");
     system("pause");
 }

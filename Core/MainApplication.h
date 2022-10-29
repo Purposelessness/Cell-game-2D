@@ -18,6 +18,7 @@ class MainApplication : public Application, public IApplication {
 public:
     MainApplication();
 
+    int execute(int delta_time) override;
     void tick() override;
 
     void addTickable(std::shared_ptr<ITickable> tickable) override;

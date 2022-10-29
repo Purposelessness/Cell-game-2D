@@ -8,15 +8,21 @@
 #include "../ECS/Systems/ObjectControllerSystem.h"
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "../Engine/Input/KeyboardInputReader/ControlScheme.h"
-#include "IApplication.h"
 #include "../Provider/ControlSchemeFileProvider.h"
+#include "../Game/GameController.h"
+
+class IGame;
 
 class InputSystemDeployer {
 public:
-    static auto execute(World& world) {
+    static auto execute(World& world, const std::shared_ptr<IGame>& game) {
         auto input_system = std::make_shared<InputSystem>();
+
         auto object_controller_system = std::make_shared<ObjectControllerSystem>();
+        auto game_controller = std::make_shared<GameController>(game);
+
         input_system->addController(object_controller_system);
+        input_system->addController(game_controller);
 
         ControlSchemeFileProvider provider;
         auto scheme = provider.scanScheme();
