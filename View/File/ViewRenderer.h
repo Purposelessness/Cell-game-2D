@@ -41,6 +41,7 @@ namespace file {
     template<>
     inline ViewRenderer& ViewRenderer::operator<< <LogInfoMessage>(const LogInfoMessage& message) {
         _log_file << static_cast<std::string>(message) << '\n';
+        _log_file.flush();
         return *this;
     }
 
