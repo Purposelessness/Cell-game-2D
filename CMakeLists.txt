@@ -53,6 +53,60 @@ set(Headers
         Utility/Object.h
         Game/Events/Event.h
         Utility/Log/Levels.h
+        View/Console/ViewRenderer.h
+        View/Console/FieldViewAdapter.h
+        View/Console/Helper.h
+        View/Console/FieldViewWidget.h
+        View/Console/LogViewWidget.h
+        Utility/IDisposable.h
+        Core/ViewSystemDeployer.h
+        Core/InputSystemDeployer.h
+        Core/IApplication.h
+        Game/Field/FieldEventMessage.h
+        Observer/FieldObserver.h
+        View/CellViewRecognizer.h
+        Utility/Log/Logger.h
+        Observer/LogObserver.h
+        Message/LogInfoMesssage.h
+        Datatypes/Size.h
+        View/Console/IWidgetObserver.h
+        View/Console/Widget.h
+        Datatypes/Rect.h
+        View/Console/Grid.h
+        Utility/DI/Container.h
+        Utility/DI/Helper.h
+        Game/Events/EventFactory.h
+        ECS/Markers/PlayerMarker.h
+        Game/Events/ControlInversionEvent.h
+        ECSLib/Systems/TSystem.h
+        ECS/Markers/InvertControlMarker.h
+        Game/Field/Generator/FieldGenerator.h
+        Core/GameDeployer.h
+        Game/Game.h
+        Game/Events/MoneyEvent.h
+        ECS/Components/Money.h
+        Game/Events/GenerateMoneyEvent.h
+        Game/Events/EnemyEvent.h
+        ECS/Systems/HealthSystem.h
+        ECS/Markers/DeadMarker.h
+        ECS/Systems/CleanDeadSystem.h
+        Game/IGame.h
+        Game/Events/ExitEvent.h
+        Game/Events/WorldEvent.h
+        Game/Events/FieldEvent.h
+        View/File/ViewRenderer.h
+        Utility/Log/Levels.h
+        Utility/Log/Log.h
+        Utility/Log/SubLoggers.h
+        ECS/Systems/DealDamageSystem.h
+        ECS/Components/DealDamageEvent.h
+        ECS/Components/AddMoneyEvent.h
+        ECS/Systems/AddMoneySystem.h
+        Engine/Utility/InfoMessage.h
+        Core/LogSystemCustomizer.h
+        Provider/ControlSchemeFileProvider.h
+        Logger/FieldLogger.h
+        Game/GameController.h
         )
 
 set(Sources
@@ -86,7 +140,44 @@ set(Sources
         Utility/TypeIdentifier.cpp
         Utility/Identified.cpp
         Utility/Object.cpp
-        View/Console/ViewRenderer.cpp View/Console/ViewRenderer.h View/Console/FieldViewAdapter.cpp View/Console/FieldViewAdapter.h Message/FieldInfoMessage.h View/Console/Helper.h View/Console/FieldViewWidget.cpp View/Console/FieldViewWidget.h View/Console/LogViewWidget.cpp View/Console/LogViewWidget.h Utility/IDisposable.h Core/ViewSystemDeployer.h View/Console/Helper.cpp Core/InputSystemDeployer.h Core/IApplication.h Game/Field/FieldEventMessage.h Observer/FieldObserver.h View/CellViewRecognizer.h Utility/Log/Logger.cpp Utility/Log/Logger.h Observer/LogObserver.h Message/LogInfoMesssage.h Datatypes/Size.cpp Datatypes/Size.h Message/FieldInfoMessage.cpp View/Console/IWidgetObserver.h View/Console/Widget.cpp View/Console/Widget.h Datatypes/Rect.cpp Datatypes/Rect.h View/Console/Grid.cpp View/Console/Grid.h Utility/DI/Container.h Utility/DI/Helper.h Game/Events/EventFactory.h Game/Events/Event.cpp ECS/Markers/PlayerMarker.cpp ECS/Markers/PlayerMarker.h Game/Events/ControlInversionEvent.cpp Game/Events/ControlInversionEvent.h ECSLib/Systems/TSystem.h ECS/Markers/InvertControlMarker.cpp ECS/Markers/InvertControlMarker.h View/CellViewRecognizer.cpp Game/Field/FieldGenerator.cpp Game/Field/FieldGenerator.h Core/GameDeployer.h Game/Game.cpp Game/Game.h Game/Events/MoneyEvent.cpp Game/Events/MoneyEvent.h ECS/Components/Money.cpp ECS/Components/Money.h Game/Events/GenerateMoneyEvent.cpp Game/Events/GenerateMoneyEvent.h Game/Events/EnemyEvent.cpp Game/Events/EnemyEvent.h ECS/Systems/HealthSystem.cpp ECS/Systems/HealthSystem.h ECS/Markers/DeadMarker.cpp ECS/Markers/DeadMarker.h ECS/Systems/CleanDeadSystem.cpp ECS/Systems/CleanDeadSystem.h Game/IGame.h Game/Events/ExitEvent.cpp Game/Events/ExitEvent.h Game/Events/WorldEvent.cpp Game/Events/WorldEvent.h Game/Events/FieldEvent.cpp Game/Events/FieldEvent.h Game/Events/EventFactory.cpp View/File/ViewRenderer.cpp View/File/ViewRenderer.h Utility/Log/Levels.h Utility/Log/Log.h Utility/Log/SubLoggers.h ECS/Systems/DealDamageSystem.cpp ECS/Systems/DealDamageSystem.h ECS/Components/DealDamageEvent.cpp ECS/Components/DealDamageEvent.h ECS/Components/AddMoneyEvent.cpp ECS/Components/AddMoneyEvent.h ECS/Systems/AddMoneySystem.cpp ECS/Systems/AddMoneySystem.h Engine/Utility/InfoMessage.h Core/LogSystemCustomizer.h Provider/ControlSchemeFileProvider.cpp Provider/ControlSchemeFileProvider.h Logger/FieldLogger.cpp Logger/FieldLogger.h Game/GameController.cpp Game/GameController.h)
+        View/Console/ViewRenderer.cpp
+        View/Console/FieldViewAdapter.cpp
+        View/Console/FieldViewWidget.cpp
+        View/Console/LogViewWidget.cpp
+        View/Console/Helper.cpp
+        Utility/Log/Logger.cpp
+        Datatypes/Size.cpp
+        Message/FieldInfoMessage.cpp
+        View/Console/Widget.cpp
+        Datatypes/Rect.cpp
+        View/Console/Grid.cpp
+        Game/Events/Event.cpp
+        ECS/Markers/PlayerMarker.cpp
+        Game/Events/ControlInversionEvent.cpp
+        ECS/Markers/InvertControlMarker.cpp
+        View/CellViewRecognizer.cpp
+        Game/Field/Generator/FieldGenerator.cpp
+        Game/Game.cpp
+        Game/Events/MoneyEvent.cpp
+        ECS/Components/Money.cpp
+        Game/Events/GenerateMoneyEvent.cpp
+        Game/Events/EnemyEvent.cpp
+        ECS/Systems/HealthSystem.cpp
+        ECS/Markers/DeadMarker.cpp
+        ECS/Systems/CleanDeadSystem.cpp
+        Game/Events/ExitEvent.cpp
+        Game/Events/WorldEvent.cpp
+        Game/Events/FieldEvent.cpp
+        Game/Events/EventFactory.cpp
+        View/File/ViewRenderer.cpp
+        ECS/Systems/DealDamageSystem.cpp
+        ECS/Components/DealDamageEvent.cpp
+        ECS/Components/AddMoneyEvent.cpp
+        ECS/Systems/AddMoneySystem.cpp
+        Provider/ControlSchemeFileProvider.cpp
+        Logger/FieldLogger.cpp
+        Game/GameController.cpp
+        )
 
 add_executable(Game ${Sources} ${Headers})
 add_subdirectory(Tests)

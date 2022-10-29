@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "Event.h"
-#include "../Field/FieldGenerator.h"
+#include "../Field/Generator/FieldGenerator.h"
 
 class FieldEvent : public Event {
 public:

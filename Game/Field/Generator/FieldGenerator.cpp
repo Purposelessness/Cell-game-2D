@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "Field.h"
-#include "../Events/EventFactory.h"
-#include "../Events/MoneyEvent.h"
+#include "../Field.h"
+#include "../../Events/EventFactory.h"
+#include "../../Events/MoneyEvent.h"
 
 FieldGenerator::FieldGenerator() : _event_factory({}), _field(nullptr) {}
 
