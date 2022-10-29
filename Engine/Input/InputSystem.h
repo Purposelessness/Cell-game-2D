@@ -1,7 +1,7 @@
 #ifndef GAME_ENGINE_INPUT_INPUTSYSTEM_H_
 #define GAME_ENGINE_INPUT_INPUTSYSTEM_H_
 
-#include <vector>
+#include <unordered_set>
 #include <memory>
 
 #include "../Core/ITickable.h"
@@ -25,8 +25,8 @@ public:
 private:
     void notify(const InputMessage& input_message);
 
-    std::vector<std::shared_ptr<InputReader>> _readers;
-    std::vector<std::shared_ptr<IController>> _controllers;
+    std::unordered_set<std::shared_ptr<InputReader>> _readers;
+    std::unordered_set<std::shared_ptr<IController>> _controllers;
 };
 
 #endif //GAME_ENGINE_INPUT_INPUTSYSTEM_H_

@@ -17,21 +17,21 @@ void InputSystem::tick() {
 }
 
 void InputSystem::addReader(const std::shared_ptr<InputReader>& input_reader) {
-    _readers.emplace_back(input_reader);
+    _readers.insert(input_reader);
     input_reader->event_handler.add(this, &InputSystem::notify);
 }
 
 void InputSystem::removeReader(const std::shared_ptr<InputReader>& input_reader) {
-    _readers.erase(std::remove(_readers.begin(), _readers.end(), input_reader)); // NOLINT(bugprone-inaccurate-erase)
+    _readers.erase(input_reader);
     input_reader->event_handler.remove(this, &InputSystem::notify);
 }
 
 void InputSystem::addController(const std::shared_ptr<IController>& controller) {
-    _controllers.emplace_back(controller);
+    _controllers.insert(controller);
 }
 
 void InputSystem::removeController(const std::shared_ptr<IController>& controller) {
-    _controllers.erase(std::remove(_controllers.begin(), _controllers.end(), controller)); // NOLINT(bugprone-inaccurate-erase)
+    _controllers.erase(controller);
 }
 
 InputSystem::~InputSystem() {
