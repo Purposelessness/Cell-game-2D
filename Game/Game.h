@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Field/Field.h"
-#include "Field/Generator/FieldChanger.h"
+#include "Field/FieldChanger.h"
 #include "IGame.h"
 
 class World;
