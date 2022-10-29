@@ -4,16 +4,16 @@
 #include <memory>
 
 #include "Event.h"
-#include "../Field/Generator/FieldGenerator.h"
+#include "../Field/Generator/FieldChanger.h"
 
 class FieldEvent : public Event {
 public:
-    explicit FieldEvent(std::shared_ptr<FieldGenerator> field_generator = nullptr);
+    explicit FieldEvent(std::shared_ptr<FieldChanger> field_changer = nullptr);
 
-    void setFieldGenerator(std::shared_ptr<FieldGenerator> field_generator);
+    void setFieldChanger(std::shared_ptr<FieldChanger> field_changer);
 
 protected:
-    std::shared_ptr<FieldGenerator> field_generator;
+    std::shared_ptr<FieldChanger> field_changer;
 };
 
 #endif //GAME_GAME_EVENTS_FIELDEVENT_H_

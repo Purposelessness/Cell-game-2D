@@ -1,4 +1,4 @@
-#include "FieldGenerator.h"
+#include "FieldChanger.h"
 
 #include <memory>
 
@@ -6,17 +6,17 @@
 #include "../../Events/EventFactory.h"
 #include "../../Events/MoneyEvent.h"
 
-FieldGenerator::FieldGenerator() : _event_factory({}), _field(nullptr) {}
+FieldChanger::FieldChanger() : _event_factory({}), _field(nullptr) {}
 
-void FieldGenerator::setEventFactory(std::weak_ptr<EventFactory> event_factory) {
+void FieldChanger::setEventFactory(std::weak_ptr<EventFactory> event_factory) {
     _event_factory = std::move(event_factory);
 }
 
-void FieldGenerator::setField(std::shared_ptr<Field> field) {
+void FieldChanger::setField(std::shared_ptr<Field> field) {
     _field = std::move(field);
 }
 
-void FieldGenerator::addMoneyEvents(int money_count) {
+void FieldChanger::addMoneyEvents(int money_count) {
     if (_event_factory.expired() || _field == nullptr)
         return;
     auto factory = _event_factory.lock();

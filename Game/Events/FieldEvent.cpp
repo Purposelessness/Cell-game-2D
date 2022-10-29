@@ -2,8 +2,8 @@
 
 #include <utility>
 
-FieldEvent::FieldEvent(std::shared_ptr<FieldGenerator>  field_generator) : field_generator(std::move(field_generator)) {}
+FieldEvent::FieldEvent(std::shared_ptr<FieldChanger> field_changer) : field_changer(std::move(field_changer)) {}
 
-void FieldEvent::setFieldGenerator(std::shared_ptr<FieldGenerator>new_field_generator) {
-    field_generator = std::move(new_field_generator);
+void FieldEvent::setFieldChanger(std::shared_ptr<FieldChanger> new_field_changer) {
+    field_changer = std::move(new_field_changer);
 }

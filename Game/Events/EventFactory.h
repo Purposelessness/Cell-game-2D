@@ -8,7 +8,7 @@
 #include "WorldEvent.h"
 
 class World;
-class FieldGenerator;
+class FieldChanger;
 class IGame;
 
 class EventFactory {
@@ -16,7 +16,7 @@ class EventFactory {
 
 public:
     template<typename... Ts>
-    EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldGenerator> field_generator, Ts&&... services);
+    EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldChanger> field_generator, Ts&&... services);
 
     template<typename T>
     void addService(std::shared_ptr<T> service);
@@ -31,17 +31,17 @@ public:
     void inject(T& event);
 
     void setWorld(std::shared_ptr<World> world);
-    void setFieldGenerator(std::shared_ptr<FieldGenerator> field_generator);
+    void setFieldChanger(std::shared_ptr<FieldChanger> field_generator);
 
 private:
     DiContainer _container;
     std::shared_ptr<World> _world;
-    std::shared_ptr<FieldGenerator> _field_generator;
+    std::shared_ptr<FieldChanger> _field_changer;
 };
 
 template<typename... Ts>
-EventFactory::EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldGenerator> field_generator, Ts&&... services)
-    : _world(std::move(world)), _field_generator(std::move(field_generator)), _container({std::forward<Ts>(services)}...) {}
+EventFactory::EventFactory(std::shared_ptr<World> world, std::shared_ptr<FieldChanger> field_generator, Ts&&... services)
+    : _world(std::move(world)), _field_changer(std::move(field_generator)), _container({std::forward<Ts>(services)}...) {}
 
 template<typename T>
 void EventFactory::addService(std::shared_ptr<T> service) {
@@ -66,7 +66,7 @@ void EventFactory::inject(T& event) {
         event.setWorld(_world);
     }
     if constexpr (std::is_base_of_v<FieldEvent, T>) {
-        event.setFieldGenerator(_field_generator);
+        event.setFieldChanger(_field_changer);
     }
 
     if constexpr (di::TInjectClient<T>) {

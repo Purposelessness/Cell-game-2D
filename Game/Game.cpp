@@ -22,9 +22,9 @@ Game::Game(IApplication* application, std::shared_ptr<World> world)
     : _application(application), _world(std::move(world)) {}
 
 void Game::initialize() {
-    _field_generator = std::make_shared<FieldGenerator>();
+    _field_changer = std::make_shared<FieldChanger>();
     std::weak_ptr<IGame> weak_this = shared_from_this();
-    _event_factory = std::make_shared<EventFactory>(_world, _field_generator, weak_this);
+    _event_factory = std::make_shared<EventFactory>(_world, _field_changer, weak_this);
 
     auto field = std::make_shared<Field>();
     for (int i = 0; i < 20; ++i) {
@@ -41,8 +41,8 @@ void Game::initialize() {
     }
     _fields = {field};
 
-    _field_generator->setEventFactory(_event_factory);
-    _field_generator->setField(field);
+    _field_changer->setEventFactory(_event_factory);
+    _field_changer->setField(field);
 
     // Systems
     _world->addSystem<MovementSystem>(fields());

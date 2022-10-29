@@ -80,7 +80,7 @@ set(Headers
         Game/Events/ControlInversionEvent.h
         ECSLib/Systems/TSystem.h
         ECS/Markers/InvertControlMarker.h
-        Game/Field/Generator/FieldGenerator.h
+        Game/Field/Generator/FieldChanger.h
         Core/GameDeployer.h
         Game/Game.h
         Game/Events/MoneyEvent.h
@@ -156,7 +156,7 @@ set(Sources
         Game/Events/ControlInversionEvent.cpp
         ECS/Markers/InvertControlMarker.cpp
         View/CellViewRecognizer.cpp
-        Game/Field/Generator/FieldGenerator.cpp
+        Game/Field/Generator/FieldChanger.cpp
         Game/Game.cpp
         Game/Events/MoneyEvent.cpp
         ECS/Components/Money.cpp

@@ -1,14 +1,14 @@
-#ifndef GAME_GAME_FIELD_GENERATOR_FIELDGENERATOR_H_
-#define GAME_GAME_FIELD_GENERATOR_FIELDGENERATOR_H_
+#ifndef GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_
+#define GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_
 
 #include <memory>
 
 class Field;
 class EventFactory;
 
-class FieldGenerator {
+class FieldChanger {
 public:
-    FieldGenerator();
+    FieldChanger();
 
     void setEventFactory(std::weak_ptr<EventFactory> event_factory);
     void setField(std::shared_ptr<Field> field);
@@ -20,4 +20,4 @@ private:
     std::shared_ptr<Field> _field;
 };
 
-#endif //GAME_GAME_FIELD_GENERATOR_FIELDGENERATOR_H_
+#endif //GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_

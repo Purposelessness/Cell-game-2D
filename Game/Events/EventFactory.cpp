@@ -4,6 +4,6 @@ void EventFactory::setWorld(std::shared_ptr<World> world) {
     _world = std::move(world);
 }
 
-void EventFactory::setFieldGenerator(std::shared_ptr<FieldGenerator> field_generator) {
-    _field_generator = std::move(field_generator);
+void EventFactory::setFieldChanger(std::shared_ptr<FieldChanger> field_changer) {
+    _field_changer = std::move(field_changer);
 }

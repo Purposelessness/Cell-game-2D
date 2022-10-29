@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Field/Field.h"
-#include "Field/Generator/FieldGenerator.h"
+#include "Field/Generator/FieldChanger.h"
 #include "IGame.h"
 
 class World;
@@ -22,7 +22,7 @@ public:
 private:
     IApplication* _application;
     std::shared_ptr<World> _world;
-    std::shared_ptr<FieldGenerator> _field_generator;
+    std::shared_ptr<FieldChanger> _field_changer;
     std::shared_ptr<EventFactory> _event_factory;
     std::vector<std::shared_ptr<Field>> _fields;
 };
