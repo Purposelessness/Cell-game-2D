@@ -14,8 +14,11 @@ void Logger::operator()(std::string message, Logger::Level level) {
 }
 
 void Logger::operator()(const LogMessage& message) {
-    if (message.level < _filter_level)
+    if (!_extended_filtering && message.level < _filter_level) {
         return;
+    } else if (_extended_filtering && !_levels_enabled[message.level]) {
+        return;
+    }
     std::string mes = levelToString(message.level) + ": " + message.message;
     _messages.emplace_back(mes);
     event_handler(LogMessage{std::move(mes), message.level});
@@ -38,8 +41,32 @@ SubLogger& Logger::logger(Logger::Level level) {
     return *_loggers[level];
 }
 
-Logger::Logger() : _filter_level(Info) {
+Logger::Logger() {
     for (int i = 0; i < kLevelCount; ++i) {
         _loggers[i] = std::make_unique<SubLogger>(kLevels[i]);
     }
+}
+
+void Logger::enableExtendedFiltering() {
+    _extended_filtering = true;
+}
+
+void Logger::disableExtendedFiltering() {
+    _extended_filtering = false;
+}
+
+void Logger::enableFilterLevel(Level level) {
+    if (!_extended_filtering) {
+        this->operator()(LogMessage{"Extended filtering is disabled", Warning});
+        return;
+    }
+    _levels_enabled[level] = true;
+}
+
+void Logger::disableFilterLevel(Level level) {
+    if (!_extended_filtering) {
+        this->operator()(LogMessage{"Extended filtering is disabled", Warning});
+        return;
+    }
+    _levels_enabled[level] = false;
 }

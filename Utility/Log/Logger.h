@@ -31,6 +31,12 @@ public:
 
     void setFilterLevel(Level level);
 
+    void enableExtendedFiltering();
+    void disableExtendedFiltering();
+
+    void enableFilterLevel(Level level);
+    void disableFilterLevel(Level level);
+
     std::vector<std::string>& messages();
     SubLogger& logger(Level level);
     EventHandler<LogMessage> event_handler;
@@ -52,9 +58,12 @@ private:
         }
     }
 
-    Level _filter_level;
+    Level _filter_level = Info;
     std::array<std::unique_ptr<SubLogger>, kLevelCount> _loggers;
     std::vector<std::string> _messages;
+
+    bool _extended_filtering = false;
+    std::array<bool, kLevelCount> _levels_enabled{};
 };
 
 struct LogMessage {
