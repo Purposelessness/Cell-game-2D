@@ -3,6 +3,7 @@ project(Game)
 
 set(CMAKE_CXX_STANDARD 20)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-recover=address -O1 -fno-omit-frame-pointer -g")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(Headers
         Game/Field/Cell.h
@@ -180,4 +181,5 @@ set(Sources
         )
 
 add_executable(Game ${Sources} ${Headers})
+target_compile_features(Game PRIVATE cxx_std_20)
 add_subdirectory(Tests)
