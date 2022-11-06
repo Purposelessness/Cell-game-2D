@@ -1,15 +1,15 @@
 #ifndef GAME_ECS_COMPONENTS_VELOCITY_H_
 #define GAME_ECS_COMPONENTS_VELOCITY_H_
 
-#include "../../ECSLib/Components/Component.h"
 #include "../../Datatypes/Vector.h"
+#include "../../ECSLib/Components/Component.h"
 
 struct Velocity : public Component {
-    Velocity();
+  Velocity();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    Vector value;
+  Vector value;
 };
 
-#endif //GAME_ECS_COMPONENTS_VELOCITY_H_
+#endif  // GAME_ECS_COMPONENTS_VELOCITY_H_

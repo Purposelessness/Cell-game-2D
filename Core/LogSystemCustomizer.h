@@ -2,31 +2,40 @@
 #define GAME_CORE_LOGSYSTEMCUSTOMIZER_H_
 
 #include <iostream>
+
 #include "../Utility/Log/Log.h"
 
-class LogSystemCustomizer {
-public:
-    static inline void execute(bool& console_logging, bool& file_logging) {
-        std::cout << "Select level of logging\n\t0 - Trace\n\t1 - Info\n\t2 - Warning\n\t3 - Error\n";
-        char temp;
-        std::cin >> temp;
+class LogSystemCustomizer final {
+ public:
+  struct Result {
+    bool console_logging;
+    bool file_logging;
+  };
 
-        if (!(temp >= '0' && temp <= '3')) {
-            return;
-        }
+  static inline Result execute() {
+    std::cout << "Select level of logging\n\t0 - Trace\n\t1 - Info\n\t2 - "
+                 "Warning\n\t3 - Error\n";
+    char temp = 0;
+    std::cin >> temp;
 
-        LOG.setFilterLevel(static_cast<Logger::Level>(temp - 48));
-
-        std::cout << "Enable console logging? (y/n)\n";
-        std::cin >> temp;
-        console_logging = temp == 'y' || temp == 'Y';
-
-        std::cout << "Enable file logging? (y/n)\n";
-        std::cin >> temp;
-        file_logging = temp == 'y' || temp == 'Y';
-
-        system("cls");
+    if (temp < '0' || temp > '3') {
+      return {false, true};
     }
+
+    const char kOffset = 48;
+    LOG.setFilterLevel(static_cast<Logger::Level>(temp - kOffset));
+
+    std::cout << "Enable console logging? (y/n)\n";
+    std::cin >> temp;
+    bool console_logging = temp == 'y' || temp == 'Y';
+
+    std::cout << "Enable file logging? (y/n)\n";
+    std::cin >> temp;
+    bool file_logging = temp == 'y' || temp == 'Y';
+
+    system("cls");
+    return {console_logging, file_logging};
+  }
 };
 
-#endif //GAME_CORE_LOGSYSTEMCUSTOMIZER_H_
+#endif  // GAME_CORE_LOGSYSTEMCUSTOMIZER_H_

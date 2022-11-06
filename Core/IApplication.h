@@ -7,10 +7,12 @@ class ITickable;
 class IDisposable;
 
 class IApplication {
-public:
-    virtual void addTickable(std::shared_ptr<ITickable> tickable) = 0;
-    virtual void addDisposable(std::shared_ptr<IDisposable> disposable) = 0;
-    virtual void quit() = 0;
+ public:
+  virtual ~IApplication() = default;
+
+  virtual void addTickable(std::shared_ptr<ITickable> tickable) = 0;
+  virtual void addDisposable(std::shared_ptr<IDisposable> disposable) = 0;
+  virtual void quit() = 0;
 };
 
-#endif //GAME_CORE_IAPPLICATION_H_
+#endif  // GAME_CORE_IAPPLICATION_H_

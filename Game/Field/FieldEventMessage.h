@@ -6,36 +6,37 @@
 #include "../../Datatypes/Point.h"
 
 struct FieldEventMessage {
-    enum Type {
-        CellEventChanged,
-        CellPassabilityChanged,
-        PlayerStepped,
-        PlayerLeft
-    };
+  enum Type {
+    CellEventChanged,
+    CellPassabilityChanged,
+    PlayerStepped,
+    PlayerLeft
+  };
 
-    FieldEventMessage(Point position, Type type) : position(std::move(position)), type(type) {}
+  FieldEventMessage(Point position, Type type)
+      : position(std::move(position)), type(type) {}
 
-    inline explicit operator std::string() const {
-        return typeToString(type) + " on " + static_cast<std::string>(position);
+  inline explicit operator std::string() const {
+    return typeToString(type) + " on " + static_cast<std::string>(position);
+  }
+
+  static inline std::string typeToString(Type type) {
+    switch (type) {
+      case CellEventChanged:
+        return "Cell event changed";
+      case CellPassabilityChanged:
+        return "Cell passability changed";
+      case PlayerStepped:
+        return "Player stepped";
+      case PlayerLeft:
+        return "Player left";
+      default:
+        return "Unknown FieldEventType";
     }
+  }
 
-    static inline std::string typeToString(Type type) {
-        switch (type) {
-            case CellEventChanged:
-                return "Cell event changed";
-            case CellPassabilityChanged:
-                return "Cell passability changed";
-            case PlayerStepped:
-                return "Player stepped";
-            case PlayerLeft:
-                return "Player left";
-            default:
-                return "Unknown FieldEventType";
-        }
-    }
-
-    Point position;
-    Type type;
+  Point position;
+  Type type;
 };
 
-#endif //GAME_GAME_FIELD_FIELDEVENTMESSAGE_H_
+#endif  // GAME_GAME_FIELD_FIELDEVENTMESSAGE_H_

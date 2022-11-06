@@ -3,28 +3,27 @@
 
 #include <memory>
 
-#include "Widget.h"
-#include "../../Message/FieldInfoMessage.h"
 #include "../../Datatypes/Size.h"
+#include "../../Message/FieldInfoMessage.h"
+#include "Widget.h"
 
 namespace console {
 
-    class FieldViewAdapter;
+class FieldViewAdapter;
 
-    class Helper;
+class Helper;
 
-    class FieldViewWidget : public Widget {
-    public:
-        explicit FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter = nullptr);
+class FieldViewWidget : public Widget {
+ public:
+  explicit FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter = nullptr);
 
-        void setAdapter(std::shared_ptr<FieldViewAdapter> adapter);
-        FieldViewWidget& operator<<(const FieldInfoMessage& message);
+  void setAdapter(std::shared_ptr<FieldViewAdapter> adapter);
+  FieldViewWidget& operator<<(const FieldInfoMessage& message);
 
-    private:
-        std::shared_ptr<FieldViewAdapter> _adapter;
-    };
+ private:
+  std::shared_ptr<FieldViewAdapter> _adapter;
+};
 
-}
+}  // namespace console
 
-
-#endif //GAME_VIEW_CONSOLE_FIELDVIEWWIDGET_H_
+#endif  // GAME_VIEW_CONSOLE_FIELDVIEWWIDGET_H_

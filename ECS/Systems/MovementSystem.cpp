@@ -6,34 +6,38 @@
 #include "../../Utility/Log/Log.h"
 #include "../Markers/InvertControlMarker.h"
 
-MovementSystem::MovementSystem(std::vector<std::shared_ptr<Field>> fields) : _fields(std::move(fields)) {}
+MovementSystem::MovementSystem(std::vector<std::shared_ptr<Field>> fields)
+    : _fields(std::move(fields)) {}
 
 void MovementSystem::process() {
-    auto filter = Filter::with<Velocity, Transform>(*world.lock());
-    for (auto& entity : filter) {
-        auto& velocity = entity.getComponent<Velocity>();
-        if (velocity.value.isNull())
-            continue;
-        auto& transform = entity.getComponent<Transform>();
-        auto field_id = transform.field_id;
-        if (field_id < 0 || field_id >= _fields.size()) {
-            LOG_ERROR_F("MovementSystem: component " + static_cast<std::string>(transform) + " has invalid field id.");
-            continue;
-        }
-        auto& field = _fields[field_id];
-
-        Point new_pos;
-        if (entity.hasComponent<InvertControlMarker>()) {
-            new_pos = field->normalizePoint(transform.position - velocity.value);
-        } else {
-            new_pos = field->normalizePoint(transform.position + velocity.value);
-        }
-
-        if (!field->isPointPassable(new_pos)) {
-            continue;
-        }
-        field->onPlayerLeft(transform.position);
-        transform.position = new_pos;
-        field->onPlayerStepped(new_pos);
+  auto filter = Filter::with<Velocity, Transform>(*world.lock());
+  for (auto& entity : filter) {
+    auto& velocity = entity.getComponent<Velocity>();
+    if (velocity.value.isNull()) {
+      continue;
     }
+    auto& transform = entity.getComponent<Transform>();
+    auto field_id = transform.field_id;
+    if (field_id < 0 || static_cast<std::size_t>(field_id) >= _fields.size()) {
+      LOG_ERROR_F("MovementSystem: component " +
+                  static_cast<std::string>(transform) +
+                  " has invalid field id.");
+      continue;
+    }
+    auto& field = _fields[field_id];
+
+    Point new_pos;
+    if (entity.hasComponent<InvertControlMarker>()) {
+      new_pos = field->normalizePoint(transform.position - velocity.value);
+    } else {
+      new_pos = field->normalizePoint(transform.position + velocity.value);
+    }
+
+    if (!field->isPointPassable(new_pos)) {
+      continue;
+    }
+    field->onPlayerLeft(transform.position);
+    transform.position = new_pos;
+    field->onPlayerStepped(new_pos);
+  }
 }

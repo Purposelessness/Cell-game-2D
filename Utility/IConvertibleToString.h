@@ -4,13 +4,14 @@
 #include <string>
 
 class IConvertibleToString {
-public:
-    virtual explicit operator std::string() const = 0;
+ public:
+  virtual ~IConvertibleToString() = default;
+  virtual explicit operator std::string() const = 0;
 
-    auto operator<=>(const IConvertibleToString& other) const = default;
+  auto operator<=>(const IConvertibleToString& other) const = default;
 };
 
-template<typename T>
+template <typename T>
 concept ToString = std::is_base_of_v<IConvertibleToString, T>;
 
-#endif //GAME_UTILITY_ICONVERTIBLETOSTRING_H_
+#endif  // GAME_UTILITY_ICONVERTIBLETOSTRING_H_

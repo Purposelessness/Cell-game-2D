@@ -2,56 +2,60 @@
 #define GAME_ENGINE_VIEW_VIEWSYSTEM_H_
 
 #include <memory>
-#include <vector>
 #include <tuple>
 #include <unordered_map>
+#include <vector>
 
-#include "../Utility/InfoMessage.h"
-#include "../../Utility/Tuple.h"
 #include "../../Utility/Template.h"
-
-#include "ViewRenderer.h"
+#include "../../Utility/Tuple.h"
 #include "../../View/Console/ViewRenderer.h"
 #include "../../View/File/ViewRenderer.h"
+#include "../Utility/InfoMessage.h"
+#include "ViewRenderer.h"
 
 class ViewSystem {
-    using Types = std::tuple<console::ViewRenderer, file::ViewRenderer>;
+  using Types = std::tuple<console::ViewRenderer, file::ViewRenderer>;
 
-public:
-    template<TViewRenderer T, typename... Args> requires(has_type<T, Types>::value)
-    void addRenderer(Args&&... args) {
-        auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
-        if (!ptr.get())
-            ptr = std::make_unique<T>(std::forward<Args>(args)...);
-    }
-
-    template<TViewRenderer T> requires(has_type<T, Types>::value)
-    void addRenderer(std::unique_ptr<T>&& renderer) {
-        auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
-        if (ptr.get()) {
-            ptr.reset();
-        }
-        ptr = std::move(renderer);
-    }
-
-    template<TViewRenderer T>
+ public:
+  template <TViewRenderer T, typename... Args>
     requires(has_type<T, Types>::value)
-    void removeRenderer() {
-        std::get<std::unique_ptr<T>>(_renderers).reset();
+  void addRenderer(Args&&... args) {
+    auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
+    if (!ptr.get()) {
+      ptr = std::make_unique<T>(std::forward<Args>(args)...);
     }
+  }
 
-    template<TInfoMessage T>
-    ViewSystem& operator<<(T&& message) {
-        Tuple::forEach(_renderers, [message = std::forward<T>(message)](auto& t) -> void {
-            if (t == nullptr)
-                return;
-            *t << message;
-        });
-        return *this;
+  template <TViewRenderer T>
+    requires(has_type<T, Types>::value)
+  void addRenderer(std::unique_ptr<T>&& renderer) {
+    auto& ptr = std::get<std::unique_ptr<T>>(_renderers);
+    if (ptr.get()) {
+      ptr.reset();
     }
+    ptr = std::move(renderer);
+  }
 
-private:
-    unique_ptr_tuple<Types>::type _renderers;
+  template <TViewRenderer T>
+    requires(has_type<T, Types>::value)
+  void removeRenderer() {
+    std::get<std::unique_ptr<T>>(_renderers).reset();
+  }
+
+  template <TInfoMessage T>
+  ViewSystem& operator<<(T&& message) {
+    Tuple::forEach(_renderers,
+                   [message = std::forward<T>(message)](auto& t) -> void {
+                     if (t == nullptr) {
+                       return;
+                     }
+                     *t << message;
+                   });
+    return *this;
+  }
+
+ private:
+  unique_ptr_tuple<Types>::type _renderers;
 };
 
-#endif //GAME_ENGINE_VIEW_VIEWSYSTEM_H_
+#endif  // GAME_ENGINE_VIEW_VIEWSYSTEM_H_

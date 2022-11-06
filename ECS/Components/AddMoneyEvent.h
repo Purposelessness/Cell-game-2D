@@ -5,13 +5,13 @@
 #include "../../ECSLib/Core/Entity.h"
 
 struct AddMoneyEvent : public Component {
-public:
-    AddMoneyEvent();
+ public:
+  AddMoneyEvent();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int value = 0;
-    Entity target{};
+  int value = 0;
+  Entity target{};
 };
 
-#endif //GAME_ECS_COMPONENTS_ADDMONEYEVENT_H_
+#endif  // GAME_ECS_COMPONENTS_ADDMONEYEVENT_H_

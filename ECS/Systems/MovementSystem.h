@@ -4,19 +4,19 @@
 #include <vector>
 
 #include "../../ECSLib/Systems/TickableSystem.h"
-#include "../Components/Velocity.h"
 #include "../Components/Transform.h"
+#include "../Components/Velocity.h"
 
 class Field;
 
 class MovementSystem : public TickableSystem {
-public:
-    explicit MovementSystem(std::vector<std::shared_ptr<Field>> fields);
+ public:
+  explicit MovementSystem(std::vector<std::shared_ptr<Field>> fields);
 
-    void process() override;
+  void process() override;
 
-private:
-    std::vector<std::shared_ptr<Field>> _fields;
+ private:
+  std::vector<std::shared_ptr<Field>> _fields;
 };
 
-#endif //GAME_ECS_SYSTEMS_MOVEMENTSYSTEM_H_
+#endif  // GAME_ECS_SYSTEMS_MOVEMENTSYSTEM_H_

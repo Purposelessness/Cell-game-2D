@@ -6,16 +6,17 @@
 #include "../../Utility/Log/Log.h"
 
 void ControlInversionEvent::invoke() {
-    if (world == nullptr || !is_active)
-        return;
-    is_active = false;
-    auto filter = Filter::with<PlayerMarker>(*world);
-    for (auto& e : filter) {
-        if (e.hasComponent<InvertControlMarker>()) {
-            e.removeComponent<InvertControlMarker>();
-        } else {
-            e.addComponent<InvertControlMarker>();
-        }
-        LOG_TRACE_F("Controls inverted");
+  if (world == nullptr || !is_active) {
+    return;
+  }
+  is_active = false;
+  auto filter = Filter::with<PlayerMarker>(*world);
+  for (auto& e : filter) {
+    if (e.hasComponent<InvertControlMarker>()) {
+      e.removeComponent<InvertControlMarker>();
+    } else {
+      e.addComponent<InvertControlMarker>();
     }
+    LOG_TRACE_F("Controls inverted");
+  }
 }

@@ -5,7 +5,7 @@
 
 class System;
 
-template<typename T>
+template <typename T>
 concept TSystem = std::is_base_of_v<System, T>;
 
-#endif //GAME_ECSLIB_SYSTEMS_TSYSTEM_H_
+#endif  // GAME_ECSLIB_SYSTEMS_TSYSTEM_H_

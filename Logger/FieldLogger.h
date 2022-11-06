@@ -4,8 +4,8 @@
 class Field;
 
 class FieldLogger {
-public:
-    FieldLogger& operator<<(const Field& field);
+ public:
+  FieldLogger& operator<<(const Field& field);
 };
 
-#endif //GAME_LOGGER_FIELDLOGGER_H_
+#endif  // GAME_LOGGER_FIELDLOGGER_H_

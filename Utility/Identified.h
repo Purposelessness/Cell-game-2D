@@ -4,18 +4,15 @@
 #include "TypeIdentifier.h"
 
 class Identified {
-public:
-    Identified() = default;
-    [[nodiscard]] int getId() const;
+ public:
+  Identified() = default;
+  [[nodiscard]] int getId() const;
 
-protected:
-    template<typename T>
-    explicit Identified(T* t) {
-        id = TypeIdentifier<T>::getId();
-    }
+ protected:
+  template <typename T>
+  explicit Identified(T* t) : id(TypeIdentifier<T>::getId()) {}
 
-protected:
-    int id;
+  int id;
 };
 
-#endif //GAME_UTILITY_IDENTIFIED_H_
+#endif  // GAME_UTILITY_IDENTIFIED_H_

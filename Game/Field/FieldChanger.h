@@ -7,17 +7,17 @@ class Field;
 class EventFactory;
 
 class FieldChanger {
-public:
-    FieldChanger();
+ public:
+  FieldChanger();
 
-    void setEventFactory(std::weak_ptr<EventFactory> event_factory);
-    void setField(std::shared_ptr<Field> field);
+  void setEventFactory(std::weak_ptr<EventFactory> event_factory);
+  void setField(std::shared_ptr<Field> field);
 
-    void addMoneyEvents(int money_count);
+  void addMoneyEvents(int money_count);
 
-private:
-    std::weak_ptr<EventFactory> _event_factory;
-    std::shared_ptr<Field> _field;
+ private:
+  std::weak_ptr<EventFactory> _event_factory;
+  std::shared_ptr<Field> _field;
 };
 
-#endif //GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_
+#endif  // GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_

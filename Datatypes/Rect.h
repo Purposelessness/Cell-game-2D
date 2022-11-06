@@ -6,31 +6,31 @@
 #include "Size.h"
 
 struct Rect : IConvertibleToString {
-    Rect();
-    Rect(Point top_left, Point bottom_right);
+  Rect();
+  Rect(Point top_left, Point bottom_right);
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    [[nodiscard]] Size size() const;
+  [[nodiscard]] Size size() const;
 
-    [[nodiscard]] int width() const;
-    [[nodiscard]] int height() const;
+  [[nodiscard]] int width() const;
+  [[nodiscard]] int height() const;
 
-    [[nodiscard]] int top() const;
-    [[nodiscard]] int right() const;
-    [[nodiscard]] int bottom() const;
-    [[nodiscard]] int left() const;
+  [[nodiscard]] int top() const;
+  [[nodiscard]] int right() const;
+  [[nodiscard]] int bottom() const;
+  [[nodiscard]] int left() const;
 
-    void setSize(const Size& size);
-    void setTop(int value);
-    void setLeft(int value);
-    void setTopLeft(const Point& value);
-    void setBottom(int value);
-    void setRight(int value);
-    void setBottomRight(const Point& value);
+  void setSize(const Size& size);
+  void setTop(int value);
+  void setLeft(int value);
+  void setTopLeft(const Point& value);
+  void setBottom(int value);
+  void setRight(int value);
+  void setBottomRight(const Point& value);
 
-    Point top_left;
-    Point bottom_right;
+  Point top_left;
+  Point bottom_right;
 };
 
-#endif //GAME_DATATYPES_RECT_H_
+#endif  // GAME_DATATYPES_RECT_H_

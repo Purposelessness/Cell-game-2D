@@ -2,6 +2,4 @@
 
 PlayerMarker::PlayerMarker() : Component(this) {}
 
-PlayerMarker::operator std::string() const {
-    return "[ PlayerMarker ]";
-}
+PlayerMarker::operator std::string() const { return "[ PlayerMarker ]"; }

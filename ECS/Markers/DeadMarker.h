@@ -4,9 +4,9 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct DeadMarker : public Component {
-    DeadMarker();
+  DeadMarker();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 };
 
-#endif //GAME_ECS_MARKERS_DEADMARKER_H_
+#endif  // GAME_ECS_MARKERS_DEADMARKER_H_

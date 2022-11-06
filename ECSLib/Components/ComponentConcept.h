@@ -5,7 +5,7 @@
 
 class Component;
 
-template<typename T>
+template <typename T>
 concept TComponent = std::is_base_of_v<Component, T>;
 
-#endif //GAME_ECSLIB_COMPONENTS_COMPONENTCONCEPT_H_
+#endif  // GAME_ECSLIB_COMPONENTS_COMPONENTCONCEPT_H_

@@ -7,17 +7,16 @@
 
 namespace console {
 
-    class FieldViewAdapter {
-        using Map = std::unordered_map<CellView, char>;
+class FieldViewAdapter {
+  using Map = std::unordered_map<CellView, char>;
 
-    public:
-        explicit FieldViewAdapter(Map symbols) : symbols(std::move(symbols)) {}
+ public:
+  explicit FieldViewAdapter(Map symbols) : symbols(std::move(symbols)) {}
 
-        char symbol(CellView type);
-        Map symbols;
-    };
+  char symbol(CellView type);
+  Map symbols;
+};
 
-}
+}  // namespace console
 
-
-#endif //GAME_VIEW_CONSOLE_FIELDVIEWADAPTER_H_
+#endif  // GAME_VIEW_CONSOLE_FIELDVIEWADAPTER_H_

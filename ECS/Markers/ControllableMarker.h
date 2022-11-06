@@ -4,9 +4,9 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct ControllableMarker : public Component {
-    ControllableMarker();
+  ControllableMarker();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 };
 
-#endif //GAME_ECS_MARKERS_CONTROLLABLEMARKER_H_
+#endif  // GAME_ECS_MARKERS_CONTROLLABLEMARKER_H_

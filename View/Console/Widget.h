@@ -3,37 +3,38 @@
 
 #include <memory>
 
-#include "../../Datatypes/Size.h"
 #include "../../Datatypes/Rect.h"
+#include "../../Datatypes/Size.h"
 
 namespace console {
 
-    class IWidgetObserver;
+class IWidgetObserver;
 
-    class Widget {
-    public:
-        explicit Widget(Rect rect = Rect{}, IWidgetObserver* observer = nullptr);
-        explicit Widget(IWidgetObserver* observer);
+class Widget {
+ public:
+  explicit Widget(Rect rect = Rect{}, IWidgetObserver* observer = nullptr);
+  explicit Widget(IWidgetObserver* observer);
+  virtual ~Widget() = default;
 
-        void setObserver(IWidgetObserver* observer);
+  void setObserver(IWidgetObserver* observer);
 
-        void setRect(const Rect& rect);
-        void setTop(int value);
-        void setLeft(int value);
-        void setTopLeft(const Point& value);
-        void setBottom(int value);
-        void setRight(int value);
-        void setBottomRight(const Point& value);
-        virtual void resize(const Size& new_size, bool notify = true);
-        virtual void resize(int width, int height, bool notify = true);
+  void setRect(const Rect& rect);
+  void setTop(int value);
+  void setLeft(int value);
+  void setTopLeft(const Point& value);
+  void setBottom(int value);
+  void setRight(int value);
+  void setBottomRight(const Point& value);
+  virtual void resize(const Size& new_size, bool notify = true);
+  virtual void resize(int width, int height, bool notify = true);
 
-        [[nodiscard]] Size getSize() const;
+  [[nodiscard]] Size getSize() const;
 
-    protected:
-        Rect rect;
-        IWidgetObserver* observer;
-    };
+ protected:
+  Rect rect;
+  IWidgetObserver* observer;
+};
 
-}
+}  // namespace console
 
-#endif //GAME_VIEW_CONSOLE_WIDGET_H_
+#endif  // GAME_VIEW_CONSOLE_WIDGET_H_

@@ -10,65 +10,62 @@ struct LogMessage;
 struct SubLogger;
 
 class Logger {
-public:
-    enum Level {
-        Trace = 0,
-        Info = 1,
-        Warning = 2,
-        Error = 3
-    };
-    static constexpr int kLevelCount = 4;
-    static constexpr std::array<Level, kLevelCount> kLevels = {Trace, Info, Warning, Error};
+ public:
+  enum Level { Trace = 0, Info = 1, Warning = 2, Error = 3 };
 
-    static Logger& instance();
+  static constexpr int kLevelCount = 4;
+  static constexpr std::array<Level, kLevelCount> kLevels = {Trace, Info,
+                                                             Warning, Error};
 
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
+  static Logger& instance();
 
-    Logger& operator<<(const LogMessage& message);
-    void operator()(std::string message, Level level = Info);
-    void operator()(const LogMessage& message);
+  Logger(const Logger&) = delete;
+  Logger& operator=(const Logger&) = delete;
 
-    void setFilterLevel(Level level);
+  Logger& operator<<(const LogMessage& message);
+  void operator()(std::string message, Level level = Info);
+  void operator()(const LogMessage& message);
 
-    void enableExtendedFiltering();
-    void disableExtendedFiltering();
+  void setFilterLevel(Level level);
 
-    void enableFilterLevel(Level level);
-    void disableFilterLevel(Level level);
+  void enableExtendedFiltering();
+  void disableExtendedFiltering();
 
-    std::vector<std::string>& messages();
-    SubLogger& logger(Level level);
-    EventHandler<LogMessage> event_handler;
+  void enableFilterLevel(Level level);
+  void disableFilterLevel(Level level);
 
-private:
-    Logger();
+  std::vector<std::string>& messages();
+  SubLogger& logger(Level level);
+  EventHandler<LogMessage> event_handler;
 
-    static inline std::string levelToString(Level level) {
-        switch (level) {
-            case Warning:
-                return "[Warning]";
-            case Error:
-                return "[Error]";
-            case Info:
-                return "[Info]";
-            case Trace:
-            default:
-                return "[Trace]";
-        }
+ private:
+  Logger();
+
+  static inline std::string levelToString(Level level) {
+    switch (level) {
+      case Warning:
+        return "[Warning]";
+      case Error:
+        return "[Error]";
+      case Info:
+        return "[Info]";
+      case Trace:
+      default:
+        return "[Trace]";
     }
+  }
 
-    Level _filter_level = Info;
-    std::array<std::unique_ptr<SubLogger>, kLevelCount> _loggers;
-    std::vector<std::string> _messages;
+  Level _filter_level = Info;
+  std::array<std::unique_ptr<SubLogger>, kLevelCount> _loggers;
+  std::vector<std::string> _messages;
 
-    bool _extended_filtering = false;
-    std::array<bool, kLevelCount> _levels_enabled{};
+  bool _extended_filtering = false;
+  std::array<bool, kLevelCount> _levels_enabled{};
 };
 
 struct LogMessage {
-    std::string message;
-    Logger::Level level;
+  std::string message;
+  Logger::Level level;
 };
 
-#endif //GAME_UTILITY_LOG_LOGGER_H_
+#endif  // GAME_UTILITY_LOG_LOGGER_H_

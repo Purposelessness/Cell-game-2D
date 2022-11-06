@@ -7,13 +7,13 @@
 #include "IGame.h"
 
 class GameController : public IController {
-public:
-    explicit GameController(const std::weak_ptr<IGame>& game);
+ public:
+  explicit GameController(std::weak_ptr<IGame> game);
 
-    void process(const InputMessage& input_message) override;
+  void process(const InputMessage& input_message) override;
 
-private:
-    std::weak_ptr<IGame> _game;
+ private:
+  std::weak_ptr<IGame> _game;
 };
 
-#endif //GAME_GAME_GAMECONTROLLER_H_
+#endif  // GAME_GAME_GAMECONTROLLER_H_

@@ -1,5 +1,3 @@
 #include "Identified.h"
 
-int Identified::getId() const {
-    return id;
-}
+int Identified::getId() const { return id; }

@@ -4,8 +4,8 @@
 #include "../../ECSLib/Systems/TickableSystem.h"
 
 class HealthSystem : public TickableSystem {
-public:
-    void process() override;
+ public:
+  void process() override;
 };
 
-#endif //GAME_ECS_SYSTEMS_HEALTHSYSTEM_H_
+#endif  // GAME_ECS_SYSTEMS_HEALTHSYSTEM_H_

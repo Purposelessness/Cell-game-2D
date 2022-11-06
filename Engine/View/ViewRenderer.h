@@ -3,9 +3,7 @@
 
 #include "../Utility/InfoMessage.h"
 
-template<typename T>
-concept TViewRenderer = requires (T t) {
-    t << std::declval<InfoMessage>();
-};
+template <typename T>
+concept TViewRenderer = requires(T t) { t << std::declval<InfoMessage>(); };
 
-#endif //GAME_ENGINE_VIEWInputMessageER_H_
+#endif  // GAME_ENGINE_VIEWInputMessageER_H_

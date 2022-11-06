@@ -4,11 +4,11 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct Weapon : public Component {
-    Weapon();
+  Weapon();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int damage = 5;
+  int damage = 5;
 };
 
-#endif //GAME_ECS_COMPONENTS_WEAPON_H_
+#endif  // GAME_ECS_COMPONENTS_WEAPON_H_

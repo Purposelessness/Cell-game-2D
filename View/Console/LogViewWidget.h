@@ -3,24 +3,23 @@
 
 #include <deque>
 
-#include "Widget.h"
-#include "../../Engine/Utility/InfoMessage.h"
 #include "../../Datatypes/Size.h"
+#include "../../Engine/Utility/InfoMessage.h"
+#include "Widget.h"
 
 namespace console {
 
-    class LogViewWidget : public Widget {
-    public:
-        LogViewWidget();
+class LogViewWidget : public Widget {
+ public:
+  LogViewWidget();
 
-        LogViewWidget& operator<<(const InfoMessage& message);
+  LogViewWidget& operator<<(const InfoMessage& message);
 
-    private:
-        std::deque<std::string> _buffer;
-        std::string _flush;
-    };
+ private:
+  std::deque<std::string> _buffer;
+  std::string _flush;
+};
 
-}
+}  // namespace console
 
-
-#endif //GAME_VIEW_CONSOLE_LOGVIEWWIDGET_H_
+#endif  // GAME_VIEW_CONSOLE_LOGVIEWWIDGET_H_

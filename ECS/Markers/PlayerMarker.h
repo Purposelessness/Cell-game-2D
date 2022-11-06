@@ -4,10 +4,10 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct PlayerMarker : public Component {
-public:
-    explicit PlayerMarker();
+ public:
+  explicit PlayerMarker();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 };
 
-#endif //GAME_ECS_MARKERS_PLAYERMARKER_H_
+#endif  // GAME_ECS_MARKERS_PLAYERMARKER_H_

@@ -25,4 +25,4 @@
 #define LOG_ERROR_F(x)
 #endif
 
-#endif //GAME_UTILITY_LOG_LOG_H_
+#endif  // GAME_UTILITY_LOG_LOG_H_

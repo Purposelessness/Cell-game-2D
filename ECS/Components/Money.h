@@ -4,11 +4,11 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct Money : public Component {
-    Money();
+  Money();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int value = 0;
+  int value = 0;
 };
 
-#endif //GAME_ECS_COMPONENTS_MONEY_H_
+#endif  // GAME_ECS_COMPONENTS_MONEY_H_

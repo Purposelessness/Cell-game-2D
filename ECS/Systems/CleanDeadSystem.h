@@ -5,13 +5,13 @@
 #include "../../Game/IGame.h"
 
 class CleanDeadSystem : public TickableSystem {
-public:
-    explicit CleanDeadSystem(std::weak_ptr<IGame> game);
+ public:
+  explicit CleanDeadSystem(std::weak_ptr<IGame> game);
 
-    void process() override;
+  void process() override;
 
-private:
-    std::weak_ptr<IGame> _game;
+ private:
+  std::weak_ptr<IGame> _game;
 };
 
-#endif //GAME_ECS_SYSTEMS_CLEANDEADSYSTEM_H_
+#endif  // GAME_ECS_SYSTEMS_CLEANDEADSYSTEM_H_

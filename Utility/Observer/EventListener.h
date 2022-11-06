@@ -6,21 +6,21 @@
 #include "EventMessage.h"
 
 class EventListener {
-public:
-    EventListener();
-    [[nodiscard]] int getIndex() const;
+ public:
+  EventListener();
+  virtual ~EventListener();
 
-    virtual void update(EventMessage*) = 0;
+  [[nodiscard]] int getIndex() const;
 
-    ~EventListener();
+  virtual void update(EventMessage*) = 0;
 
-private:
-    void assignIndex();
+ private:
+  void assignIndex();
 
-    static int _length;
-    static std::vector<int> _unused_indices;
+  static int _length;
+  static std::vector<int> _unused_indices;
 
-    int _index = -1;
+  int _index = -1;
 };
 
-#endif //GAME_OBSERVER_EVENTLISTENER_H_
+#endif  // GAME_OBSERVER_EVENTLISTENER_H_

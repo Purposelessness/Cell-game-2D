@@ -5,12 +5,12 @@
 #include "../../ECSLib/Core/Entity.h"
 
 struct DealDamageEvent : public Component {
-    DealDamageEvent();
+  DealDamageEvent();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int value = 0;
-    Entity target{};
+  int value = 0;
+  Entity target{};
 };
 
-#endif //GAME_ECS_COMPONENTS_DEALDAMAGEEVENT_H_
+#endif  // GAME_ECS_COMPONENTS_DEALDAMAGEEVENT_H_

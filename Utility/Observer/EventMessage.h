@@ -3,8 +3,6 @@
 
 #include <string>
 
-struct EventMessage {
+struct EventMessage {};
 
-};
-
-#endif //GAME_OBSERVER_EVENTMESSAGE_H_
+#endif  // GAME_OBSERVER_EVENTMESSAGE_H_

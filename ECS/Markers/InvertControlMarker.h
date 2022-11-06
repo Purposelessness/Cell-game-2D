@@ -4,9 +4,9 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct InvertControlMarker : public Component {
-    InvertControlMarker();
+  InvertControlMarker();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 };
 
-#endif //GAME_ECS_MARKERS_INVERTCONTROLMARKER_H_
+#endif  // GAME_ECS_MARKERS_INVERTCONTROLMARKER_H_

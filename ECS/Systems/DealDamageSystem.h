@@ -4,8 +4,8 @@
 #include "../../ECSLib/Systems/TickableSystem.h"
 
 class DealDamageSystem : public TickableSystem {
-public:
-    void process() override;
+ public:
+  void process() override;
 };
 
-#endif //GAME_ECS_SYSTEMS_DEALDAMAGESYSTEM_H_
+#endif  // GAME_ECS_SYSTEMS_DEALDAMAGESYSTEM_H_

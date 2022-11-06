@@ -4,11 +4,11 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct Health : public Component {
-    Health();
+  Health();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int value = 100;
+  int value = 100;
 };
 
-#endif //GAME_ECS_COMPONENTS_HEALTH_H_
+#endif  // GAME_ECS_COMPONENTS_HEALTH_H_

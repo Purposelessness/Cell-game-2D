@@ -3,5 +3,5 @@
 InvertControlMarker::InvertControlMarker() : Component(this) {}
 
 InvertControlMarker::operator std::string() const {
-    return "[ InvertControlMarker ]";
+  return "[ InvertControlMarker ]";
 }

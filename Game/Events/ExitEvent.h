@@ -3,17 +3,17 @@
 
 #include <memory>
 
-#include "WorldEvent.h"
 #include "../IGame.h"
+#include "WorldEvent.h"
 
 class ExitEvent : public WorldEvent {
-public:
-    void inject(std::weak_ptr<IGame> game);
-    void invoke() override;
+ public:
+  void inject(std::weak_ptr<IGame> game);
+  void invoke() override;
 
-private:
-    std::weak_ptr<IGame> _game;
-    int _win_money = 10;
+ private:
+  std::weak_ptr<IGame> _game;
+  int _win_money = 10;
 };
 
-#endif //GAME_GAME_EVENTS_EXITEVENT_H_
+#endif  // GAME_GAME_EVENTS_EXITEVENT_H_

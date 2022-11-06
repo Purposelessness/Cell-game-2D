@@ -4,17 +4,18 @@
 #include "ITickable.h"
 
 class Application {
-public:
-    Application();
+ public:
+  Application();
+  virtual ~Application() = default;
 
-    virtual int execute(int delta_time);
+  virtual int execute(int delta_time);
 
-    virtual void tick();
+  virtual void tick();
 
-    void quit();
+  void quit();
 
-private:
-    bool _is_executing;
+ private:
+  bool _is_executing;
 };
 
-#endif //GAME_ENGINE_CORE_APPLICATION_H_
+#endif  // GAME_ENGINE_CORE_APPLICATION_H_

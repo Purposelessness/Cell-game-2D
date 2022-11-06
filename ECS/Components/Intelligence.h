@@ -4,11 +4,11 @@
 #include "../../ECSLib/Components/Component.h"
 
 struct Intelligence : public Component {
-    Intelligence();
+  Intelligence();
 
-    explicit operator std::string() const override;
+  explicit operator std::string() const override;
 
-    int value = 4;
+  int value = 4;
 };
 
-#endif //GAME_ECS_COMPONENTS_INTELLIGENCE_H_
+#endif  // GAME_ECS_COMPONENTS_INTELLIGENCE_H_

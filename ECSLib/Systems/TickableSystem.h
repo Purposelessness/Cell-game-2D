@@ -4,12 +4,10 @@
 #include "System.h"
 
 class TickableSystem : public System {
-public:
-    void tick() {
-        process();
-    }
+ public:
+  void tick() { process(); }
 
-    void process() override = 0;
+  void process() override = 0;
 };
 
-#endif //GAME_ECSLIB_SYSTEMS_TICKABLESYSTEM_H_
+#endif  // GAME_ECSLIB_SYSTEMS_TICKABLESYSTEM_H_

@@ -12,19 +12,19 @@ class World;
 class IApplication;
 
 class Game : public IGame, public std::enable_shared_from_this<Game> {
-public:
-    explicit Game(IApplication* application, std::shared_ptr<World>  world);
-    void initialize();
+ public:
+  explicit Game(IApplication* application, std::shared_ptr<World> world);
+  void initialize();
 
-    const std::vector<std::shared_ptr<Field>>& fields();
-    void stop() override;
+  const std::vector<std::shared_ptr<Field>>& fields();
+  void stop() override;
 
-private:
-    IApplication* _application;
-    std::shared_ptr<World> _world;
-    std::shared_ptr<FieldChanger> _field_changer;
-    std::shared_ptr<EventFactory> _event_factory;
-    std::vector<std::shared_ptr<Field>> _fields;
+ private:
+  IApplication* _application;
+  std::shared_ptr<World> _world;
+  std::shared_ptr<FieldChanger> _field_changer;
+  std::shared_ptr<EventFactory> _event_factory;
+  std::vector<std::shared_ptr<Field>> _fields;
 };
 
-#endif //GAME_GAME_GAME_H_
+#endif  // GAME_GAME_GAME_H_

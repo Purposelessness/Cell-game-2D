@@ -4,13 +4,11 @@
 #include "../Engine/Utility/InfoMessage.h"
 
 struct LogInfoMessage : public InfoMessage {
-    explicit LogInfoMessage(std::string message) : message(std::move(message)) {}
+  explicit LogInfoMessage(std::string message) : message(std::move(message)) {}
 
-    std::string message;
+  std::string message;
 
-    explicit operator std::string() const override {
-        return message;
-    }
+  explicit operator std::string() const override { return message; }
 };
 
-#endif //GAME_MESSAGE_LOGINFOMESSSAGE_H_
+#endif  // GAME_MESSAGE_LOGINFOMESSSAGE_H_

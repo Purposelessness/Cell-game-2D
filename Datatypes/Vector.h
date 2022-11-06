@@ -4,16 +4,16 @@
 #include "../Utility/IConvertibleToString.h"
 
 struct Vector : public IConvertibleToString {
-    explicit Vector(int x = 0, int y = 0);
+  explicit Vector(int x = 0, int y = 0);
 
-    explicit operator std::string() const override;
-    [[nodiscard]] bool isNull() const;
+  explicit operator std::string() const override;
+  [[nodiscard]] bool isNull() const;
 
-    Vector& operator+=(const Vector& other);
-    Vector operator+(const Vector& other) const;
+  Vector& operator+=(const Vector& other);
+  Vector operator+(const Vector& other) const;
 
-    int x = 0;
-    int y = 0;
+  int x = 0;
+  int y = 0;
 };
 
-#endif //GAME_DATATYPES_VECTOR_H_
+#endif  // GAME_DATATYPES_VECTOR_H_
