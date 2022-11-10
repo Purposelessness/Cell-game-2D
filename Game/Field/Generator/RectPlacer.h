@@ -18,7 +18,7 @@ class RectPlacer {
   void operator()(std::vector<std::vector<Cell>>& cells) {
     auto width = static_cast<int>(cells[0].size());
     auto height = static_cast<int>(cells.size());
-    if (XOffset + Width >= width || YOffset + Width >= height) {
+    if (XOffset + Width > width || YOffset + Width > height) {
       LOG_ERROR_F("Field size is too small for rect placer.");
       return;
     }
