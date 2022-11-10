@@ -15,8 +15,14 @@ template <typename T>
 concept TFieldObserverClient =
     requires(T t) { t << std::declval<FieldInfoMessage>(); };
 
+class IFieldObserver {
+ public:
+  virtual ~IFieldObserver() = default;
+  virtual void setObservableField(std::shared_ptr<Field> field) = 0;
+};
+
 template <TFieldObserverClient... Ts>
-class FieldObserver : public IDisposable {
+class FieldObserver : public IFieldObserver {
  public:
   explicit FieldObserver(std::shared_ptr<Field> field,
                          std::shared_ptr<Ts>... clients);
@@ -26,7 +32,7 @@ class FieldObserver : public IDisposable {
 
   void react(const FieldEventMessage& message);
 
-  void setObservableField(std::shared_ptr<Field> field);
+  void setObservableField(std::shared_ptr<Field> field) override;
 
  private:
   void notifyClients(const FieldInfoMessage& message);
@@ -86,6 +92,7 @@ void FieldObserver<Ts...>::setObservableField(std::shared_ptr<Field> field) {
   }
   _field = std::move(field);
   _field->event_handler.template add(this, &FieldObserver::react);
+  this->operator<<(*_field);
 }
 
 template <TFieldObserverClient... Ts>

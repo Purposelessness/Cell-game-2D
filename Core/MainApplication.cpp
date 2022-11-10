@@ -29,12 +29,12 @@ MainApplication::MainApplication() {
   // Observers
   auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(
       _game->fields()[0], _view_system);
+  _field_observer = std::static_pointer_cast<IFieldObserver>(field_observer);
 
   // Others
   _tickables.emplace_back(_input_system);
 
   _disposables.emplace_back(std::move(log_observer));
-  _disposables.emplace_back(std::move(field_observer));
 }
 
 int MainApplication::execute(int delta_time) {
@@ -56,6 +56,10 @@ void MainApplication::addTickable(std::shared_ptr<ITickable> tickable) {
 
 void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
   _disposables.emplace_back(std::move(disposable));
+}
+
+void MainApplication::onGameReseted() {
+  _field_observer->setObservableField(_game->fields()[0]);
 }
 
 void MainApplication::quit() {

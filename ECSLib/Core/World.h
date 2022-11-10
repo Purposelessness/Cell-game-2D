@@ -41,9 +41,9 @@ class World : public std::enable_shared_from_this<World> {
     auto system = std::make_shared<T>(std::forward<Args>(args)...);
     system->setWorld(shared_from_this());
     if constexpr (std::is_base_of_v<TickableSystem, T>) {
-      _tickable_systems.emplace_back(std::move(system));
+      _tickable_systems.emplace_back(system);
     } else {
-      _systems.emplace_back(std::move(system));
+      _systems.emplace_back(system);
     }
     return system;
   }

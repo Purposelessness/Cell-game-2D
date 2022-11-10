@@ -9,11 +9,20 @@ class EventFactory;
 
 class FieldConfigurator {
  public:
-  static std::shared_ptr<Field> execute(EventFactory& event_factory);
+  enum Option { Default, Rect, Chaos };
 
-  static std::shared_ptr<Field> defaultOption(EventFactory& event_factory);
-  static std::shared_ptr<Field> rectOption(EventFactory& event_factory);
-  static std::shared_ptr<Field> chaosOption(EventFactory& event_factory);
+  explicit FieldConfigurator(std::shared_ptr<EventFactory> event_factory);
+
+  std::shared_ptr<Field> execute();
+  std::shared_ptr<Field> generate();
+
+  std::shared_ptr<Field> defaultOption();
+  std::shared_ptr<Field> rectOption();
+  std::shared_ptr<Field> chaosOption();
+
+ private:
+  std::shared_ptr<EventFactory> _event_factory;
+  Option _option;
 };
 
 #endif

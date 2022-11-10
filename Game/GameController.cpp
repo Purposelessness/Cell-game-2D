@@ -13,8 +13,10 @@ void GameController::process(const InputMessage& input_message) {
 
   switch (input_message.type) {
     case InputType::Exit:
-    case InputType::Reset:
       game->stop();
+      break;
+    case InputType::Reset:
+      game->reset();
       break;
     case InputType::Undefined:
     default:

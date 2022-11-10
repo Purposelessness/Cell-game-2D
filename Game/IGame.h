@@ -4,6 +4,7 @@
 class IGame {
  public:
   virtual ~IGame() = default;
+  virtual void reset() = 0;
   virtual void stop() = 0;
 };
 

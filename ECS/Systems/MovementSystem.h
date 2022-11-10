@@ -12,6 +12,7 @@ class Field;
 class MovementSystem : public TickableSystem {
  public:
   explicit MovementSystem(std::vector<std::shared_ptr<Field>> fields);
+  void setFields(std::vector<std::shared_ptr<Field>> fields);
 
   void process() override;
 
