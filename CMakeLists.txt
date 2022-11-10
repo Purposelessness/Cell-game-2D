@@ -120,6 +120,7 @@ set(Headers
         Game/Field/Generator/PassabilityPlacer.h
         Game/Field/Generator/Randomizer.h
         Game/Field/Generator/RectPlacer.h
+        Game/FieldConfigurator.h
         )
 
 set(Sources
@@ -190,6 +191,7 @@ set(Sources
         Provider/ControlSchemeFileProvider.cpp
         Logger/FieldLogger.cpp
         Game/GameController.cpp
+        Game/FieldConfigurator.cpp
         )
 
 add_executable(Game ${Sources} ${Headers})
