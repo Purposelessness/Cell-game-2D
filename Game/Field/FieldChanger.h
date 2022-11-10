@@ -20,4 +20,4 @@ class FieldChanger {
   std::shared_ptr<Field> _field;
 };
 
-#endif  // GAME_GAME_FIELD_GENERATOR_FIELDCHANGER_H_
+#endif

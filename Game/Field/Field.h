@@ -13,6 +13,7 @@
 class Field {
  public:
   Field();
+  explicit Field(std::vector<std::vector<Cell>>&& cells);
   explicit Field(const Size& size);
   explicit Field(int width, int height);
   Field(const Field& other);

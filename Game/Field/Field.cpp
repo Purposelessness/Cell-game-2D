@@ -5,6 +5,11 @@
 
 Field::Field() : Field(50, 20) {}
 
+Field::Field(std::vector<std::vector<Cell>>&& cells)
+    : _size(Size{static_cast<int>(cells[0].size()),
+                 static_cast<int>(cells.size())}),
+      _cells(std::move(cells)) {}
+
 Field::Field(const Size& size) : Field(size.x, size.y) {}
 
 Field::Field(int width, int height) {
