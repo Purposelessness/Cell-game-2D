@@ -109,14 +109,17 @@ set(Headers
         Provider/ControlSchemeFileProvider.h
         Logger/FieldLogger.h
         Game/GameController.h
-        Game/Field/Generator/CellChanger.h
         Game/Field/Generator/Concepts.h
         Game/Field/Generator/FieldGenerator.h
         Game/Field/Generator/Form.h
         Game/Field/Generator/GridPlacer.h
-        Game/Field/Generator/VerticalLinePlacer.h
-        Game/Field/Generator/HorizontalLinePlacer.h
+        Game/Field/Generator/RowPlacer.h
+        Game/Field/Generator/ColumnPlacer.h
         Game/Field/Generator/RandomPlacer.h
+        Game/Field/Generator/EventPlacer.h
+        Game/Field/Generator/PassabilityPlacer.h
+        Game/Field/Generator/Randomizer.h
+        Game/Field/Generator/RectPlacer.h
         )
 
 set(Sources
