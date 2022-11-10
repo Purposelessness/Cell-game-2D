@@ -114,8 +114,8 @@ set(Headers
         Game/Field/Generator/FieldGenerator.h
         Game/Field/Generator/Form.h
         Game/Field/Generator/GridPlacer.h
-        Game/Field/Generator/HorizontalLinePlacer.h
         Game/Field/Generator/VerticalLinePlacer.h
+        Game/Field/Generator/HorizontalLinePlacer.h
         )
 
 set(Sources
