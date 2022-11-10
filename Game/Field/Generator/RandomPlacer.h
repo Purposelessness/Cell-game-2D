@@ -1,9 +1,9 @@
 #ifndef GAME_GAME_FIELD_GENERATOR_RANDOMPLACER_H_
 #define GAME_GAME_FIELD_GENERATOR_RANDOMPLACER_H_
 
+#include <ctime>
 #include <random>
 #include <utility>
-#include <ctime>
 
 #include "Concepts.h"
 #include "Form.h"
@@ -26,7 +26,7 @@ class RandomPlacer {
       input.position.x = std::rand() % width;
       input.position.y = std::rand() % height;
       _form(*_changer, input);
-      ++ i;
+      ++i;
     }
   }
 
