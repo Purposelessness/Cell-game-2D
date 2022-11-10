@@ -1,12 +1,15 @@
 #include "FieldChanger.h"
 
 #include <memory>
+#include <ctime>
 
 #include "../Events/EventFactory.h"
 #include "../Events/MoneyEvent.h"
 #include "Field.h"
 
-FieldChanger::FieldChanger() : _field(nullptr) {}
+FieldChanger::FieldChanger() : _field(nullptr) {
+  std::srand(std::time(nullptr));
+}
 
 void FieldChanger::setEventFactory(std::weak_ptr<EventFactory> event_factory) {
   _event_factory = std::move(event_factory);
