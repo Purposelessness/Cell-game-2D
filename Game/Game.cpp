@@ -20,9 +20,11 @@ void Game::initialize() {
   _event_factory =
       std::make_shared<EventFactory>(_world, _field_changer, weak_this);
   _field_configurator = std::make_unique<FieldConfigurator>(_event_factory);
+  _field_changer->setEventFactory(_event_factory);
 
   auto field = _field_configurator->execute();
   _fields = {field};
+  _field_changer->setField(field);
 
   // Systems
   _movement_system = _world->addSystem<MovementSystem>(fields());
@@ -38,6 +40,7 @@ void Game::initialize() {
 void Game::reset() {
   auto field = _field_configurator->generate();
   _fields = {field};
+  _field_changer->setField(field);
   _movement_system->setFields(_fields);
   _application->onGameReseted();
 }
