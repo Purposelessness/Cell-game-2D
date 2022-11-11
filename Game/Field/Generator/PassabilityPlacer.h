@@ -8,7 +8,7 @@
 template <bool Val, TRandomizer Rand = True>
 class PassabilityPlacer {
  public:
-  void operator()(Cell& cell) {
+  void operator()(Cell& cell) const {
     if (!_randomizer()) {
       return;
     }

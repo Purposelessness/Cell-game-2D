@@ -11,8 +11,8 @@
 template <int Count, TCellChanger T, TForm<T> Form = form::Rect<1, 1>>
 class RandomPlacer {
  public:
-  explicit RandomPlacer(std::shared_ptr<T> changer)
-      : _changer(std::move(changer)) {
+  explicit RandomPlacer(std::shared_ptr<T> changer, bool safe_search = false)
+      : _safe_search(safe_search), _changer(std::move(changer)) {
     std::srand(std::time(nullptr));
   }
 
@@ -25,12 +25,17 @@ class RandomPlacer {
     while (i < Count) {
       input.position.x = std::rand() % width;
       input.position.y = std::rand() % height;
+      if (_safe_search &&
+          !cells[input.position.y][input.position.x].isPassable()) {
+        continue;
+      }
       _form(*_changer, input);
       ++i;
     }
   }
 
  private:
+  bool _safe_search;
   std::shared_ptr<T> _changer;
   Form _form;
 };

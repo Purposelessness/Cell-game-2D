@@ -1,11 +1,12 @@
 #include "FieldChanger.h"
 
-#include <memory>
 #include <ctime>
+#include <memory>
 
 #include "../Events/EventFactory.h"
 #include "../Events/MoneyEvent.h"
 #include "Field.h"
+#include "../../Utility/Log/Log.h"
 
 FieldChanger::FieldChanger() : _field(nullptr) {
   std::srand(std::time(nullptr));
@@ -34,7 +35,8 @@ void FieldChanger::addMoneyEvents(int money_count) {
     auto x = std::rand() % w;
     auto y = std::rand() % h;
     auto cell = _field->getCell(x, y);
-    if (cell.hasPlayerOn() || cell.getEvent() != nullptr) {
+    if (cell.hasPlayerOn() || !cell.isPassable() ||
+        cell.getEvent() != nullptr) {
       continue;
     }
     _field->setCellEvent(x, y, factory->get<MoneyEvent>());
