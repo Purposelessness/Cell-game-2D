@@ -23,6 +23,9 @@ ControlScheme ControlSchemeFileProvider::scanScheme() {
   map.reserve(_input_string_map.size());
   std::string line;
   while (std::getline(_control_scheme_file, line)) {
+    if (line.empty()) {
+      break;
+    }
     map.insert(proceedLine(line));
   }
   _control_scheme_file.close();
@@ -43,12 +46,15 @@ bool ControlSchemeFileProvider::fixControlMap(
       !containsUndefined(control_map)) {
     return false;
   }
+  bool flag = false;
 
   auto default_scheme = defaultScheme();
   std::unordered_map<InputType, bool> checked{};
-  for (const auto& pair : control_map) {
+  auto tmp = control_map;
+  for (const auto& pair : tmp) {
     if (pair.second == InputType::Undefined) {
       control_map.erase(pair.first);
+      flag = true;
       continue;
     }
     checked[pair.second] = true;
@@ -57,10 +63,11 @@ bool ControlSchemeFileProvider::fixControlMap(
     if (checked[pair.second]) {
       continue;
     }
+    flag = true;
     control_map[pair.first] = pair.second;
   }
 
-  return true;
+  return flag;
 }
 
 bool ControlSchemeFileProvider::containsUndefined(
