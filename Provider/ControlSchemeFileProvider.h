@@ -11,11 +11,19 @@ class ControlSchemeFileProvider {
   explicit ControlSchemeFileProvider(std::string filename = "keyboard.txt");
 
   ControlScheme scanScheme();
-  static ControlScheme defaultScheme();
+
   void generateFile(const ControlScheme& control_scheme);
+  static ControlScheme defaultScheme();
 
  private:
+  bool fixControlMap(std::unordered_map<char, InputType>& control_map);
+  static bool containsUndefined(
+      std::unordered_map<char, InputType>& control_map);
+
   std::pair<char, InputType> proceedLine(const std::string& line);
+
+  std::string encodeInputType(InputType type);
+  InputType decodeInputType(const std::string& str);
 
   std::string _filename;
   std::ifstream _control_scheme_file;
