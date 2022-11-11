@@ -14,6 +14,7 @@ MainApplication::MainApplication() {
   // Log
   auto log_settings = LogSystemCustomizer::execute();
   auto log_observer = std::make_shared<LogObserver<ViewSystem>>();
+  _log_observer = std::static_pointer_cast<ILogObserver>(log_observer);
 
   // View
   _view_system = ViewSystemDeployer::execute(log_settings.console_logging,
@@ -30,11 +31,10 @@ MainApplication::MainApplication() {
   auto field_observer = std::make_shared<FieldObserver<ViewSystem>>(
       _game->fields()[0], _view_system);
   _field_observer = std::static_pointer_cast<IFieldObserver>(field_observer);
+  redraw();
 
   // Others
   _tickables.emplace_back(_input_system);
-
-  _disposables.emplace_back(std::move(log_observer));
 }
 
 int MainApplication::execute(int delta_time) {
@@ -58,6 +58,16 @@ void MainApplication::addDisposable(std::shared_ptr<IDisposable> disposable) {
   _disposables.emplace_back(std::move(disposable));
 }
 
+void MainApplication::redraw() {
+  system("cls");
+  if (_field_observer != nullptr) {
+    _field_observer->redraw();
+  }
+  if (_log_observer != nullptr) {
+    _log_observer->redraw();
+  }
+}
+
 void MainApplication::onGameReseted() {
   _field_observer->setObservableField(_game->fields()[0]);
 }
@@ -65,5 +75,6 @@ void MainApplication::onGameReseted() {
 void MainApplication::quit() {
   Application::quit();
   LOG_INFO_F("Application quited");
+  console::Helper::setCursorPosition(0, 0);
   system("pause");
 }

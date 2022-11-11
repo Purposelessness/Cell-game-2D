@@ -12,6 +12,7 @@ class IApplication {
 
   virtual void addTickable(std::shared_ptr<ITickable> tickable) = 0;
   virtual void addDisposable(std::shared_ptr<IDisposable> disposable) = 0;
+  virtual void redraw() = 0;
   virtual void onGameReseted() = 0;
   virtual void quit() = 0;
 };

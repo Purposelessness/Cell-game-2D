@@ -32,8 +32,7 @@ class LogSystemCustomizer final {
     std::cout << "Enable file logging? (y/n)\n";
     std::cin >> temp;
     bool file_logging = temp == 'y' || temp == 'Y';
-
-    system("cls");
+    
     return {console_logging, file_logging};
   }
 };

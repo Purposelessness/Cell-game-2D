@@ -12,8 +12,14 @@ template <typename T>
 concept TLogObserverClient =
     requires(T t) { t << std::declval<LogInfoMessage>(); };
 
+class ILogObserver {
+ public:
+  virtual ~ILogObserver() = default;
+  virtual void redraw() = 0;
+};
+
 template <TLogObserverClient... Ts>
-class LogObserver : public IDisposable {
+class LogObserver : public ILogObserver {
  public:
   LogObserver() {
     Logger::instance().event_handler.add(this, &LogObserver<Ts...>::react);
@@ -21,6 +27,8 @@ class LogObserver : public IDisposable {
 
   explicit LogObserver(std::shared_ptr<Ts>... clients);
   ~LogObserver() override;
+
+  void redraw() override;
 
   template <TLogObserverClient T>
   void addClient(std::shared_ptr<T> client) {
@@ -44,6 +52,14 @@ template <TLogObserverClient... Ts>
 LogObserver<Ts...>::~LogObserver() {
   Logger::instance().event_handler.template remove(this,
                                                    &LogObserver<Ts...>::react);
+}
+
+template <TLogObserverClient... Ts>
+void LogObserver<Ts...>::redraw() {
+  const auto& messages = Logger::instance().messages();
+  for (const auto& message : messages) {
+    react(LogMessage{message, Logger::Trace});
+  }
 }
 
 template <TLogObserverClient... Ts>

@@ -19,6 +19,7 @@ class IFieldObserver {
  public:
   virtual ~IFieldObserver() = default;
   virtual void setObservableField(std::shared_ptr<Field> field) = 0;
+  virtual void redraw() = 0;
 };
 
 template <TFieldObserverClient... Ts>
@@ -33,6 +34,7 @@ class FieldObserver : public IFieldObserver {
   void react(const FieldEventMessage& message);
 
   void setObservableField(std::shared_ptr<Field> field) override;
+  void redraw() override;
 
  private:
   void notifyClients(const FieldInfoMessage& message);
@@ -47,7 +49,7 @@ FieldObserver<Ts...>::FieldObserver(std::shared_ptr<Field> field,
     : _field(std::move(field)),
       _clients(std::make_tuple(std::move(clients)...)) {
   _field->event_handler.template add(this, &FieldObserver::react);
-  this->operator<<(*_field);
+//  this->operator<<(*_field);
 }
 
 template <TFieldObserverClient... Ts>
@@ -70,7 +72,6 @@ FieldObserver<Ts...>& FieldObserver<Ts...>::operator<<(const Field& field) {
   }
   Size size{width, height};
   notifyClients(FieldInfoMessage{cells, size});
-  LOG_INFO_F("Field size is " + std::string(size));
   return *this;
 }
 
@@ -92,6 +93,11 @@ void FieldObserver<Ts...>::setObservableField(std::shared_ptr<Field> field) {
   }
   _field = std::move(field);
   _field->event_handler.template add(this, &FieldObserver::react);
+  this->operator<<(*_field);
+}
+
+template<TFieldObserverClient... Ts>
+void FieldObserver<Ts...>::redraw() {
   this->operator<<(*_field);
 }
 

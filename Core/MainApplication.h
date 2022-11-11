@@ -14,6 +14,7 @@ class ViewSystem;
 class InputSystem;
 class Game;
 class IFieldObserver;
+class ILogObserver;
 
 class MainApplication : public Application, public IApplication {
  public:
@@ -24,6 +25,7 @@ class MainApplication : public Application, public IApplication {
 
   void addTickable(std::shared_ptr<ITickable> tickable) override;
   void addDisposable(std::shared_ptr<IDisposable> disposable) override;
+  void redraw() override;
   void onGameReseted() override;
   void quit() override;
 
@@ -34,6 +36,7 @@ class MainApplication : public Application, public IApplication {
   std::shared_ptr<Game> _game;
   std::vector<std::shared_ptr<ITickable>> _tickables;
   std::vector<std::shared_ptr<IDisposable>> _disposables;
+  std::shared_ptr<ILogObserver> _log_observer;
   std::shared_ptr<IFieldObserver> _field_observer;
 };
 
