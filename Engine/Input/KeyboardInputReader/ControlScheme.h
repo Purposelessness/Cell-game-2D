@@ -13,7 +13,7 @@ class ControlScheme {
   void addKey(char key, InputType type);
   void deleteKey(char key);
 
-  std::unordered_map<char, InputType>& keys();
+  const std::unordered_map<char, InputType>& keys() const;
   InputType key(char key);
 
  private:

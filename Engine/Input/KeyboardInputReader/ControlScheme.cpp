@@ -19,4 +19,6 @@ InputType ControlScheme::key(char key) {
   return _key_map[key];
 }
 
-std::unordered_map<char, InputType>& ControlScheme::keys() { return _key_map; }
+const std::unordered_map<char, InputType>& ControlScheme::keys() const {
+  return _key_map;
+}

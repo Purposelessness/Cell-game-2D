@@ -11,6 +11,8 @@ class ControlSchemeFileProvider {
   explicit ControlSchemeFileProvider(std::string filename = "keyboard.txt");
 
   ControlScheme scanScheme();
+  static ControlScheme defaultScheme();
+  void generateFile(const ControlScheme& control_scheme);
 
  private:
   std::pair<char, InputType> proceedLine(const std::string& line);
