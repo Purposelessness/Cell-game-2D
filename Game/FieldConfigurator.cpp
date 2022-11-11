@@ -20,7 +20,6 @@ std::shared_ptr<Field> FieldConfigurator::execute() {
   std::cout << "Select field template:\n\t1. Default\n\t2. Rect\n\t3. Chaos\n";
   char c = 0;
   std::cin >> c;
-  system("cls");
 
   switch (c) {
     case '2':
