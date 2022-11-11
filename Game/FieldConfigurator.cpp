@@ -8,7 +8,9 @@
 #include "Events/GenerateMoneyEvent.h"
 #include "Events/MoneyEvent.h"
 #include "Field/Generator/EventPlacer.h"
+#include "Field/Generator/Form.h"
 #include "Field/Generator/GridPlacer.h"
+#include "Field/Generator/PassabilityPlacer.h"
 #include "Field/Generator/RandomPlacer.h"
 #include "Field/Generator/Randomizer.h"
 
@@ -54,6 +56,28 @@ std::shared_ptr<Field> FieldConfigurator::defaultOption() {
   constexpr int kWidth = 60;
   constexpr int kHeight = 20;
 
+  // Generate walls
+  constexpr int kWChance = 80;
+  constexpr int kWXCount = 15;
+  constexpr int kWYCount = 9;
+  constexpr int kWLength = 3;
+  using WallPlacer = PassabilityPlacer<false, SimpleRandomizer<kWChance>>;
+  using WallHorizontalLine = form::HorizontalLine<kWLength>;
+  using WallGridPlacer =
+      GridPlacer<kWXCount, kWYCount, WallPlacer, WallHorizontalLine>;
+  auto wall_placer = std::make_shared<WallPlacer>();
+  WallGridPlacer wall_grid_placer{wall_placer};
+
+  constexpr int kRWChance = 50;
+  constexpr int kRWCount = 5;
+  constexpr int kRWWidth = 2;
+  constexpr int kRWHeight = 4;
+  using RectWallPlacer = PassabilityPlacer<false, SimpleRandomizer<kRWChance>>;
+  using RectWall = form::Rect<kRWWidth, kRWHeight>;
+  using RectWallRandomPlacer = RandomPlacer<kRWCount, RectWallPlacer, RectWall>;
+  auto rect_wall_placer = std::make_shared<RectWallPlacer>();
+  RectWallRandomPlacer rwall_random_placer{rect_wall_placer};
+
   // Generate money events
   constexpr int kGMEChance = 20;
   constexpr int kGMEXCount = 5;
@@ -87,13 +111,14 @@ std::shared_ptr<Field> FieldConfigurator::defaultOption() {
   // Exit event
   using ExitRandomPlacer = RandomPlacer<2, EventPlacer<ExitEvent>>;
   auto exit_placer = std::make_shared<EventPlacer<ExitEvent>>(*_event_factory);
-  ExitRandomPlacer exit_random_placer(exit_placer);
+  ExitRandomPlacer exit_random_placer(exit_placer, true);
 
-  auto generator = FieldGenerator<GenerateMoneyGridPlacer, MoneyGridPlacer,
+  auto generator = FieldGenerator<WallGridPlacer, RectWallRandomPlacer,
+                                  GenerateMoneyGridPlacer, MoneyGridPlacer,
                                   EnemyGridPlacer, ExitRandomPlacer>{};
-  auto field =
-      generator.execute(Size{kWidth, kHeight}, gm_grid_placer, m_grid_placer,
-                        e_grid_placer, exit_random_placer);
+  auto field = generator.execute(
+      Size{kWidth, kHeight}, wall_grid_placer, rwall_random_placer,
+      gm_grid_placer, m_grid_placer, e_grid_placer, exit_random_placer);
 
   return field;
 }
