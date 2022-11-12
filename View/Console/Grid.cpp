@@ -5,7 +5,7 @@
 namespace console {
 
 Grid::Grid(IWidgetObserver* observer)
-    : _observer(observer), _elements({}), _margin({}) {}
+    : _elements({}), _margin({}) {}
 
 void Grid::addWidget(std::shared_ptr<Widget> widget, int row, int column) {
   widget->setObserver(this);
@@ -69,9 +69,6 @@ void Grid::onSizeUpdated(Widget* widget) {
   grid_size = Size{width, height};
 
   resize(grid_size);
-  if (_observer != nullptr) {
-    _observer->onSizeUpdated(this);
-  }
 }
 
 }  // namespace console

@@ -22,8 +22,6 @@ class Grid : public IWidgetObserver, public Widget {
 
  private:
   Size _grid_size;
-
-  IWidgetObserver* _observer;
   std::vector<std::vector<std::shared_ptr<Widget>>> _elements;
 
   Size _margin;
