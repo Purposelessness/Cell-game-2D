@@ -13,6 +13,7 @@
 #include "Field/Generator/PassabilityPlacer.h"
 #include "Field/Generator/RandomPlacer.h"
 #include "Field/Generator/Randomizer.h"
+#include "Field/Generator/RectPlacer.h"
 
 FieldConfigurator::FieldConfigurator(
     std::shared_ptr<EventFactory> event_factory)
@@ -124,7 +125,61 @@ std::shared_ptr<Field> FieldConfigurator::defaultOption() {
 }
 
 std::shared_ptr<Field> FieldConfigurator::rectOption() {
-  auto field = std::make_shared<Field>(50, 20);
+  constexpr int kWidth = 60;
+  constexpr int kHeight = 30;
+
+  // Generate walls
+  constexpr int kWallChance = 70;
+  constexpr int kWallWidth = 2;
+  using WallPlacer = PassabilityPlacer<false, SimpleRandomizer<kWallChance>>;
+  auto wall_placer = std::make_shared<WallPlacer>();
+
+  using WallRectPlacer1 = RectPlacer<6, 4, kWallWidth, WallPlacer>;
+  using WallRectPlacer2 = RectPlacer<12, 8, kWallWidth, WallPlacer>;
+  using WallRectPlacer3 = RectPlacer<18, 12, kWallWidth, WallPlacer>;
+  WallRectPlacer1 wall_rect_placer_1{wall_placer};
+  WallRectPlacer2 wall_rect_placer_2{wall_placer};
+  WallRectPlacer3 wall_rect_placer_3{wall_placer};
+
+  // Generate money
+  constexpr int kMoneyChance = 3;
+  constexpr int kMoneyWidth = 2;
+  using MoneyPlacer = EventPlacer<MoneyEvent, SimpleRandomizer<kMoneyChance>>;
+  auto money_placer = std::make_shared<MoneyPlacer>(*_event_factory);
+
+  using MoneyRectPlacer1 = RectPlacer<8, 6, kMoneyWidth, MoneyPlacer>;
+  using MoneyRectPlacer2 = RectPlacer<20, 14, kMoneyWidth, MoneyPlacer>;
+  MoneyRectPlacer1 money_rect_placer_1{money_placer};
+  MoneyRectPlacer2 money_rect_placer_2{money_placer};
+
+  // Generate enemies
+  constexpr int kEnemyChance = 13;
+  constexpr int kEnemyWidth1 = 4;
+  constexpr int kEnemyWidth2 = 2;
+  using EnemyPlacer = EventPlacer<EnemyEvent, SimpleRandomizer<kEnemyChance>>;
+  auto enemy_placer = std::make_shared<EnemyPlacer>(*_event_factory);
+
+  using EnemyRectPlacer1 = RectPlacer<1, 0, kEnemyWidth1, EnemyPlacer>;
+  using EnemyRectPlacer2 = RectPlacer<14, 10, kEnemyWidth2, EnemyPlacer>;
+  EnemyRectPlacer1 enemy_rect_placer_1{enemy_placer};
+  EnemyRectPlacer2 enemy_rect_placer_2{enemy_placer};
+
+  // Exit generator
+  using ExitGridPlacer =
+      GridPlacer<1, 1, EventPlacer<ExitEvent>, form::Rect<4, 4>>;
+  auto exit_placer = std::make_shared<EventPlacer<ExitEvent>>(*_event_factory);
+  ExitGridPlacer exit_grid_placer(exit_placer);
+
+  // Generator
+  auto generator =
+      FieldGenerator<WallRectPlacer1, WallRectPlacer2, WallRectPlacer3,
+                     MoneyRectPlacer1, MoneyRectPlacer2, EnemyRectPlacer1,
+                     EnemyRectPlacer2, ExitGridPlacer>{};
+  auto field = generator.execute(
+      Size{kWidth, kHeight}, wall_rect_placer_1, wall_rect_placer_2,
+      wall_rect_placer_3, money_rect_placer_1, money_rect_placer_2,
+      enemy_rect_placer_1, enemy_rect_placer_2, exit_grid_placer);
+
   return field;
 }
 
