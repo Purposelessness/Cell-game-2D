@@ -121,6 +121,7 @@ set(Headers
         Game/Field/Generator/Randomizer.h
         Game/Field/Generator/RectPlacer.h
         Game/FieldConfigurator.h
+        Input/KeyboardInputReaderGenerator.h
         )
 
 set(Sources
@@ -192,6 +193,7 @@ set(Sources
         Logger/FieldLogger.cpp
         Game/GameController.cpp
         Game/FieldConfigurator.cpp
+        Input/KeyboardInputReaderGenerator.cpp
         )
 
 add_executable(Game ${Sources} ${Headers})

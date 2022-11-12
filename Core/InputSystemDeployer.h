@@ -2,6 +2,7 @@
 #define GAME_CORE_INPUTSYSTEMDEPLOYER_H_
 
 #include <memory>
+#include <type_traits>
 
 #include "../ECS/Systems/ObjectControllerSystem.h"
 #include "../ECSLib/Core/World.h"
@@ -10,8 +11,13 @@
 #include "../Engine/Input/KeyboardInputReader/KeyboardInputReader.h"
 #include "../Game/GameController.h"
 #include "../Provider/ControlSchemeFileProvider.h"
+#include "../Input/KeyboardInputReaderGenerator.h"
 
 class IGame;
+
+template <typename T>
+concept TInputReaderGenerator = requires(
+    T t) { std::static_pointer_cast<std::shared_ptr<InputReader>>(t()); };
 
 class InputSystemDeployer final {
  public:
@@ -24,15 +30,18 @@ class InputSystemDeployer final {
     input_system->addController(object_controller_system);
     input_system->addController(game_controller);
 
-    ControlSchemeFileProvider provider;
-    auto scheme = provider.scanScheme();
-
-    auto keyboard_reader = std::make_shared<KeyboardInputReader>(scheme);
-    input_system->addReader(keyboard_reader);
+    addReader<KeyboardInputReaderGenerator>(*input_system);
 
     world.addSystem(object_controller_system);
 
     return input_system;
+  }
+
+  template <TInputReaderGenerator T>
+  static void addReader(InputSystem& input_system) {
+    T t;
+    auto reader = t();
+    input_system.addReader(static_pointer_cast<InputReader>(reader));
   }
 };
 
