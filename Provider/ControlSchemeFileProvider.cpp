@@ -92,6 +92,7 @@ void ControlSchemeFileProvider::generateFile(
     line << pair.first << '\t' << str << '\n';
     file << line.str();
   }
+  file.close();
 }
 
 std::pair<char, InputType> ControlSchemeFileProvider::proceedLine(
