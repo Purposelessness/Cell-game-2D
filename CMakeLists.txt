@@ -122,6 +122,9 @@ set(Headers
         Game/Field/Generator/RectPlacer.h
         Game/FieldConfigurator.h
         Input/KeyboardInputReaderGenerator.h
+        Game/Saver.h
+        Message/PlayerInfoMessage.h
+        Game/Field/FieldHelper.h
         )
 
 set(Sources
@@ -194,6 +197,8 @@ set(Sources
         Game/GameController.cpp
         Game/FieldConfigurator.cpp
         Input/KeyboardInputReaderGenerator.cpp
+        Game/Saver.cpp
+        Game/Field/FieldHelper.cpp
         )
 
 add_executable(Game ${Sources} ${Headers})
