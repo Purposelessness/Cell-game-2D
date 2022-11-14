@@ -35,6 +35,7 @@ void Game::initialize() {
 
   // Entities
   auto player = PlayerProvider::create(*_world);
+  field->onPlayerStepped(player.getComponent<Transform>().position);
 }
 
 void Game::reset() {
