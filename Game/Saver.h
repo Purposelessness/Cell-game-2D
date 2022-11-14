@@ -20,8 +20,8 @@ class Saver {
  public:
   explicit Saver(std::string filename = "save.txt");
 
-  void save(const GameState& game_state);
-  GameState load();
+  void save(const GameState& game_state) const;
+  [[nodiscard]] GameState load() const;
 
  private:
   static std::optional<FieldInfoMessage> decodeField(

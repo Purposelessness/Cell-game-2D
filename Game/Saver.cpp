@@ -31,7 +31,7 @@ std::string GameState::encodeFieldInfo(const FieldInfoMessage& field_info) {
 
 Saver::Saver(std::string filename) : _filename(std::move(filename)) {}
 
-void Saver::save(const GameState& game_state) {
+void Saver::save(const GameState& game_state) const{
   std::ofstream save_file(_filename);
   if (!save_file.good()) {
     throw std::runtime_error("Cannot open save file!");
@@ -43,7 +43,7 @@ void Saver::save(const GameState& game_state) {
   save_file.close();
 }
 
-GameState Saver::load() {
+GameState Saver::load() const {
   std::ifstream load_file(_filename);
   if (!load_file.good()) {
     throw std::runtime_error("Cannot open load file!");
@@ -57,13 +57,13 @@ GameState Saver::load() {
   }
   auto field_info_opt = decodeField(field_lines);
   if (!field_info_opt.has_value()) {
-    throw 1;
+    throw std::runtime_error("Error while decoding field data");
   }
   FieldInfoMessage field_info = field_info_opt.value();
   std::getline(load_file, line);
   auto player_info_opt = decodePlayer(line);
   if (!player_info_opt.has_value()) {
-    throw 2;
+    throw std::runtime_error("Error while decoding player data");
   }
   PlayerInfoMessage player_info = player_info_opt.value();
 
@@ -83,8 +83,8 @@ std::optional<FieldInfoMessage> Saver::decodeField(
   std::vector<std::pair<Point, CellView>> cells;
 
   cells.reserve(kWidth * kHeight);
-  for (int i = 0; i < kHeight; ++i) {
-    const auto& str = vec_str[i];
+  for (int j = 0; j < kHeight; ++j) {
+    const auto& str = vec_str[j];
     if (kWidth != static_cast<int>(str.size())) {
       return std::nullopt;
     }
@@ -93,7 +93,7 @@ std::optional<FieldInfoMessage> Saver::decodeField(
       if (cell_view == CellView::Undefined) {
         return std::nullopt;
       }
-      cells.emplace_back(Point{i, i}, cell_view);
+      cells.emplace_back(Point{i, j}, cell_view);
     }
   }
 
@@ -105,13 +105,13 @@ std::optional<FieldInfoMessage> Saver::decodeField(
 std::optional<PlayerInfoMessage> Saver::decodePlayer(const std::string& str) {
   const std::regex kRegular(
       R"((-?\d+) (-?\d+) \((-?\d+), (-?\d+)\) (-?\d+) (-?\d))");
-  const std::vector<std::smatch> matches{
+  const std::vector<std::smatch> kMatches{
       std::sregex_iterator{std::cbegin(str), std::cend(str), kRegular},
       std::sregex_iterator{}};
-  if (matches.empty()) {
+  if (kMatches.empty()) {
     return std::nullopt;
   }
-  const auto& match = matches[0];
+  const auto& match = kMatches[0];
   int health = std::stoi(match.str(1));
   int money = std::stoi(match.str(2));
   Point position = Point{std::stoi(match.str(3)), std::stoi(match.str(4))};
