@@ -31,9 +31,8 @@ class ViewSystemDeployer {
     symbols[CellView::GenerateMoney] = 'g';
     symbols[CellView::Enemy] = '%';
     symbols[CellView::Exit] = '!';
-    auto adapter = std::make_shared<console::FieldViewAdapter>(symbols);
+    console::FieldViewAdapter::setMap(symbols);
 
-    console_view_renderer->setAdapter(adapter);
     view_system->addRenderer(std::move(console_view_renderer));
     return view_system;
   }

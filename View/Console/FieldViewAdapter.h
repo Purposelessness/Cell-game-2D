@@ -11,10 +11,10 @@ class FieldViewAdapter {
   using Map = std::unordered_map<CellView, char>;
 
  public:
-  explicit FieldViewAdapter(Map symbols) : symbols(std::move(symbols)) {}
-
-  char symbol(CellView type);
-  Map symbols;
+  static void setMap(Map symbols);
+  static char encode(CellView type);
+  static CellView decode(char c);
+  static Map symbols;
 };
 
 }  // namespace console

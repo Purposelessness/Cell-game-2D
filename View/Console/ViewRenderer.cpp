@@ -24,11 +24,6 @@ ViewRenderer::ViewRenderer(bool logging)
   _grid.setObserver(this);
 }
 
-void ViewRenderer::setAdapter(
-    const std::shared_ptr<FieldViewAdapter>& adapter) {
-  _field_widget->setAdapter(adapter);
-}
-
 void ViewRenderer::onSizeUpdated(Widget* widget) {
   _window_size = widget->getSize();
   _helper.resizeWindow(_window_size);

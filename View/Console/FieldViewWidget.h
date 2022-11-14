@@ -15,13 +15,7 @@ class Helper;
 
 class FieldViewWidget : public Widget {
  public:
-  explicit FieldViewWidget(std::shared_ptr<FieldViewAdapter> adapter = nullptr);
-
-  void setAdapter(std::shared_ptr<FieldViewAdapter> adapter);
   FieldViewWidget& operator<<(const FieldInfoMessage& message);
-
- private:
-  std::shared_ptr<FieldViewAdapter> _adapter;
 };
 
 }  // namespace console

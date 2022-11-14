@@ -21,8 +21,6 @@ class ViewRenderer : public IWidgetObserver,
   template <TInfoMessage T>
   inline ViewRenderer& operator<<(const T& message);
 
-  void setAdapter(const std::shared_ptr<FieldViewAdapter>& adapter);
-
   void onSizeUpdated(Widget* widget) override;
 
  private:
