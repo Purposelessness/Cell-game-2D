@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include "../Engine/Input/KeyboardInputReader/ControlScheme.h"
 
@@ -20,13 +21,12 @@ class ControlSchemeFileProvider {
   static bool containsUndefined(
       std::unordered_map<char, InputType>& control_map);
 
-  std::pair<char, InputType> proceedLine(const std::string& line);
+  std::unordered_map<char, InputType> decode(const std::string& data);
 
   std::string encodeInputType(InputType type);
   InputType decodeInputType(const std::string& str);
 
   std::string _filename;
-  std::ifstream _control_scheme_file;
 
   std::unordered_map<std::string, InputType> _input_string_map = {
       {"MoveUp", InputType::MoveUp},       {"MoveDown", InputType::MoveDown},

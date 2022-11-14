@@ -1,6 +1,7 @@
 #include "ControlSchemeFileProvider.h"
 
 #include <algorithm>
+#include <regex>
 #include <sstream>
 #include <utility>
 
@@ -10,8 +11,8 @@ ControlSchemeFileProvider::ControlSchemeFileProvider(std::string filename)
     : _filename(std::move(filename)) {}
 
 ControlScheme ControlSchemeFileProvider::scanScheme() {
-  _control_scheme_file.open(_filename);
-  if (!_control_scheme_file.good()) {
+  auto control_scheme_file = std::ifstream(_filename);
+  if (!control_scheme_file.good()) {
     LOG_ERROR_F("Cannot open control scheme file " + _filename +
                 "! Generating default scheme.");
     auto scheme = defaultScheme();
@@ -19,16 +20,11 @@ ControlScheme ControlSchemeFileProvider::scanScheme() {
     return scheme;
   }
 
-  std::unordered_map<char, InputType> map;
-  map.reserve(_input_string_map.size());
-  std::string line;
-  while (std::getline(_control_scheme_file, line)) {
-    if (line.empty()) {
-      break;
-    }
-    map.insert(proceedLine(line));
-  }
-  _control_scheme_file.close();
+  std::stringstream ss;
+  ss << control_scheme_file.rdbuf();
+  control_scheme_file.close();
+
+  std::unordered_map<char, InputType> map = decode(ss.str());
 
   bool fix = fixControlMap(map);
   ControlScheme scheme{map};
@@ -95,34 +91,35 @@ void ControlSchemeFileProvider::generateFile(
   file.close();
 }
 
-std::pair<char, InputType> ControlSchemeFileProvider::proceedLine(
-    const std::string& line) {
-  std::stringstream ss(line);
-  std::string key_str;
-  std::string input_type_str;
-  std::getline(ss, key_str, kDelimiter);
-  std::getline(ss, input_type_str, kDelimiter);
+std::unordered_map<char, InputType> ControlSchemeFileProvider::decode(
+    const std::string& data) {
+  const std::regex kRegular{R"(\b([A-Z])[\s\=\-]+(\w+))"};
+  std::unordered_map<char, InputType> scheme;
 
-  char key = key_str.at(0);
-  InputType input_type = decodeInputType(input_type_str);
+  const std::vector<std::smatch> kMatches{
+      std::sregex_iterator{std::cbegin(data), std::cend(data), kRegular},
+      std::sregex_iterator{}};
+  for (const auto& m : kMatches) {
+    char key = m.str(1)[0];
+    InputType type = decodeInputType(m.str(2));
+    scheme[key] = type;
+  }
 
-  return {key, input_type};
+  return scheme;
 }
 
 std::string ControlSchemeFileProvider::encodeInputType(InputType type) {
-  for (const auto& pair : _input_string_map) {
-    if (pair.second == type) {
-      return pair.first;
-    }
-  }
-  return {};
+  auto lamda = [&type](const std::pair<std::string, InputType>& pair) {
+    return pair.second == type;
+  };
+  auto res = std::ranges::find_if(_input_string_map.begin(),
+                                  _input_string_map.end(), lamda);
+  return res == _input_string_map.end() ? std::string{} : res->first;
 }
 
 InputType ControlSchemeFileProvider::decodeInputType(const std::string& str) {
-  if (!_input_string_map.contains(str)) {
-    return InputType::Undefined;
-  }
-  return _input_string_map[str];
+  return _input_string_map.contains(str) ? _input_string_map[str]
+                                         : InputType::Undefined;
 }
 
 ControlScheme ControlSchemeFileProvider::defaultScheme() {
