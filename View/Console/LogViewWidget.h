@@ -16,8 +16,9 @@ class LogViewWidget : public Widget {
   LogViewWidget& operator<<(const InfoMessage& message);
 
  private:
+  void printStr(const std::string& str, const Point& point);
+
   std::deque<std::string> _buffer;
-  std::string _flush;
 };
 
 }  // namespace console

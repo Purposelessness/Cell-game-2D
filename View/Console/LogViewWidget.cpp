@@ -6,27 +6,37 @@
 
 namespace console {
 
-LogViewWidget::LogViewWidget() : _buffer({}), _flush({}) {}
+LogViewWidget::LogViewWidget() : _buffer({}) {}
 
 LogViewWidget& LogViewWidget::operator<<(const InfoMessage& message) {
-  if (_buffer.size() >= rect.height() && rect.height() > 0) {
-    std::string flush = std::string(rect.width(), ' ');
+  auto str = static_cast<std::string>(message);
+  std::string new_str{};
+  int size = static_cast<int>(str.size());
+  int rect_width = rect.width();
+  if (size >= rect_width) {
+    new_str = str.substr(rect_width);
+    str = str.substr(0, rect_width);
+  }
+  if (static_cast<int>(_buffer.size()) >= rect.height() && rect.height() > 0) {
     _buffer.pop_front();
-    _buffer.emplace_back(static_cast<std::string>(message));
-    for (auto i = 0; i < _buffer.size(); ++i) {
-      Helper::setCursorPosition(rect.left(), rect.top() + i);
-      std::cout << flush;
-      Helper::setCursorPosition(rect.left(), rect.top() + i);
-      std::cout << _buffer.at(i) + '\n';
+    _buffer.emplace_back(str);
+    for (auto i = 0; i < static_cast<int>(_buffer.size()); ++i) {
+      printStr(_buffer.at(i), Point{rect.left(), rect.top() + i});
     }
   } else {
-    std::string str = static_cast<std::string>(message);
     _buffer.emplace_back(str);
-    Helper::setCursorPosition(
-        rect.left(), rect.top() + static_cast<int>(_buffer.size()) - 1);
-    std::cout << str + '\n';
+    printStr(str, Point{rect.left(),
+                        rect.top() + static_cast<int>(_buffer.size()) - 1});
   }
   return *this;
+}
+
+void LogViewWidget::printStr(const std::string& str, const Point& point) {
+  std::string flush = std::string(rect.width(), ' ');
+  Helper::setCursorPosition(point.x, point.y);
+  std::cout << flush;
+  Helper::setCursorPosition(point.x, point.y);
+  std::cout << str.substr(0, rect.width()) + '\n';
 }
 
 }  // namespace console

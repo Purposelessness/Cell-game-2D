@@ -118,9 +118,6 @@ std::optional<PlayerInfoMessage> Saver::decodePlayer(const std::string& str) {
   int weapon = std::stoi(match.str(5));
   int intelligence = std::stoi(match.str(6));
 
-  LOG_INFO_F("Player read from file: " + std::to_string(health) + " " +
-             std::to_string(money) + " " + std::string(position));
-
   auto opt = std::optional<PlayerInfoMessage>{
       PlayerInfoMessage{health, money, position, weapon, intelligence}};
 
