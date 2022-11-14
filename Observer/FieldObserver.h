@@ -6,6 +6,7 @@
 
 #include "../Game/Field/Field.h"
 #include "../Game/Field/FieldEventMessage.h"
+#include "../Game/Field/FieldHelper.h"
 #include "../Utility/IDisposable.h"
 #include "../Utility/Log/Log.h"
 #include "../Utility/Tuple.h"
@@ -49,7 +50,7 @@ FieldObserver<Ts...>::FieldObserver(std::shared_ptr<Field> field,
     : _field(std::move(field)),
       _clients(std::make_tuple(std::move(clients)...)) {
   _field->event_handler.template add(this, &FieldObserver::react);
-//  this->operator<<(*_field);
+  //  this->operator<<(*_field);
 }
 
 template <TFieldObserverClient... Ts>
@@ -59,19 +60,7 @@ FieldObserver<Ts...>::~FieldObserver() {
 
 template <TFieldObserverClient... Ts>
 FieldObserver<Ts...>& FieldObserver<Ts...>::operator<<(const Field& field) {
-  std::vector<std::pair<Point, CellView>> cells;
-  int width = 0;
-  int height = 0;
-  field.getSize(width, height);
-  cells.reserve(width * height);
-  for (int i = 0; i < width; ++i) {
-    for (int j = 0; j < height; ++j) {
-      auto point = Point{i, j};
-      cells.emplace_back(point, CellViewRecognizer::use(field.getCell(point)));
-    }
-  }
-  Size size{width, height};
-  notifyClients(FieldInfoMessage{cells, size});
+  notifyClients(FieldHelper::info(field));
   return *this;
 }
 
@@ -96,7 +85,7 @@ void FieldObserver<Ts...>::setObservableField(std::shared_ptr<Field> field) {
   this->operator<<(*_field);
 }
 
-template<TFieldObserverClient... Ts>
+template <TFieldObserverClient... Ts>
 void FieldObserver<Ts...>::redraw() {
   this->operator<<(*_field);
 }
