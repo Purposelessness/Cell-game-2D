@@ -16,7 +16,9 @@ enum class InputType {
   MoveRight,
   MoveLeft,
   Exit,
-  Reset
+  Reset,
+  Load,
+  Save
 };
 
 enum class InputState { Released = -1, Pressed = 1 };

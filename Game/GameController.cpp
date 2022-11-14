@@ -18,6 +18,12 @@ void GameController::process(const InputMessage& input_message) {
     case InputType::Reset:
       game->reset();
       break;
+    case InputType::Load:
+      game->load();
+      break;
+    case InputType::Save:
+      game->save();
+      break;
     case InputType::Undefined:
     default:
       break;

@@ -39,12 +39,25 @@ void Game::initialize() {
 
 void Game::reset() {
   auto field = _field_configurator->generate();
-  _fields = {field};
-  _field_changer->setField(field);
-  _movement_system->setFields(_fields);
-  _application->onGameReseted();
+  changeField(field);
 }
 
 const std::vector<std::shared_ptr<Field>>& Game::fields() { return _fields; }
 
 void Game::stop() { _application->quit(); }
+
+void Game::save() { _save_controller.save(*_fields[0], *_world); }
+
+void Game::load() {
+  auto field = _save_controller.load(*_world, *_event_factory);
+  if (field != nullptr) {
+    changeField(field);
+  }
+}
+
+void Game::changeField(std::shared_ptr<Field> field) {
+  _fields = {std::move(field)};
+  _field_changer->setField(_fields[0]);
+  _movement_system->setFields(_fields);
+  _application->onGameReseted();
+}

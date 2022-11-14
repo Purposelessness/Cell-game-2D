@@ -125,6 +125,7 @@ set(Headers
         Game/Saver.h
         Message/PlayerInfoMessage.h
         Game/Field/FieldHelper.h
+        Game/SaveController.h
         )
 
 set(Sources
@@ -199,6 +200,7 @@ set(Sources
         Input/KeyboardInputReaderGenerator.cpp
         Game/Saver.cpp
         Game/Field/FieldHelper.cpp
+        Game/SaveController.cpp
         )
 
 add_executable(Game ${Sources} ${Headers})

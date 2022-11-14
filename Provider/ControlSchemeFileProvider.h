@@ -31,7 +31,8 @@ class ControlSchemeFileProvider {
   std::unordered_map<std::string, InputType> _input_string_map = {
       {"MoveUp", InputType::MoveUp},       {"MoveDown", InputType::MoveDown},
       {"MoveRight", InputType::MoveRight}, {"MoveLeft", InputType::MoveLeft},
-      {"Exit", InputType::Exit},           {"Reset", InputType::Reset}};
+      {"Exit", InputType::Exit},           {"Reset", InputType::Reset},
+      {"Load", InputType::Load},           {"Save", InputType::Save}};
   const char kDelimiter = '\t';
 };
 

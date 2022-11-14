@@ -21,6 +21,8 @@ enum class CellView {
 };
 
 struct FieldInfoMessage : public InfoMessage {
+  FieldInfoMessage() = default;
+
   explicit FieldInfoMessage(std::vector<std::pair<Point, CellView>> changes,
                             Size size = Size{})
       : changes(std::move(changes)), size(std::move(size)) {}

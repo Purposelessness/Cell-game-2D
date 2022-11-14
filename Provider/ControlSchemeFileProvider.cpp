@@ -130,5 +130,7 @@ ControlScheme ControlSchemeFileProvider::defaultScheme() {
   scheme.addKey('A', InputType::MoveLeft);
   scheme.addKey('R', InputType::Reset);
   scheme.addKey('T', InputType::Exit);
+  scheme.addKey('L', InputType::Load);
+  scheme.addKey('O', InputType::Save);
   return scheme;
 }

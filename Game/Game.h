@@ -6,8 +6,9 @@
 
 #include "Field/Field.h"
 #include "Field/FieldChanger.h"
-#include "IGame.h"
 #include "FieldConfigurator.h"
+#include "IGame.h"
+#include "SaveController.h"
 
 class World;
 class IApplication;
@@ -22,13 +23,19 @@ class Game : public IGame, public std::enable_shared_from_this<Game> {
   const std::vector<std::shared_ptr<Field>>& fields();
   void stop() override;
 
+  void save() override;
+  void load() override;
+
  private:
+  void changeField(std::shared_ptr<Field> field);
+
   IApplication* _application;
   std::shared_ptr<World> _world;
   std::shared_ptr<FieldChanger> _field_changer;
   std::shared_ptr<EventFactory> _event_factory;
   std::unique_ptr<FieldConfigurator> _field_configurator;
   std::vector<std::shared_ptr<Field>> _fields;
+  SaveController _save_controller;
 
   std::shared_ptr<MovementSystem> _movement_system;
 };

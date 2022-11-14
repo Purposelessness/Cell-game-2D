@@ -5,6 +5,8 @@
 #include "../Engine/Utility/InfoMessage.h"
 
 struct PlayerInfoMessage : InfoMessage {
+  PlayerInfoMessage() = default;
+
   PlayerInfoMessage(int health, int money, Point position, int weapon,
                     int intelligence)
       : health(health), money(money), position(std::move(position)),
