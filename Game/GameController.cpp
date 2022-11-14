@@ -7,7 +7,7 @@ GameController::GameController(std::weak_ptr<IGame> game)
 
 void GameController::process(const InputMessage& input_message) {
   auto game = _game.lock();
-  if (game == nullptr) {
+  if (game == nullptr || input_message.state == InputState::Released) {
     return;
   }
 
