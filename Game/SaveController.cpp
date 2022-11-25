@@ -37,7 +37,7 @@ void SaveController::save(const Field& field, World& world) const {
   GameState game_state{FieldHelper::info(field), player_info};
   try {
     _saver.save(game_state);
-  } catch (const std::runtime_error& e) {
+  } catch (const SaverException& e) {
     LOG_ERROR_F("Saver error: " + std::string(e.what()));
     return;
   }
@@ -49,7 +49,7 @@ std::shared_ptr<Field> SaveController::load(World& world,
   GameState game_state;
   try {
     game_state = _saver.load();
-  } catch (const std::runtime_error& e) {
+  } catch (const SaverException& e) {
     LOG_ERROR_F("Saver error: " + std::string(e.what()));
     return nullptr;
   }

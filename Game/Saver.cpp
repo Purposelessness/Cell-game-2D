@@ -1,12 +1,19 @@
 #include "Saver.h"
 
-#include <exception>
+#include <cmath>
+#include <filesystem>
 #include <fstream>
 #include <regex>
 #include <sstream>
 
 #include "../Utility/Log/Log.h"
 #include "../View/Console/FieldViewAdapter.h"
+
+SaverException::SaverException(std::string filename, std::string what) noexcept
+    : _filename(std::move(filename)), _what(std::move(what)),
+      _out("(" + _filename + ") " + _what) {}
+
+const char* SaverException::what() const noexcept { return _out.data(); }
 
 GameState::operator std::string() const {
   return encodeFieldInfo(field_info) + "-\n" +
@@ -31,25 +38,41 @@ std::string GameState::encodeFieldInfo(const FieldInfoMessage& field_info) {
 
 Saver::Saver(std::string filename) : _filename(std::move(filename)) {}
 
-void Saver::save(const GameState& game_state) const{
+void Saver::save(const GameState& game_state) const {
   std::ofstream save_file(_filename);
   if (!save_file.good()) {
-    throw std::runtime_error("Cannot open save file!");
+    throw SaverException(_filename, "Cannot open save file");
   }
+
+  auto sys_now = std::chrono::system_clock::now();
+  auto file_now = std::chrono::file_clock::from_sys(sys_now);
+  auto seconds = std::chrono::duration_cast<std::chrono::seconds>(
+                     sys_now.time_since_epoch())
+                     .count();
+  seconds = getSecret(seconds);
+  save_file << std::to_string(seconds) << '\n';
 
   std::string line = static_cast<std::string>(game_state);
   save_file << line;
 
   save_file.close();
+  std::filesystem::last_write_time(_filename, file_now);
 }
 
 GameState Saver::load() const {
   std::ifstream load_file(_filename);
   if (!load_file.good()) {
-    throw std::runtime_error("Cannot open load file!");
+    throw SaverException(_filename, "Cannot open load file!");
   }
 
   std::string line;
+  char* ptr = nullptr;
+  std::getline(load_file, line);
+  int64_t secret = strtoll(line.data(), &ptr, 10);
+  if (secret == 0 || !checkSecret(secret)) {
+    throw SaverException(_filename, "File edited!");
+  }
+
   std::vector<std::string> field_lines;
   while ((std::getline(load_file, line), line.find('-') == std::string::npos)) {
     line.erase(std::remove(line.begin(), line.end(), '\n'), line.end());
@@ -57,13 +80,13 @@ GameState Saver::load() const {
   }
   auto field_info_opt = decodeField(field_lines);
   if (!field_info_opt.has_value()) {
-    throw std::runtime_error("Error while decoding field data");
+    throw SaverException(_filename, "Error while decoding field data");
   }
   FieldInfoMessage field_info = field_info_opt.value();
   std::getline(load_file, line);
   auto player_info_opt = decodePlayer(line);
   if (!player_info_opt.has_value()) {
-    throw std::runtime_error("Error while decoding player data");
+    throw SaverException(_filename, "Error while decoding player data");
   }
   PlayerInfoMessage player_info = player_info_opt.value();
 
@@ -122,4 +145,27 @@ std::optional<PlayerInfoMessage> Saver::decodePlayer(const std::string& str) {
       PlayerInfoMessage{health, money, position, weapon, intelligence}};
 
   return opt;
+}
+
+bool Saver::checkSecret(int64_t secret) const {
+  auto modified_time = std::filesystem::last_write_time(_filename);
+  auto sys_time = std::chrono::file_clock::to_sys(modified_time);
+  auto seconds = std::chrono::duration_cast<std::chrono::seconds>(
+                     sys_time.time_since_epoch())
+                     .count();
+  seconds = getSecret(seconds);
+
+  return secret == seconds;
+}
+
+int64_t Saver::getSecret(int64_t seconds_count) {
+  static constexpr int kMagicNumber = 69;
+  int64_t out = 0;
+  int j = 0;
+  std::string str = std::to_string(seconds_count);
+  for (int64_t i = static_cast<int64_t>(str.size()) - 1; i > -1; --i) {
+    int64_t num = str[i] - '0';
+    out += num * static_cast<int64_t>(std::pow(kMagicNumber, j++));
+  }
+  return out;
 }
