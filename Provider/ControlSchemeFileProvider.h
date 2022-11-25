@@ -33,7 +33,6 @@ class ControlSchemeFileProvider {
       {"MoveRight", InputType::MoveRight}, {"MoveLeft", InputType::MoveLeft},
       {"Exit", InputType::Exit},           {"Reset", InputType::Reset},
       {"Load", InputType::Load},           {"Save", InputType::Save}};
-  const char kDelimiter = '\t';
 };
 
 #endif  // GAME_PROVIDER_CONTROLSCHEMEFILEPROVIDER_H_
